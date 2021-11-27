@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SHIPPER.Services;
+using SHIPPER.Data.Entities;
 
 namespace SHIPPER
 {
@@ -36,6 +37,7 @@ namespace SHIPPER
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<UserManager<KhachHang>, UserManager<KhachHang>>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

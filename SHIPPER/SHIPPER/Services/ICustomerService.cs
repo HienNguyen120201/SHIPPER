@@ -1,6 +1,8 @@
-﻿using System;
+﻿using SHIPPER.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace SHIPPER.Services
@@ -9,5 +11,7 @@ namespace SHIPPER.Services
     {
         void GetKhachHang(int cmnd);
         public void insertChiTietDonMonAn();
+        Task<List<FoodViewModel>> GetFoodAsync(int[] Category);
+        Task InsertFoodAsync(ClaimsPrincipal user);
     }
 }

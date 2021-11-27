@@ -19,11 +19,18 @@ namespace SHIPPER.Controllers
             _logger = logger;
             _customerService = customerService;
         }
-
+        public async Task<IActionResult> Menu(int[] Category)
+        {
+            var food = await _customerService.GetFoodAsync(Category);
+            return View(food);
+        }
+        public IActionResult InsertProduct()
+        {
+            _customerService.InsertFoodAsync(User);
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult Index()
         {
-            _customerService.insertChiTietDonMonAn();
-            _customerService.GetKhachHang(221481759);
             return View();
         }
 

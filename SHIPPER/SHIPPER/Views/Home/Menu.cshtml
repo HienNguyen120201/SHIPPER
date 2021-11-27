@@ -1,0 +1,50 @@
+﻿
+@{
+    ViewData["Title"] = "Menu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<FoodViewModel>
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            <!-- /ASIDE -->
+            <!-- STORE -->
+            <div id="store" class="col-md-12">
+                <!-- store products -->
+                <div class="row">
+                    @foreach (var food in Model)
+                    {
+                        <!-- product -->
+                        <form asp-action="InsertProduct" asp-controller="Product" method="post" onsubmit="return confirm('Bạn muốn thêm vào giỏ hàng?!!!')">
+                            <div class="col-md-3 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src="#" alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@food.MaNhaHang</p>
+                                        <h3 class="product-name">@food.TenMonAn</h3>
+                                        <h4 class="product-price price">@food.DonGia </h4>
+                                    </div>
+                                    <div class="add-to-cart">
+                                        <button class="add-to-cart-btn" type="submit">
+                                            <i class="fa fa-shopping-cart"></i> add to cart
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        <!-- /product -->
+                    }
+                </div>
+            </div>
+            <!-- /STORE -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+
