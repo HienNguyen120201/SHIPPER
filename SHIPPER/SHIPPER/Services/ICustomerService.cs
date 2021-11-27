@@ -11,7 +11,7 @@ namespace SHIPPER.Services
     {
         void GetKhachHang(int cmnd);
         public void insertChiTietDonMonAn();
-        Task<List<FoodViewModel>> GetFoodAsync(int[] Category);
-        Task InsertFoodAsync(ClaimsPrincipal user);
+        Task<List<FoodViewModel>> GetFoodAsync();
+        Task InsertFoodAsync(DonVanChuyenViewModel donVanChuyen);
     }
 }

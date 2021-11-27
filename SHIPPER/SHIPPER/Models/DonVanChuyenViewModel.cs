@@ -8,11 +8,9 @@ namespace SHIPPER.Models
     public class DonVanChuyenViewModel
     {
         public string DiaChiGiaoHang { get; set; }
-        public DateTime ThoiGianGiaoHang { get; set; }
-        public DateTime ThoiGianNhan { get; set; }
-        public int MaTrangThaiDonHang { get; set; }
-        public int TienShip { get; set; }
-        public int MaPhuongThucThanhToan { get; set; }
-        public Guid MaKhachHang { get; set; }
+        public string PhuongThucThanhToan { get; set; }
+        public int MaMonAn { get; set; }
+        public int SoLuong { get; set; }
+        public int Cccd { get; set; }
     }
 }

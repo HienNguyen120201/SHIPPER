@@ -19,15 +19,15 @@ namespace SHIPPER.Controllers
             _logger = logger;
             _customerService = customerService;
         }
-        public async Task<IActionResult> Menu(int[] Category)
+        public async Task<IActionResult> Menu()
         {
-            var food = await _customerService.GetFoodAsync(Category);
+            var food = await _customerService.GetFoodAsync();
             return View(food);
         }
-        public IActionResult InsertProduct()
+        public async Task<IActionResult> InsertMonAn(DonVanChuyenViewModel donVanChuyen)
         {
-            _customerService.InsertFoodAsync(User);
-            return RedirectToAction("Index", "Home");
+            await _customerService.InsertFoodAsync(donVanChuyen);
+            return RedirectToAction("Menu", "Home");
         }
         public IActionResult Index()
         {

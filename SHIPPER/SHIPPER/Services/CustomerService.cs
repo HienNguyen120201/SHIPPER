@@ -18,7 +18,6 @@ namespace SHIPPER.Services
     {
         private readonly Shipper10DBContext _context;
         private string _connectionString;
-        private readonly UserManager<KhachHang> _userManager;
         public CustomerService(
              Shipper10DBContext context,
              IConfiguration configuration)
@@ -26,7 +25,7 @@ namespace SHIPPER.Services
             _context = context;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
-        public async Task<List<FoodViewModel>> GetFoodAsync(int[] Category)
+        public async Task<List<FoodViewModel>> GetFoodAsync()
         {
             var food = await (from l in _context.MonAn
                                select new FoodViewModel
@@ -39,23 +38,63 @@ namespace SHIPPER.Services
                                }).ToListAsync();
             return food;
         }
-        public async Task InsertFoodAsync(ClaimsPrincipal user)
+        public async Task InsertFoodAsync(DonVanChuyenViewModel donVanChuyen)
         {
-            var customer = await _userManager.GetUserAsync(user);
+            var IdKhachHang = await (from K in _context.KhachHang
+                                   where K.CccdorVisa == donVanChuyen.Cccd
+                                   select K.MaKhachHang).FirstOrDefaultAsync();
+            var IdThanhtoan = await (from P in _context.PhuongThucThanhToan
+                                     where P.PhuongThucThanhToan1 == donVanChuyen.PhuongThucThanhToan
+                                     select P.MaPhuongThuc).FirstOrDefaultAsync();
+            var DonGia = await (from M in _context.MonAn
+                                where M.MaMonAn == donVanChuyen.MaMonAn
+                                select M.DonGia).FirstOrDefaultAsync();
             using (SqlConnection don = new SqlConnection(_connectionString))
             {
                 SqlCommand cmd = new SqlCommand("insertDonVanChuyen", don);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@diaChiGiaoHang", "Hoa Tan Tay");
+                cmd.Parameters.AddWithValue("@diaChiGiaoHang", donVanChuyen.DiaChiGiaoHang);
                 cmd.Parameters.AddWithValue("@thoiGianGiaoHang", DateTime.UtcNow);
-                cmd.Parameters.AddWithValue("@thoiGianNhan", DateTime.UtcNow);
-                cmd.Parameters.AddWithValue("@maTrangThaiDonHang", 2);
+                cmd.Parameters.AddWithValue("@thoiGianNhan", DateTime.Now);
+                cmd.Parameters.AddWithValue("@maTrangThaiDonHang", 6);
                 cmd.Parameters.AddWithValue("@tienShip", 5000);
-                cmd.Parameters.AddWithValue("@maPhuongThucThanhToan", 1);
-                cmd.Parameters.AddWithValue("@maKhachHang", "1B313134-292A-40BA-9A1E-2A6F12A3BFD8");
+                cmd.Parameters.AddWithValue("@maPhuongThucThanhToan", 5);
+                cmd.Parameters.AddWithValue("@maKhachHang", IdKhachHang);
                 don.Open();
                 cmd.ExecuteNonQuery();
                 don.Close();
+            }
+            var newIdDon = await (from d in _context.DonVanChuyen
+                                  where d.MaKhachHang == IdKhachHang && d.MaPhuongThucThanhToan == 5
+                                  select d.MaDon).FirstOrDefaultAsync();
+            var newDonMonAn = new DonMonAn
+            {
+                MaDon = newIdDon
+            };
+            _context.DonMonAn.Add(newDonMonAn);
+            _context.SaveChanges();
+            var donVanChuyen1 = await (from D in _context.DonVanChuyen
+                                     where D.MaDon == newIdDon
+                                     select D).FirstOrDefaultAsync();
+            donVanChuyen1.MaPhuongThucThanhToan = IdThanhtoan;
+            var donMonAn = await (from D in _context.DonMonAn
+                                  where D.MaDon == newIdDon
+                                  select D).FirstOrDefaultAsync();
+            donMonAn.TongTienMon = donVanChuyen.SoLuong * DonGia;
+            _context.SaveChanges();
+            using (SqlConnection cus = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("insertChiTietDonMonAn", cus);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@a_maDonMonAn", newIdDon);
+                cmd.Parameters.AddWithValue("@a_maMonAn", donVanChuyen.MaMonAn);
+                cmd.Parameters.AddWithValue("@a_soLuong", donVanChuyen.SoLuong);
+                cmd.Parameters.AddWithValue("@a_apDungUuDai", 0);
+                cmd.Parameters.AddWithValue("@a_donGiaMon", DonGia);
+                cmd.Parameters.AddWithValue("@a_donGiaUuDai", DonGia);
+                cus.Open();
+                cmd.ExecuteNonQuery();
+                cus.Close();
             }
         }
         public void GetKhachHang(int cmnd)
