@@ -17,7 +17,7 @@
                             <input type="text" class="form-control" name="cmnd"/>
                         </div>
                         <div class="row">
-                            <div class="col-12">
+                            <div class="col-md-12">
                                 <button type="submit" class="buttonform">Tìm kiếm</button>
                             </div>
                         </div>
@@ -44,6 +44,7 @@
                                             <th scope="col">Chứng minh hoặc căn cước</th>
                                             <th scope="col">Giới tính</th>
                                             <th></th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -59,9 +60,18 @@
                                             <td>@customer.GioiTinh</td>
                                             <form asp-controller="Admin" asp-action="DeleteKhachHang">
                                                 <td class="text-center">
-                                                    <input name="cmnd" type="hidden" value="@customer.Cmnd"/>
+                                                    <input name="cmnd" type="hidden" value="@customer.Cmnd" />
                                                     <button type="submit" class="primary-btn">
                                                         <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </form>
+                                            <form asp-controller="Admin" asp-action="UpdateKhachHang">
+                                                <td class="text-center">
+                                                    <input name="cmnd" type="hidden" value="@customer.Cmnd" />
+                                                    <input name="matkhau" type="text" placeholder="Đổi Mật khẩu"/>
+                                                    <button type="submit" class="primary-btn">
+                                                        <i class="fas fa-edit"></i>
                                                     </button>
                                                 </td>
                                             </form>

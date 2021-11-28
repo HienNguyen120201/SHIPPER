@@ -2,7 +2,7 @@
 @{
     ViewData["Title"] = "ChiTietDonMonAn";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    string[] don = new string[] { "STT", "Mã đơn", "Mã món ăn", "Số lượng", "Áp dụng ưu đãi","Đơn giá món","Đơn giá ưu đãi","" };
+    string[] don = new string[] {"Mã đơn", "Mã món","Tên Món ăn", "Số lượng", "Ưu đãi","Đơn giá món","Đơn giá ưu đãi","","" };
 }
 @model List<ChiTietDonViewModel>
     <div class="section">
@@ -29,15 +29,21 @@
                         </thead>
                         <tbody>
                             @{
-                                int i = 1;
                                 foreach (var Data in Model)
                                 {
                                                         <tr>
-                                                            <td class="text-center">@(i++)</td>
                                                             <td class="text-center">@Data.MaDonMonAn</td>
-                                                            <td class="text-right">@Data.MaMonAn</td>
+                                                            <td class="text-center">@Data.MaMonAn</td>
+                                                            <td><img src="@(Data.ImgUrl)" title="" width="60" height="60">@Data.TenMonAn</td>
                                                             <td class="text-center">@Data.SoLuong</td>
-                                                            <td class="text-center">@Data.ApDungUuDai</td>
+                                                            @if (Data.ApDungUuDai)
+                                                            {
+                                                                <td class="text-center">Có</td>
+                                                            }
+                                                            else
+                                                            {
+                                                                <td class="text-center">Không</td>
+                                                            }
                                                             <td class="text-center price">@Data.DonGiaMon</td>
                                                             <td class="text-center price">@Data.DonGiaUuDai</td>
                                                             <form asp-controller="Admin" asp-action="DeleteChiTietDonMonAn">
@@ -53,12 +59,12 @@
                                                                 <td class="text-center">
                                                                     <input name="maMon" type="hidden" value="@Data.MaMonAn" />
                                                                     <input name="maDon" type="hidden" value="@Data.MaDonMonAn" />
+                                                                    <input name="soluong" type="number" placeholder="Đổi số lượng" />
                                                                     <button type="submit" class="primary-btn">
-                                                                        <i class="fas fa-edit" style="font-szie:30px"></i>
+                                                                        <i class="fas fa-edit" style="font-szie:20px"></i>
                                                                     </button>
                                                                 </td>
                                                             </form>
-                                                            
                                                         </tr>
                                 }
                             }

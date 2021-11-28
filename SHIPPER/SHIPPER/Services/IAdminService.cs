@@ -13,6 +13,7 @@ namespace SHIPPER.Services
         void DeleteKhachHang(int cmnd);
         Task<List<ChiTietDonViewModel>> GetChiTietDonMonAnAsync();
         void DeleteChiTietDonMonAn(int maDon, int maMon);
-        void UpdateChiTietDonMonAn(int maDon, int maMon);
+        void UpdateChiTietDonMonAn(int maDon, int maMon, int soluong);
+        void UpdateKhachHang(int cmnd, string matkhau);
     }
 }

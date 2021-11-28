@@ -13,5 +13,7 @@ namespace SHIPPER.Models
         public bool ApDungUuDai { get; set; }
         public int DonGiaMon { get; set; }
         public int DonGiaUuDai { get; set; }
+        public string ImgUrl { get; set; }
+        public string TenMonAn { get; set; }
     }
 }

@@ -27,7 +27,7 @@ namespace SHIPPER.Controllers
         public  ActionResult GetUuDai(int id)
         {
             var uuDai = _customerService.GetThongTinUuDai(id);
-            return View();
+            return View(uuDai);
         }
         public async Task<IActionResult> InsertMonAn(DonVanChuyenViewModel donVanChuyen)
         {
@@ -45,23 +45,6 @@ namespace SHIPPER.Controllers
             _customerService.InsertKhachHang(khachHang);
             return RedirectToAction("Index", "Home");
         }
-        public IActionResult Index()
-        {
-            var uuDai = _customerService.GetThongTinUuDai(1);
-            return View();
-        }
-
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
-
         [HttpGet("/QuanLiMonAn")]
         public IActionResult QuanLiMonAn()
         {
@@ -101,6 +84,20 @@ namespace SHIPPER.Controllers
                 return View(data1);
             }
             return View(new QuanLiMonAnViewModel());
+        }
+        public IActionResult Index()
+        {
+            return View();
+        }
+        public IActionResult Privacy()
+        {
+            return View();
+        }
+
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
     }
 }

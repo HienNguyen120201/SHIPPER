@@ -9,8 +9,6 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/site.css" />
     <link type="text/css" rel="stylesheet" href="~/css/app.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
-    <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     @RenderSection("dinh", required: false)
     <style>
@@ -99,7 +97,7 @@
                     <ul class="main-nav nav navbar-nav">
                         <li><a href="@Url.Action("Index","Home")">Trang chủ</a></li>
                         <li><a href="@Url.Action("Menu","Home")">Menu</a></li>
-                        <li><a href="@Url.Action("QuanLiMonAn","Home")">Quản lí món ăn của các nhà hàng</a></li>
+                        <li><a href="@Url.Action("QuanLiMonAn","Home")">Quản lí thực đơn</a></li>
                         <li><a href="@Url.Action("KhachHang","Admin")">Quản lí khách hàng</a></li>
                         <li><a href="@Url.Action("ChiTietDonMonAn","Admin")">Chi tiết đơn món ăn</a></li>
                         <li><a href="@Url.Action("PaymentHistory","Payment")">Lịch sử thanh toán</a></li>
