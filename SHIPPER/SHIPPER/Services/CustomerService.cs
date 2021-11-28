@@ -40,7 +40,7 @@ namespace SHIPPER.Services
                                }).ToListAsync();
             return food;
         }
-        public async Task<List<ThongTinUuDaiViewModel>> GetThongTinUuDaiAsync(int id)
+        public List<ThongTinUuDaiViewModel> GetThongTinUuDai(int id)
         {
             var list = new List<ThongTinUuDaiViewModel>();
             using (SqlConnection cus = new SqlConnection(_connectionString))
@@ -55,12 +55,12 @@ namespace SHIPPER.Services
                     ThongTinUuDaiViewModel uuDai = new ThongTinUuDaiViewModel()
                     {
                         TenMonAn = customer["tenMonAn"].ToString(),
-                        DonGia = int.Parse(customer["donGia"].ToString()),
-                        GiaUuDai=int.Parse(customer["giaDaUuDai"].ToString()),
-                        TenUuDai= customer["tenUuDai"].ToString(),
+                        TenUuDai = customer["tenUuDai"].ToString(),
                         MoTa=customer["moTa"].ToString(),
-                        Discount = Convert.ToDouble(customer["discount"].ToString()),
-                        NgayHetHan = Convert.ToDateTime(customer["ngayHetHan"].ToString()),
+                        Discount = double.Parse(customer["discount"].ToString()),
+                        NgayHetHan = DateTime.Parse(customer["ngayHetHan"].ToString()),
+                        DonGia = int.Parse(customer["donGia"].ToString()),
+                        GiaUuDai = double.Parse(customer["giaDaUuDai"].ToString())
                     };
                     list.Add(uuDai);
                 }
@@ -127,7 +127,7 @@ namespace SHIPPER.Services
                 cus.Close();
             }
         }
-        public async Task InsertKhachHang(KhachHangViewModel khachHang)
+        public void InsertKhachHang(KhachHangViewModel khachHang)
         {
 
             using (SqlConnection customer = new SqlConnection(_connectionString))

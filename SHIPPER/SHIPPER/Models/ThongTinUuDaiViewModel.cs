@@ -9,7 +9,7 @@ namespace SHIPPER.Models
     {
         public string TenMonAn { get; set; }
         public int DonGia { get; set; }
-        public int GiaUuDai { get; set; }
+        public double GiaUuDai { get; set; }
         public string TenUuDai { get; set; }
         public double Discount { get; set; }
         public string MoTa { get; set; }

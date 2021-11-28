@@ -24,9 +24,9 @@ namespace SHIPPER.Controllers
             var food = await _customerService.GetFoodAsync();
             return View(food);
         }
-        public async Task<IActionResult> GetUuDai(int id)
+        public  ActionResult GetUuDai(int id)
         {
-            var uuDai = await _customerService.GetThongTinUuDaiAsync(id);
+            var uuDai = _customerService.GetThongTinUuDai(id);
             return View();
         }
         public async Task<IActionResult> InsertMonAn(DonVanChuyenViewModel donVanChuyen)
@@ -40,13 +40,14 @@ namespace SHIPPER.Controllers
             return View(new KhachHangViewModel());
         }
         [HttpPost]
-        public async Task<IActionResult> Register(KhachHangViewModel khachHang)
+        public IActionResult Register(KhachHangViewModel khachHang)
         {
-            await _customerService.InsertKhachHang(khachHang);
+            _customerService.InsertKhachHang(khachHang);
             return RedirectToAction("Index", "Home");
         }
         public IActionResult Index()
         {
+            var uuDai = _customerService.GetThongTinUuDai(1);
             return View();
         }
 
