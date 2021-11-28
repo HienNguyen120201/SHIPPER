@@ -44,5 +44,31 @@ namespace SHIPPER.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        [HttpGet("/QuanLiMonAn")]
+        public IActionResult QuanLiMonAn()
+        {
+            return View(new QuanLiMonAnViewModel());
+        }
+        [HttpPost("/QuanLiMonAn")]
+        public IActionResult QuanLiMonAn(QuanLiMonAnViewModel NhaHang)
+        {
+            if (NhaHang.Type == "search")
+            {
+                QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(NhaHang.Add);
+                data.Add=NhaHang.Add;
+                return View(data);
+            }
+            else if(NhaHang.Type =="delete")
+            {
+                _customerService.DeleteMonAn(NhaHang);
+            }
+            else if (NhaHang.Type =="active")
+            {
+                _customerService.ActiveMonAn(NhaHang);
+            }
+            QuanLiMonAnViewModel data1 = _customerService.QuanLiMonAn(NhaHang.Add);
+            return View(data1);
+        }
     }
 }

@@ -1,0 +1,132 @@
+﻿@section dinh{
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/app.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
+}
+@model QuanLiMonAnViewModel
+<div class="section">
+    <div class="row">
+          <div class="col-4">
+              <div class="card-1">
+                  <div class="card__header1">
+                      <h3>Thêm món ăn</h3>
+                  </div>
+                  <div class="card-2">
+                      <form asp-controller="Admin" asp-action="InsertProductToDb" method="post">
+                          <div class="form-group">
+                              <lable>Mã nhà hàng</lable>
+                              <input type="text" class="form-control"/>
+                          </div>
+                          <div class="form-group">
+                              <lable>Tên Món ăn</lable>
+                              <input type="text" class="form-control" name="product.Name"/>
+                          </div>
+                          <div class="form-group">
+                              <lable>Giá món ăn</lable>
+                              <input type="text" class="form-control" name="product.Status"/>
+                          </div>
+                          <div class="form-group">
+                              <lable>Mô tả món ăn</lable>
+                              <input type="text" class="form-control" name="product.Producer"/>
+                          </div>
+                          <div class="form-group">
+                              <lable>ImgUrl</lable>
+                              <input type="text" class="form-control" name="product.ImgUrl"/>
+                          </div>
+                          <div class="row">
+                              <div class="col-12">
+                                  <button type="submit" class="buttonform">Thêm</button>
+                              </div>
+                          </div>
+                      </form>
+                  </div>
+              </div>
+          </div>
+          
+                <div class="col-8">
+                    <div class="card-3">
+                        <div class="card-4">
+                            <div class="col-12">
+                                <!-- ORDERS TABLE -->
+                              <div class="box overflow-scroll">
+                                    <div class="page">
+                                        <form asp-controller="Home" asp-action="QuanLiMonAn" method="post">
+                                          <label class="field field_v2">
+                                            <input class="field__input" placeholder="Địa chỉ nhà hàng cần quản lí" value="@(Model.Add)" name="NhaHang.Add" required>
+                                            <span class="field__label-wrap">
+                                              <span class="field__label">Địa chỉ</span>
+                                            </span>
+                                            <button type="submit"style="width: 60px;height: 60px ;" value="search" name="NhaHang.Type"><i class="fas fa-search fa-2x"></i></button>
+                                           </label>
+                                        </form>
+                                    </div>
+                                    <div class="box-header" style="color:#349eff; font-size:22px; margin-bottom:20px ">
+                                        Danh sách các món ăn của các nhà hàng
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col" style="width: 5%;">ID</th>
+                                                <th scope="col">Tên nhà hàng</th>
+                                                <th scope="col">Tên món ăn</th>
+                                                <th scope="col">Đơn giá</th>
+                                                <th scope="col">Trạng thái</th>
+                                                <th scope="col"></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @{
+                                        if (Model.listMonAn != null)
+                                        {
+                                            foreach (var A in Model.listMonAn)
+                                            {
+                                                <tr>
+                                                    <th scope="row">(@A.IdNhaHang)</th>
+                                                    <td>@(A.NameNhaHang)</td>
+                                                    <td class="text-left">
+                                                    <img src="@(A.Url)" style="width:70px;height:50px;">
+                                                    @(A.NameMonAn)
+                                                    </td>
+                                                    <td class="text-right price" >@(A.DonGia)</td>
+                                                    <td class="text-center" >
+                                                        @(A.isActive)
+                                                    </td>
+                                                    <td class="text-center">
+                                                        <form asp-controller="Home" asp-action="QuanLiMonAn" method="post">
+                                                        <input name="NhaHang.IdNhaHang" type="hidden" value="@(A.IdNhaHang)" />
+                                                        <input name="NhaHang.IdMonAn" type="hidden" value="@(A.IdMonAn)"/>
+                                                        <input name="NhaHang.Add" type="hidden" value="@(A.Add)"/>
+                                                        @{
+                                                            if(@A.isActive!=0)
+                                                            {
+                                                                <button type="submit" class="primary-btn" style="padding: 5px 15px; background-color: #7f1023; border: none; border-radius: 6px;" value="delete" name="NhaHang.Type">
+                                                                    <i class="fas fa-trash"></i>
+                                                                </button>
+                                                            }
+                                                            else
+                                                            {
+                                                                <button type="submit" class="primary-btn" style="padding: 5px 15px; background-color: #7f1023; border: none; border-radius: 6px;" value="active" name="NhaHang.Type">
+                                                                    <i class="glyphicon glyphicon-ok"></i>
+                                                                </button>
+                                                            }
+                                                        }
+                                                        </form>
+                                                    </td>
+                                                </tr>
+                                            }
+                                        }
+                                    }
+                                        </tbody>
+                                    </table>
+                                    <!-- END ORDERS TABLE -->
+                          </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+       </div>
+   </div>

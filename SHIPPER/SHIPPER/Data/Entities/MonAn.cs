@@ -27,6 +27,7 @@ namespace SHIPPER.Data.Entities
         public string MoTa { get; set; }
         [Column("maNhaHangOffer")]
         public int MaNhaHangOffer { get; set; }
+        public int  isActive { get;set;  }
 
         [ForeignKey(nameof(MaNhaHangOffer))]
         [InverseProperty(nameof(NhaHang.MonAn))]
