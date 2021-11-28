@@ -186,9 +186,29 @@ namespace SHIPPER.Services
             _context.SaveChanges();
             return true;
         }
-        public bool UpdateMonAn(QuanLiMonAnViewModel NhaHang)
+        public bool InsertMonAn(QuanLiMonAnViewModel NhaHang)
         {
-            
+            var data = (from b in _context.MonAn
+                        where b.MaNhaHangOffer == NhaHang.IdNhaHang && b.TenMonAn==NhaHang.NameMonAn
+                        select b).FirstOrDefault();
+            if(data!=null)
+            {
+                data.MoTa = NhaHang.Description;
+                data.DonGia = NhaHang.Price;
+                data.Image = NhaHang.ImgUrl;
+                _context.SaveChanges();
+                return true;
+            }    
+            var monAn = new MonAn()
+            {
+                TenMonAn = NhaHang.NameMonAn,
+                DonGia = NhaHang.Price,
+                MoTa = NhaHang.Description,
+                MaNhaHangOffer = NhaHang.IdNhaHang,
+                Image = NhaHang.ImgUrl
+            };
+            _context.MonAn.Add(monAn);
+            _context.SaveChanges();
             return true;
         }
     }

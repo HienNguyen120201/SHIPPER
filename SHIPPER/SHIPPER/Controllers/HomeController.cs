@@ -78,7 +78,14 @@ namespace SHIPPER.Controllers
             {
                 _customerService.ActiveMonAn(NhaHang);
             }
+            else if(NhaHang.Type == "insert")
+            {
+                _customerService.InsertMonAn(NhaHang);
+            }
+            if(NhaHang.Add==null)
+                return View(new QuanLiMonAnViewModel());
             QuanLiMonAnViewModel data1 = _customerService.QuanLiMonAn(NhaHang.Add);
+            data1.Add = NhaHang.Add;
             return View(data1);
         }
     }

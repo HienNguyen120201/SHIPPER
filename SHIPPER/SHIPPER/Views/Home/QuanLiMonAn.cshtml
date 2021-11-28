@@ -15,30 +15,31 @@
                       <h3>Thêm món ăn</h3>
                   </div>
                   <div class="card-2">
-                      <form asp-controller="Admin" asp-action="InsertProductToDb" method="post">
+                      <form asp-controller="Home" asp-action="QuanLiMonAn" method="post">
+                          <input name="NhaHang.Add" type="hidden" value="@(Model.Add)"/>
                           <div class="form-group">
                               <lable>Mã nhà hàng</lable>
-                              <input type="text" class="form-control"/>
+                              <input type="text" class="form-control" name="NhaHang.IdNhaHang"/>
                           </div>
                           <div class="form-group">
                               <lable>Tên Món ăn</lable>
-                              <input type="text" class="form-control" name="product.Name"/>
+                              <input type="text" class="form-control" name="NhaHang.NameMonAn"/>
                           </div>
                           <div class="form-group">
                               <lable>Giá món ăn</lable>
-                              <input type="text" class="form-control" name="product.Status"/>
+                              <input type="text" class="form-control" name="NhaHang.Price"/>
                           </div>
                           <div class="form-group">
                               <lable>Mô tả món ăn</lable>
-                              <input type="text" class="form-control" name="product.Producer"/>
+                              <input type="text" class="form-control" name="NhaHang.Description"/>
                           </div>
                           <div class="form-group">
                               <lable>ImgUrl</lable>
-                              <input type="text" class="form-control" name="product.ImgUrl"/>
+                              <input type="text" class="form-control" name="NhaHang.ImgUrl"/>
                           </div>
                           <div class="row">
                               <div class="col-12">
-                                  <button type="submit" class="buttonform">Thêm</button>
+                                  <button type="submit" value="insert" name="NhaHang.Type" class="buttonform">Thêm hoặc cập nhật</button>
                               </div>
                           </div>
                       </form>
@@ -81,8 +82,10 @@
                                         @{
                                         if (Model.listMonAn != null)
                                         {
-                                            foreach (var A in Model.listMonAn)
+                                            if(Model.listMonAn.Count>0)
                                             {
+                                                foreach (var A in Model.listMonAn)
+                                                {
                                                 <tr>
                                                     <th scope="row">(@A.IdNhaHang)</th>
                                                     <td>@(A.NameNhaHang)</td>
@@ -116,7 +119,20 @@
                                                         </form>
                                                     </td>
                                                 </tr>
-                                            }
+                                                }
+                                              }
+                                            else
+                                            {
+                                                 <tr>
+                                                      <td class="text-center" colspan="6" style="font-size:18px;font-weight: bold;" >Không có nhà hàng nào ở địa chỉ: @(Model.Add)</td>
+                                                 </tr>
+                                        }
+                                          }
+                                        else
+                                        {
+                                            <tr>
+                                                <td class="text-center" colspan="6" style="font-size:18px;font-weight: bold;" >Vui lòng nhập địa chỉ phía trên!</td>
+                                            </tr>
                                         }
                                     }
                                         </tbody>

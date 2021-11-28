@@ -10,6 +10,10 @@ namespace SHIPPER.Models
         public int IdMonAn { get; set; }
         public string Type {  get; set; }
         public string Add { get; set; }
+        public string NameMonAn {  get; set; }
+        public int Price {  get; set; }
+        public string Description {  get; set; }
+        public string ImgUrl {  get; set; }
     }
     public class MonAnViewModel
     {
