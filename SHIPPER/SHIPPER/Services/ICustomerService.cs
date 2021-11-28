@@ -1,4 +1,5 @@
-﻿using System;
+﻿using SHIPPER.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -9,5 +10,9 @@ namespace SHIPPER.Services
     {
         void GetKhachHang(int cmnd);
         public void insertChiTietDonMonAn();
+        public QuanLiMonAnViewModel QuanLiMonAn(string add);
+        public bool DeleteMonAn(QuanLiMonAnViewModel NhaHang);
+        public bool UpdateMonAn(QuanLiMonAnViewModel NhaHang);
+        public bool ActiveMonAn(QuanLiMonAnViewModel NhaHang);
     }
 }

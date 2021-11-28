@@ -6,6 +6,13 @@
     <title>@ViewData["Title"] - SHIPPER</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    @RenderSection("dinh", required: false)
+    <style>
+        .currSign:after {
+            color: black;
+            content: ' VND';
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -44,6 +51,16 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+      <script type="text/javascript">
+          let x = document.querySelectorAll(".price");
+          for (let i = 0, len = x.length; i < len; i++) {
+              let num = Number(x[i].innerHTML)
+                  .toLocaleString('en');
+              x[i].innerHTML = num;
+              x[i].classList.add("currSign");
+          }
+    </script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

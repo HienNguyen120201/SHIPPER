@@ -43,6 +43,7 @@ namespace SHIPPER.Data
         public virtual DbSet<Shipper> Shipper { get; set; }
         public virtual DbSet<TongDaiVien> TongDaiVien { get; set; }
         public virtual DbSet<TrangThaiDon> TrangThaiDon { get; set; }
+
         public virtual DbSet<TuVanGiaiDap> TuVanGiaiDap { get; set; }
         public virtual DbSet<UuDai> UuDai { get; set; }
 
@@ -292,7 +293,7 @@ namespace SHIPPER.Data
             {
                 entity.HasKey(e => e.MaMonAn)
                     .HasName("PK__MonAn__2D20DD22A634A4A5");
-
+                entity.Property(e => e.isActive).HasDefaultValueSql("((1))");
                 entity.HasOne(d => d.MaNhaHangOfferNavigation)
                     .WithMany(p => p.MonAn)
                     .HasForeignKey(d => d.MaNhaHangOffer)
