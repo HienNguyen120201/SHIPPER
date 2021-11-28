@@ -19,14 +19,19 @@ namespace SHIPPER.Controllers
             _logger = logger;
             _customerService = customerService;
         }
-
+        public async Task<IActionResult> Menu()
+        {
+            var food = await _customerService.GetFoodAsync();
+            return View(food);
+        }
+        public async Task<IActionResult> InsertMonAn(DonVanChuyenViewModel donVanChuyen)
+        {
+            await _customerService.InsertFoodAsync(donVanChuyen);
+            return RedirectToAction("Menu", "Home");
+        }
         public IActionResult Index()
         {
-            string add = "TPHCM";
-            QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(add);
-            //_customerService.insertChiTietDonMonAn();
-            //_customerService.GetKhachHang(221481759);
-            return RedirectToAction("QuanLiMonAn");
+            return View();
         }
 
         public IActionResult Privacy()

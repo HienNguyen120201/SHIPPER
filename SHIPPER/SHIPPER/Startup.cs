@@ -13,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using SHIPPER.Services;
+using SHIPPER.Data.Entities;
 
 namespace SHIPPER
 {
