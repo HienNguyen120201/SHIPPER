@@ -73,20 +73,28 @@ namespace SHIPPER.Controllers
             else if(NhaHang.Type =="delete")
             {
                 _customerService.DeleteMonAn(NhaHang);
+                QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(NhaHang.Add);
+                data.Add = NhaHang.Add;
+                return View(data);
             }
             else if (NhaHang.Type =="active")
             {
                 _customerService.ActiveMonAn(NhaHang);
+                QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(NhaHang.Add);
+                data.Add = NhaHang.Add;
+                return View(data);
             }
             else if(NhaHang.Type == "insert")
             {
-                _customerService.InsertMonAn(NhaHang);
+                NhaHang.Insert = !_customerService.InsertMonAn(NhaHang);
+                if (NhaHang.Add == null)
+                    return View(NhaHang);
+                QuanLiMonAnViewModel data1 = _customerService.QuanLiMonAn(NhaHang.Add);
+                data1.Add = NhaHang.Add;
+                data1.Insert = NhaHang.Insert;
+                return View(data1);
             }
-            if(NhaHang.Add==null)
-                return View(new QuanLiMonAnViewModel());
-            QuanLiMonAnViewModel data1 = _customerService.QuanLiMonAn(NhaHang.Add);
-            data1.Add = NhaHang.Add;
-            return View(data1);
+            return View(new QuanLiMonAnViewModel());
         }
     }
 }

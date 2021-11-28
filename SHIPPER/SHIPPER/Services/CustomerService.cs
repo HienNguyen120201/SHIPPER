@@ -188,6 +188,10 @@ namespace SHIPPER.Services
         }
         public bool InsertMonAn(QuanLiMonAnViewModel NhaHang)
         {
+            var data1 = (from b in _context.NhaHang
+                         where b.MaNhaHang == NhaHang.IdNhaHang
+                         select b).FirstOrDefault();
+            if(data1== null) return false;
             var data = (from b in _context.MonAn
                         where b.MaNhaHangOffer == NhaHang.IdNhaHang && b.TenMonAn==NhaHang.NameMonAn
                         select b).FirstOrDefault();

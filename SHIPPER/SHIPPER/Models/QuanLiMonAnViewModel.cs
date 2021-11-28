@@ -14,6 +14,7 @@ namespace SHIPPER.Models
         public int Price {  get; set; }
         public string Description {  get; set; }
         public string ImgUrl {  get; set; }
+        public bool Insert {  get; set; }
     }
     public class MonAnViewModel
     {
