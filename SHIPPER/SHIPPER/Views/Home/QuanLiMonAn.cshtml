@@ -5,6 +5,16 @@
     <link type="text/css" rel="stylesheet" href="~/css/app.css" />
     <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
     <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
+    <style>
+        .enMoney:after {
+            content: ' VND';
+        }
+    .swal-wide{
+			width:500px !important;
+			height:350px !important;
+			font-size: 1.7rem !important;
+		}
+    </style>
 }
 @model QuanLiMonAnViewModel
 <div class="section">
@@ -15,27 +25,28 @@
                       <h3>Thêm món ăn</h3>
                   </div>
                   <div class="card-2">
-                      <form asp-controller="Home" asp-action="QuanLiMonAn" method="post">
+                      <form asp-controller="Home" asp-action="QuanLiMonAn" method="post" onsubmit="return kiemtra()">
                           <input name="NhaHang.Add" type="hidden" value="@(Model.Add)"/>
+                          <input  id="dinh" type="hidden" value="@(Model.Insert)"/>
                           <div class="form-group">
                               <lable>Mã nhà hàng</lable>
-                              <input type="text" class="form-control" name="NhaHang.IdNhaHang"/>
+                              <input type="text" id="input11" class="form-control" name="NhaHang.IdNhaHang"/>
                           </div>
                           <div class="form-group">
                               <lable>Tên Món ăn</lable>
-                              <input type="text" class="form-control" name="NhaHang.NameMonAn"/>
+                              <input type="text" class="form-control" id="input22" name="NhaHang.NameMonAn"/>
                           </div>
                           <div class="form-group">
                               <lable>Giá món ăn</lable>
-                              <input type="text" class="form-control" name="NhaHang.Price"/>
+                              <input type="text" class="form-control" id="input33" name="NhaHang.Price"/>
                           </div>
                           <div class="form-group">
                               <lable>Mô tả món ăn</lable>
-                              <input type="text" class="form-control" name="NhaHang.Description"/>
+                              <input type="text" class="form-control" id="input44" name="NhaHang.Description"/>
                           </div>
                           <div class="form-group">
                               <lable>ImgUrl</lable>
-                              <input type="text" class="form-control" name="NhaHang.ImgUrl"/>
+                              <input type="text" class="form-control" id="input55" name="NhaHang.ImgUrl"/>
                           </div>
                           <div class="row">
                               <div class="col-12">
@@ -93,7 +104,7 @@
                                                     <img src="@(A.Url)" style="width:70px;height:50px;">
                                                     @(A.NameMonAn)
                                                     </td>
-                                                    <td class="text-right price" >@(A.DonGia)</td>
+                                                    <td class="text-right price1" >@(A.DonGia)</td>
                                                     <td class="text-center" >
                                                         @(A.isActive)
                                                     </td>
@@ -146,3 +157,59 @@
            
        </div>
    </div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <script type="text/javascript">
+        let a = document.querySelectorAll(".price1");
+        for (let i = 0, len = a.length; i < len; i++) {
+            let num = Number(a[i].innerHTML).toLocaleString('en');
+            a[i].innerHTML = num;
+            a[i].classList.add("enMoney");
+        }
+    var x = new Boolean(document.getElementById("dinh").value);
+    if(x==true){
+        Swal.fire({
+		  icon: 'error',
+	      title: 'Oops...',
+		  text: 'Không tồn tại số ID này trong nhà hàng!',
+		  customClass: 'swal-wide',
+		  timer: 3000
+		})
+    }
+     function kiemtra(){
+        var d1 = document.getElementById("input11").value;
+        var d2= document.getElementById("input22").value;
+	    var d3 = document.getElementById("input33").value;
+        if (d1=="") {
+		      Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Vui lòng Mã nhà hàng!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            return false;
+        }
+        if (d2=="") {
+            Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Vui lòng nhập Tên món ăn!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            return false;
+        } 
+	    if (d3=="") {
+		    Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Vui lòng nhập Giá món ăn!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            return false;
+        }
+        return true;
+    }
+  </script>
