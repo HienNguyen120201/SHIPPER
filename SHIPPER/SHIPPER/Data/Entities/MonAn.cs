@@ -21,6 +21,8 @@ namespace SHIPPER.Data.Entities
         [StringLength(50)]
         public string TenMonAn { get; set; }
         [Column("donGia")]
+        public string Image { get; set; }
+        [Column("image")]
         public int DonGia { get; set; }
         [Column("moTa")]
         [StringLength(300)]

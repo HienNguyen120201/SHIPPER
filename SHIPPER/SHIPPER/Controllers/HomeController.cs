@@ -29,6 +29,17 @@ namespace SHIPPER.Controllers
             await _customerService.InsertFoodAsync(donVanChuyen);
             return RedirectToAction("Menu", "Home");
         }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new KhachHangViewModel());
+        }
+        [HttpPost]
+        public async Task<IActionResult> Register(KhachHangViewModel khachHang)
+        {
+            await _customerService.InsertKhachHang(khachHang);
+            return RedirectToAction("Index", "Home");
+        }
         public IActionResult Index()
         {
             return View();

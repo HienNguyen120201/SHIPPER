@@ -9,13 +9,12 @@ namespace SHIPPER.Services
 {
     public interface ICustomerService
     {
-        void GetKhachHang(int cmnd);
-        public void insertChiTietDonMonAn();
         public QuanLiMonAnViewModel QuanLiMonAn(string add);
         public bool DeleteMonAn(QuanLiMonAnViewModel NhaHang);
         public bool UpdateMonAn(QuanLiMonAnViewModel NhaHang);
         public bool ActiveMonAn(QuanLiMonAnViewModel NhaHang);
         Task<List<FoodViewModel>> GetFoodAsync();
         Task InsertFoodAsync(DonVanChuyenViewModel donVanChuyen);
+        Task InsertKhachHang(KhachHangViewModel khachHang);
     }
 }

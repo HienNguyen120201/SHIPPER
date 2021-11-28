@@ -5,6 +5,7 @@ using Microsoft.Extensions.Configuration;
 using SHIPPER.Data;
 using SHIPPER.Data.Entities;
 using SHIPPER.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -29,6 +30,7 @@ namespace SHIPPER.Services
             var food = await (from l in _context.MonAn
                                select new FoodViewModel
                                {
+                                   ImgUrl=l.Image,
                                    MaMonAn=l.MaMonAn,
                                    DonGia=l.DonGia,
                                    MaNhaHang=l.MaNhaHangOffer,
@@ -96,38 +98,25 @@ namespace SHIPPER.Services
                 cus.Close();
             }
         }
-        public void GetKhachHang(int cmnd)
+        public async Task InsertKhachHang(KhachHangViewModel khachHang)
         {
-            using (SqlConnection cus = new SqlConnection(_connectionString))
+
+            using (SqlConnection customer = new SqlConnection(_connectionString))
             {
-                SqlCommand cmd = new SqlCommand("timKhachHangUuDai", cus);
+                SqlCommand cmd = new SqlCommand("Insert_KhachHang", customer);
                 cmd.CommandType = CommandType.StoredProcedure;
-                cmd.Parameters.AddWithValue("@cmnd", cmnd);
-                cus.Open();
-                SqlDataReader customer = cmd.ExecuteReader();
-                customer.ReadAsync();
-                var khach = new KhachHangUuDaiViewModel();
-                khach.discount = customer["discount"].ToString();
-                khach.FullName = customer["Fullname"].ToString();
-                khach.mota = customer["mota"].ToString();
+                cmd.Parameters.AddWithValue("@p_CCCDorVisa", khachHang.Cmnd);
+                cmd.Parameters.AddWithValue("@p_ho", khachHang.Ho);
+                cmd.Parameters.AddWithValue("@p_tenLot", khachHang.TenLot);
+                cmd.Parameters.AddWithValue("@p_Ten", khachHang.Ten);
+                cmd.Parameters.AddWithValue("@p_ngaySinh", khachHang.NgaySinh);
+                cmd.Parameters.AddWithValue("@p_gioiTinh", khachHang.GioiTinh);
+                cmd.Parameters.AddWithValue("@p_taiKhoan", khachHang.TaiKhoan);
+                cmd.Parameters.AddWithValue("@p_matKhau", khachHang.MatKhau);
+                customer.Open();
+                cmd.ExecuteNonQuery();
+                customer.Close();
             }
-        }
-        public void insertChiTietDonMonAn()
-        {
-            using SqlConnection cus = new SqlConnection(_connectionString);
-            SqlCommand cmd = new SqlCommand("insertChiTietDonMonAn", cus)
-            {
-                CommandType = CommandType.StoredProcedure
-            };
-            cmd.Parameters.AddWithValue("@a_maDonMonAn", 22);
-            cmd.Parameters.AddWithValue("@a_maMonAn", 2);
-            cmd.Parameters.AddWithValue("@a_soLuong", 2);
-            cmd.Parameters.AddWithValue("@a_apDungUuDai", 0);
-            cmd.Parameters.AddWithValue("@a_donGiaMon", 50000);
-            cmd.Parameters.AddWithValue("@a_donGiaUuDai", 50000);
-            cus.Open();
-            cmd.ExecuteNonQuery();
-            cus.Close();
         }
         public QuanLiMonAnViewModel QuanLiMonAn(string add)
         {

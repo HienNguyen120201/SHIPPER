@@ -12,5 +12,6 @@ namespace SHIPPER.Models
         public int DonGia { get; set; }
         public string MoTa { get; set; }
         public int MaNhaHang { get; set; }
+        public string ImgUrl { get; set; }
     }
 }
