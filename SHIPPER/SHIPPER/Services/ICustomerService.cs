@@ -16,5 +16,6 @@ namespace SHIPPER.Services
         Task<List<FoodViewModel>> GetFoodAsync();
         Task InsertFoodAsync(DonVanChuyenViewModel donVanChuyen);
         Task InsertKhachHang(KhachHangViewModel khachHang);
+        Task<List<ThongTinUuDaiViewModel>> GetThongTinUuDaiAsync(int id);
     }
 }

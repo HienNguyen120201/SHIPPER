@@ -28,6 +28,7 @@ namespace SHIPPER.Services
         public async Task<List<FoodViewModel>> GetFoodAsync()
         {
             var food = await (from l in _context.MonAn
+                              where l.isActive==1
                                select new FoodViewModel
                                {
                                    ImgUrl=l.Image,
@@ -38,6 +39,34 @@ namespace SHIPPER.Services
                                    TenMonAn=l.TenMonAn
                                }).ToListAsync();
             return food;
+        }
+        public async Task<List<ThongTinUuDaiViewModel>> GetThongTinUuDaiAsync(int id)
+        {
+            var list = new List<ThongTinUuDaiViewModel>();
+            using (SqlConnection cus = new SqlConnection(_connectionString))
+            {
+                SqlCommand cmd = new SqlCommand("thongTinUuDai", cus);
+                cmd.CommandType = CommandType.StoredProcedure;
+                cmd.Parameters.AddWithValue("@idMonAn",id);
+                cus.Open();
+                SqlDataReader customer = cmd.ExecuteReader();
+                while (customer.Read())
+                {
+                    ThongTinUuDaiViewModel uuDai = new ThongTinUuDaiViewModel()
+                    {
+                        TenMonAn = customer["tenMonAn"].ToString(),
+                        DonGia = int.Parse(customer["donGia"].ToString()),
+                        GiaUuDai=int.Parse(customer["giaDaUuDai"].ToString()),
+                        TenUuDai= customer["tenUuDai"].ToString(),
+                        MoTa=customer["moTa"].ToString(),
+                        Discount = Convert.ToDouble(customer["discount"].ToString()),
+                        NgayHetHan = Convert.ToDateTime(customer["ngayHetHan"].ToString()),
+                    };
+                    list.Add(uuDai);
+                }
+                cus.Close();
+            }
+            return list;
         }
         public async Task InsertFoodAsync(DonVanChuyenViewModel donVanChuyen)
         {

@@ -227,7 +227,7 @@ namespace SHIPPER.Data
                 entity.HasIndex(e => e.TaiKhoan)
                     .HasName("UQ__KhachHan__B4C453184AE673B6")
                     .IsUnique();
-
+                entity.Property(e => e.isActive).HasDefaultValueSql("((1))");
                 entity.Property(e => e.MaKhachHang).HasDefaultValueSql("(newid())");
 
                 entity.Property(e => e.DiaChi).IsUnicode(false);

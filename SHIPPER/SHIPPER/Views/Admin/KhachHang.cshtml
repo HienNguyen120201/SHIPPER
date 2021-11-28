@@ -1,0 +1,81 @@
+﻿@{
+    ViewData["Title"] = "KhachHang";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<KhachHangViewModel>
+<div class="section">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card_app">
+                <div class="card__header1">
+                    <h3>Tìm ưu đãi</h3>
+                </div>
+                <div class="card__body">
+                    <form asp-controller="Admin" asp-action="KhachHangUuDai" method="post">
+                        <div class="form-group">
+                            <lable>Số Căn cước hoặc Chứng minh</lable>
+                            <input type="text" class="form-control" name="cmnd"/>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <button type="submit" class="buttonform">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card_app">
+                <div class="card__header1">
+                    <h3>Danh sách khách hàng</h3>
+                </div>
+                <div class="card__body">
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body overflow-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">Họ</th>
+                                            <th scope="col">Tên Lót</th>
+                                            <th scope="col">Tên</th>
+                                            <th scope="col">Chứng minh hoặc căn cước</th>
+                                            <th scope="col">Giới tính</th>
+                                            <th></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @foreach (var customer in Model)
+                                        {
+                                        <tr>
+                                            <td>@customer.Ho</td>
+                                            <td>
+                                                @customer.TenLot
+                                            </td>
+                                            <td>@customer.Ten</td>
+                                            <td>@customer.Cmnd</td>
+                                            <td>@customer.GioiTinh</td>
+                                            <form asp-controller="Admin" asp-action="DeleteKhachHang">
+                                                <td class="text-center">
+                                                    <input name="cmnd" type="hidden" value="@customer.Cmnd"/>
+                                                    <button type="submit" class="primary-btn">
+                                                        <i class="fas fa-trash"></i>
+                                                    </button>
+                                                </td>
+                                            </form>
+                                        </tr>
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+

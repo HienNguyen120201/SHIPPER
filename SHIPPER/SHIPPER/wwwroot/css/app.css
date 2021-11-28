@@ -104,7 +104,14 @@ input {
     font-style: italic;
 }
 
-.card {
+.khachhanguudai {
+    cursor: pointer;
+    border-radius:10px;
+    background-color:red;
+    color:blue;
+    text-align:center;
+}
+.card_app {
     padding: 30px;
     margin-bottom: 30px;
     background-color: var(--main-bg);

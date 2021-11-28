@@ -37,6 +37,7 @@ namespace SHIPPER
             services.AddControllersWithViews();
             services.AddRazorPages();
             services.AddTransient<ICustomerService, CustomerService>();
+            services.AddTransient<IAdminService, AdminService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -24,6 +24,11 @@ namespace SHIPPER.Controllers
             var food = await _customerService.GetFoodAsync();
             return View(food);
         }
+        public async Task<IActionResult> GetUuDai(int id)
+        {
+            var uuDai = await _customerService.GetThongTinUuDaiAsync(id);
+            return View();
+        }
         public async Task<IActionResult> InsertMonAn(DonVanChuyenViewModel donVanChuyen)
         {
             await _customerService.InsertFoodAsync(donVanChuyen);

@@ -1,0 +1,55 @@
+﻿@{
+    ViewData["Title"] = "ChiTietDonMonAn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] don = new string[] { "STT", "Tên món ăn", "Đơn giá", "Đơn giá ưu đãi", "Tên ưu đãi", "Discount", "Mô tả", "Ngày hết hạn" };
+}
+@model List<ThongTinUuDaiViewModel>
+<div class="section">
+    <!-- container -->
+    <div class="col-12">
+        <!-- row -->
+        <div class="row">
+            <!-- ASIDE -->
+            <!-- store products -->
+            <div>
+                <h2>Thông tin ưu đãi món ăn</h2>
+                <table class="table table-bordered table-striped table-hover col-12">
+                    <thead class="thead-dark">
+                        <tr>
+                            @{
+                                foreach (var head in don)
+                                {
+                                    <th class="text-center">
+                                        @head
+                                    </th>
+                                }
+                            }
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @{
+                            int i = 1;
+                            foreach (var Data in Model)
+                            {
+                                                <tr>
+                                                    <td class="text-center">@(i++)</td>
+                                                    <td class="text-center">@Data.TenMonAn</td>
+                                                    <td class="text-center price">@Data.DonGia</td>
+                                                    <td class="text-center price">@Data.GiaUuDai</td>
+                                                    <td class="text-center">@Data.TenUuDai</td>
+                                                    <td class="text-center price">@Data.Discount</td>
+                                                    <td class="text-center price">@Data.MoTa</td>
+                                                    <td class="text-center price">@Data.NgayHetHan</td>
+                                                </tr>
+                            }
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <!-- /STORE -->
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+

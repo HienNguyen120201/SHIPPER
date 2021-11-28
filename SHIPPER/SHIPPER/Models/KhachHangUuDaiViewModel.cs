@@ -8,7 +8,9 @@ namespace SHIPPER.Models
     public class KhachHangUuDaiViewModel
     {
         public string FullName { get; set; }
-        public string discount { get; set; }
-        public string mota { get; set; }
+        public string Discount { get; set; }
+        public string Mota { get; set; }
+        public string DieuKien { get; set; }
+        public DateTime NgayHetHan { get; set; }
     }
 }

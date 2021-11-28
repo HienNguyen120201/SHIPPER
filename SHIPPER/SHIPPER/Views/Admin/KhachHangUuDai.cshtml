@@ -1,0 +1,58 @@
+﻿
+@{
+    ViewData["Title"] = "KhachHangUuDai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<KhachHangUuDaiViewModel>
+    <div class="section">
+        <div class="row">
+            <div class="col-md-2">
+                 <div class="col-12 khachhanguudai">
+                     <a href="@Url.Action("KhachHang", "Admin")">Trở về</a>
+                 </div>
+            </div>
+
+            <div class="col-md-10">
+                <div class="card_app">
+                    <div class="card__header1">
+                        <h3>Danh sách mã khuyến mãi của khách hàng</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="col-12">
+                            <div class="box">
+                                <div class="box-body overflow-scroll">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th scope="col">Họ và tên</th>
+                                                <th scope="col">Discount</th>
+                                                <th scope="col">Mô tả</th>
+                                                <th scope="col">Điều Kiện</th>
+                                                <th scope="col">Ngày hết hạn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @foreach (var customer in Model)
+                                            {
+                                                <tr>
+                                                    <td>@customer.FullName</td>
+                                                    <td>
+                                                        @customer.Discount
+                                                    </td>
+                                                    <td>@customer.Mota</td>
+                                                    <td>@customer.DieuKien</td>
+                                                    <td>@customer.NgayHetHan</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+

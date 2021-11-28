@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "ChiTietDonMonAn";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    string[] don = new string[] { "STT", "Mã đơn", "Mã món ăn", "Số lượng", "Áp dụng ưu đãi","Đơn giá món","Đơn giá ưu đãi","" };
+}
+@model List<ChiTietDonViewModel>
+    <div class="section">
+        <!-- container -->
+        <div class="col-12">
+            <!-- row -->
+            <div class="row">
+                <!-- ASIDE -->
+                <!-- store products -->
+                <div>
+                    <h2>Chi tiết đơn món ăn</h2>
+                    <table class="table table-bordered table-striped table-hover col-12">
+                        <thead class="thead-dark">
+                            <tr>
+                                @{
+                                    foreach (var head in don)
+                                    {
+                                        <th class="text-center">
+                                            @head
+                                        </th>
+                                    }
+                                }
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 1;
+                                foreach (var Data in Model)
+                                {
+                                                        <tr>
+                                                            <td class="text-center">@(i++)</td>
+                                                            <td class="text-center">@Data.MaDonMonAn</td>
+                                                            <td class="text-right">@Data.MaMonAn</td>
+                                                            <td class="text-center">@Data.SoLuong</td>
+                                                            <td class="text-center">@Data.ApDungUuDai</td>
+                                                            <td class="text-center price">@Data.DonGiaMon</td>
+                                                            <td class="text-center price">@Data.DonGiaUuDai</td>
+                                                            <form asp-controller="Admin" asp-action="DeleteChiTietDonMonAn">
+                                                                <td class="text-center">
+                                                                    <input name="maMon" type="hidden" value="@Data.MaMonAn" />
+                                                                    <input name="maDon" type="hidden" value="@Data.MaDonMonAn" />
+                                                                    <button type="submit" class="primary-btn">
+                                                                        <i class="fas fa-trash"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </form>
+                                                            <form asp-controller="Admin" asp-action="UpdateChiTietDonMonAn">
+                                                                <td class="text-center">
+                                                                    <input name="maMon" type="hidden" value="@Data.MaMonAn" />
+                                                                    <input name="maDon" type="hidden" value="@Data.MaDonMonAn" />
+                                                                    <button type="submit" class="primary-btn">
+                                                                        <i class="fas fa-edit" style="font-szie:30px"></i>
+                                                                    </button>
+                                                                </td>
+                                                            </form>
+                                                            
+                                                        </tr>
+                                }
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <!-- /STORE -->
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+
