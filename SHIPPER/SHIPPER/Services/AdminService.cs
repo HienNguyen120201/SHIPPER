@@ -123,5 +123,23 @@ namespace SHIPPER.Services
                                     }).ToListAsync();
             return phuongTien;
         }
+        public NhanVienPhuongTienViewModel GetNhanVienPhuongTien(int bienSo)
+        {
+            var phuongTien = (from S in _context.Shipper
+                                    join N in _context.NhanVien on S.MaNhanVien equals N.MaNhanVien
+                                    join P in _context.PhuongTien on S.BienKiemSoat equals P.BienKiemSoat
+                                    where S.BienKiemSoat == bienSo.ToString()
+                                    select new NhanVienPhuongTienViewModel
+                                    {
+                                        BienKiemSoat = S.BienKiemSoat,
+                                        Ho = N.Ho,
+                                        TenLot = N.TenLot,
+                                        Ten = N.Ten,
+                                        SoGPLX = S.SoGplx,
+                                        Rating= (decimal)S.Rating,
+                                        ImgUrl=P.HinhAnhXe
+                                    }).FirstOrDefault();
+            return phuongTien;
+        }
     }
 }

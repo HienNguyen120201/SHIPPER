@@ -54,5 +54,10 @@ namespace SHIPPER.Controllers
             var phuongTien = await _adminService.GetPhuongTiensAsync();
             return View(phuongTien);
         }
+        public ActionResult TimNhanVienPhuongTien(int bienso)
+        {
+            var nhanVien = _adminService.GetNhanVienPhuongTien(bienso);
+            return View(nhanVien);
+        }
     }
 }
