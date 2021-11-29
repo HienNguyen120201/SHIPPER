@@ -1,5 +1,5 @@
 ﻿@{
-    ViewData["Title"] = "ChiTietDonMonAn";
+    ViewData["Title"] = "GetUuDai";
     Layout = "~/Views/Shared/_Layout.cshtml";
     string[] don = new string[] { "STT", "Tên món ăn", "Đơn giá", "Đơn giá ưu đãi", "Tên ưu đãi", "Discount", "Mô tả", "Ngày hết hạn" };
 }
@@ -28,17 +28,19 @@
                         @{
                             if (Model.Count > 0)
                             {
+                                double discountt = 0;
                                 int i = 1;
                                 foreach (var Data in Model)
                                 {
+                                    discountt = Data.Discount * 100;
                                     <tr>
                                         <td class="text-center">@(i++)</td>
                                         <td class="text-center">@Data.TenMonAn</td>
                                         <td class="text-center price">@Data.DonGia</td>
                                         <td class="text-center price">@Data.GiaUuDai</td>
                                         <td class="text-center">@Data.TenUuDai</td>
-                                        <td class="text-center price">@Data.Discount</td>
-                                        <td class="text-center price">@Data.MoTa</td>
+                                        <td class="text-center">@discountt %</td>
+                                        <td class="text-center">@Data.MoTa</td>
                                         <td class="text-center">@Data.NgayHetHan</td>
                                     </tr>
                                 }

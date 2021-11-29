@@ -111,5 +111,17 @@ namespace SHIPPER.Services
             chiTiet.SoLuong = soluong;
             _context.SaveChanges();
         }
+        public async Task<List<PhuongTienViewModel>> GetPhuongTiensAsync()
+        {
+            var phuongTien = await (from p in _context.PhuongTien
+                                    select new PhuongTienViewModel
+                                    {
+                                        BienKiemSoat = p.BienKiemSoat,
+                                        GiayPhepSoHuu = p.GiayPhepSoHuuXe,
+                                        HinhAnhXe = p.HinhAnhXe,
+                                        LoaiPhuongTien = p.LoaiPhuongTien
+                                    }).ToListAsync();
+            return phuongTien;
+        }
     }
 }

@@ -49,5 +49,10 @@ namespace SHIPPER.Controllers
             _adminService.UpdateChiTietDonMonAn(maDon, maMon,soluong);
             return RedirectToAction("ChiTietDonMonAn", "Admin");
         }
+        public async Task<IActionResult> PhuongTien()
+        {
+            var phuongTien = await _adminService.GetPhuongTiensAsync();
+            return View(phuongTien);
+        }
     }
 }
