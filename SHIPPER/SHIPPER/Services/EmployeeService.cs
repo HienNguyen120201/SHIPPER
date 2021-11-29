@@ -69,36 +69,84 @@ namespace SHIPPER.Services
         {
             if(type=="" || type==null)
             {
-                var a = await (from b in _context.NhanVien
-                               from c in _context.ChiNhanh
-                               from d in _context.NhanVienChiNhanh
-                               where b.MaNhanVien == d.MaNhanVien && c.MaDonVi == d.MaDonVi
-                               orderby b.LoaiNhanVien, b.Ho, b.TenLot, b.Ten
-                               select new EmployeesViewModel()
-                               {
-                                   FirstName = b.Ho,
-                                   MiddleName = b.TenLot,
-                                   LastName = b.Ten,
-                                   Start = DateTime.Parse(b.NgayVaoLam.ToString()),
-                                   Salary = int.Parse(b.Luong.ToString()),
-                                   IdBranch = c.MaDonVi,
-                                   NameBranch = c.TenChiNhanh,
-                                   Prestige = double.Parse(b.ChiSoUyTin.ToString()),
-                                   Account = b.TaiKhoan,
-                                   Type = b.LoaiNhanVien,
-                                   isActice = Convert.ToInt32(b.IsActive)
-                               }).ToListAsync();
+                //// Method 2: SQL Script
+                //var a = await (from b in _context.NhanVien
+                //               from c in _context.ChiNhanh
+                //               from d in _context.NhanVienChiNhanh
+                //               where b.MaNhanVien == d.MaNhanVien && c.MaDonVi == d.MaDonVi
+                //               orderby b.LoaiNhanVien, b.Ho, b.TenLot, b.Ten
+                //               select new EmployeesViewModel()
+                //               {
+                //                   FirstName = b.Ho,
+                //                   MiddleName = b.TenLot,
+                //                   LastName = b.Ten,
+                //                   Start = DateTime.Parse(b.NgayVaoLam.ToString()),
+                //                   Salary = int.Parse(b.Luong.ToString()),
+                //                   IdBranch = c.MaDonVi,
+                //                   NameBranch = c.TenChiNhanh,
+                //                   Prestige = double.Parse(b.ChiSoUyTin.ToString()),
+                //                   Account = b.TaiKhoan,
+                //                   Type = b.LoaiNhanVien,
+                //                   isActice = Convert.ToInt32(b.IsActive)
+                //               }).ToListAsync();
                 EmployeeViewModel result1 = new EmployeeViewModel
                 {
                     ListEmployees = new List<EmployeesViewModel>()
                 };
-                foreach (var data2 in a)
+                using SqlConnection cus1 = new SqlConnection(_connectionString);
+                SqlCommand cmd1 = new SqlCommand("thongTinNhanVien", cus1)
                 {
-                    if(data2.isActice==1)
+                    CommandType = CommandType.StoredProcedure
+                };
+                cus1.Open();
+                SqlDataReader data1 = cmd1.ExecuteReader();
+                while (await data1.ReadAsync())
+                {
+                    if (Convert.ToInt32(data1["MaChiNhanh"])!=0)
                     {
-                        result1.ListEmployees.Add(data2);
+                        EmployeesViewModel nhanVien = new EmployeesViewModel
+                        {
+                            FirstName = data1["Ho"].ToString(),
+                            MiddleName = data1["TenLot"].ToString(),
+                            LastName = data1["Ten"].ToString(),
+                            IdBranch = Convert.ToInt32(data1["MaChiNhanh"]),
+                            NameBranch = data1["TenChiNhanh"].ToString(),
+                            Salary = Convert.ToInt32(data1["Luong"]),
+                            Start = DateTime.Parse(data1["NgayVaoLam"].ToString()),
+                            Prestige = Convert.ToDouble(data1["ChiSoUyTin"]),
+                            Account = data1["TaiKhoan"].ToString(),
+                            Type = data1["ChucVu"].ToString(),
+                            isActice = Convert.ToInt32(data1["Sate"])
+                        };
+                        if (nhanVien.isActice == 1)
+                            result1.ListEmployees.Add(nhanVien);
+                    }
+                    else
+                    {
+                        EmployeesViewModel nhanVien = new EmployeesViewModel
+                        {
+                            FirstName = data1["Ho"].ToString(),
+                            MiddleName = data1["TenLot"].ToString(),
+                            LastName = data1["Ten"].ToString(),
+                            Salary = Convert.ToInt32(data1["Luong"]),
+                            Start = DateTime.Parse(data1["NgayVaoLam"].ToString()),
+                            Prestige = Convert.ToDouble(data1["ChiSoUyTin"]),
+                            Account = data1["TaiKhoan"].ToString(),
+                            Type = data1["ChucVu"].ToString(),
+                            isActice = Convert.ToInt32(data1["Sate"])
+                        };
+                        if (nhanVien.isActice == 1)
+                            result1.ListEmployees.Add(nhanVien);
                     }    
-                }    
+                }
+                cus1.Close();
+                //foreach (var data2 in a)
+                //{
+                //    if(data2.isActice==1)
+                //    {
+                //        result1.ListEmployees.Add(data2);
+                //    }    
+                //}    
                 return result1;
 
             }    

@@ -294,7 +294,14 @@
                                                     <td class="text-center" >
                                                         @(A.Prestige)
                                                     </td>
-                                                    <td class="text-center">@(A.IdBranch)</td>
+                                                    <td class="text-center">
+                                                    @{
+                                                            if (A.IdBranch != 0)
+                                                            {
+                                                                @(A.IdBranch)
+                                                            }
+                                                        }
+                                                    </td>
                                                     <td class="text-left">@(A.NameBranch)</td>
                                                     <td class="text-left">
                                                      <form asp-controller="Employee" asp-action="Insert" method="post">
