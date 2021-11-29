@@ -57,30 +57,32 @@ namespace SHIPPER.Controllers
         }
 
         [HttpGet("/QuanLiMonAn")]
-        public IActionResult QuanLiMonAn()
+        public async Task<IActionResult> QuanLiMonAnAsync()
         {
-            return View(new QuanLiMonAnViewModel());
+            string a="";
+            QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(a);
+            return View(data);
         }
         [HttpPost("/QuanLiMonAn")]
-        public IActionResult QuanLiMonAn(QuanLiMonAnViewModel NhaHang)
+        public async Task<IActionResult> QuanLiMonAnAsync(QuanLiMonAnViewModel NhaHang)
         {
             if (NhaHang.Type == "search")
             {
-                QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(NhaHang.Add);
+                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
                 data.Add=NhaHang.Add;
                 return View(data);
             }
             else if(NhaHang.Type =="delete")
             {
                 _customerService.DeleteMonAn(NhaHang);
-                QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(NhaHang.Add);
+                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
                 data.Add = NhaHang.Add;
                 return View(data);
             }
             else if (NhaHang.Type =="active")
             {
                 _customerService.ActiveMonAn(NhaHang);
-                QuanLiMonAnViewModel data = _customerService.QuanLiMonAn(NhaHang.Add);
+                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
                 data.Add = NhaHang.Add;
                 return View(data);
             }
@@ -89,7 +91,7 @@ namespace SHIPPER.Controllers
                 NhaHang.Insert = !_customerService.InsertMonAn(NhaHang);
                 if (NhaHang.Add == null)
                     return View(NhaHang);
-                QuanLiMonAnViewModel data1 = _customerService.QuanLiMonAn(NhaHang.Add);
+                QuanLiMonAnViewModel data1 = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
                 data1.Add = NhaHang.Add;
                 data1.Insert = NhaHang.Insert;
                 return View(data1);

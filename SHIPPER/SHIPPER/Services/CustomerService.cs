@@ -118,11 +118,33 @@ namespace SHIPPER.Services
                 customer.Close();
             }
         }
-        public QuanLiMonAnViewModel QuanLiMonAn(string add)
+        public async Task<QuanLiMonAnViewModel> QuanLiMonAnAsync(string add)
         {
-            QuanLiMonAnViewModel result = new QuanLiMonAnViewModel();
-            result.listMonAn = new List<MonAnViewModel>();
-            result.listTongSoMonAn=new List<TongSoMonAnViewModel>();
+            QuanLiMonAnViewModel result = new QuanLiMonAnViewModel
+            {
+                listMonAn = new List<MonAnViewModel>(),
+                listTongSoMonAn = new List<TongSoMonAnViewModel>()
+            };
+            if (add==""||add== null)
+            {
+                var x= await (from a in _context.MonAn
+                          from b in _context.NhaHang
+                          where a.MaNhaHangOffer==b.MaNhaHang
+                          orderby b.TenNhaHang,a.TenMonAn
+                           select new MonAnViewModel
+                           {
+                                NameNhaHang=b.TenNhaHang,
+                                NameMonAn=a.TenMonAn,
+                                IdNhaHang=b.MaNhaHang,
+                                IdMonAn=a.MaMonAn,
+                                Url=a.Image,
+                                DonGia=a.DonGia,
+                                isActive=a.isActive,
+                                Add=b.DiaChi
+                           }).ToListAsync();
+                result.listMonAn = x;
+                return result;
+            }    
             using SqlConnection cus = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand("selectMonAnThuocNhaHang", cus)
             {
@@ -131,7 +153,7 @@ namespace SHIPPER.Services
             cmd.Parameters.AddWithValue("@diachi", add);
             cus.Open();
             SqlDataReader data=cmd.ExecuteReader();
-            while (data.Read())
+            while (await data.ReadAsync())
             {
                 MonAnViewModel monAn = new MonAnViewModel
                 {
@@ -154,7 +176,7 @@ namespace SHIPPER.Services
             cmd1.Parameters.AddWithValue("@diachi1", add);
             cus.Open();
             SqlDataReader data1 = cmd1.ExecuteReader();
-            while (data1.Read())
+            while (await data1.ReadAsync())
             {
                 TongSoMonAnViewModel count = new TongSoMonAnViewModel
                 {

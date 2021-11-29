@@ -1,7 +1,6 @@
 ﻿@section dinh{
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/app.css" />
     <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
     <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
@@ -22,7 +21,7 @@
           <div class="col-4">
               <div class="card-1">
                   <div class="card__header1">
-                      <h3>Thêm món ăn</h3>
+                      <h3 style="color:#349eff">Thêm món ăn</h3>
                   </div>
                   <div class="card-2">
                       <form asp-controller="Home" asp-action="QuanLiMonAn" method="post" onsubmit="return kiemtra()">
@@ -38,7 +37,7 @@
                           </div>
                           <div class="form-group">
                               <lable>Giá món ăn</lable>
-                              <input type="text" class="form-control" id="input33" name="NhaHang.Price"/>
+                              <input type="number" class="form-control" id="input33" name="NhaHang.Price" onchange="check()"/>
                           </div>
                           <div class="form-group">
                               <lable>Mô tả món ăn</lable>
@@ -78,15 +77,14 @@
                                     <div class="box-header" style="color:#349eff; font-size:22px; margin-bottom:20px ">
                                         Danh sách các món ăn của các nhà hàng
                                     </div>
-                                    <table class="table">
-                                        <thead>
+                                    <table class="table table-striped">
+                                        <thead class="thead-dark">
                                             <tr>
                                                 <th class="text-center" scope="col" style="width: 5%;">ID</th>
                                                 <th scope="col">Tên nhà hàng</th>
-                                                <th class="text-center" scope="col">Tên món ăn</th>
+                                                <th class="text-left" scope="col">Tên món ăn</th>
                                                 <th class="text-center" scope="col">Đơn giá</th>
                                                 <th class="text-center" scope="col">Trạng thái</th>
-                                                <th scope="col"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -175,6 +173,20 @@
 		  customClass: 'swal-wide',
 		  timer: 3000
 		})
+    }
+    function check(){
+        var d3 = document.getElementById("input33").value;
+        if(d3<0)
+        {
+            Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Giá món ăn không được là số âm!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            document.getElementById("input33").value=null;
+        }
     }
      function kiemtra(){
         var d1 = document.getElementById("input11").value;
