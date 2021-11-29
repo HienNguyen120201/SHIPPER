@@ -171,8 +171,7 @@
 @model EmployeeViewModel
 <div class="section" style="padding-top: 0px;">
     <div class="row">
-      <div class="col-md-12">
-        <div class="form-group col-2">
+        <div class="form-group col-3">
           <p>Họ<span>*</span></p>
           <span class="icon-case"><i class="fa fa-male"></i></span>
           <input type="text" name="nom" id="nom" data-rule="required"
@@ -180,7 +179,7 @@
           <div class="validation"></div>
         </div>
 
-        <div class="form-group col-2">
+       <div class="form-group col-3">
           <p>Tên lót <span>*</span></p>
           <span class="icon-case"><i class="fa fa-user"></i></span>
           <input type="text" name="prenom" id="prenom" data-rule="required"
@@ -188,7 +187,7 @@
           <div class="validation"></div>
         </div>
 
-        <div class="form-group col-2">
+        <div class="form-group col-3">
           <p>Tên <span>*</span></p>
           <span class="icon-case"><i class="fa fa-envelope-o"></i></span>
           <input type="email" name="email" id="email" data-rule="email"
@@ -196,7 +195,7 @@
           <div class="validation"></div>
         </div>
 
-        <div class="form-group col-2">
+        <div class="form-group col-3">
           <p>Loại nhân viên <span>*</span></p>
           <span class="icon-case"><i class="fa fa-home"></i></span>
           <input type="text" name="society" id="society" data-rule="required"
@@ -220,7 +219,6 @@
           <div class="validation"></div>
         </div>
     </div>
-    </div
     <div class="row">
         <div class="col-md-12">
             <div class="card_app">
@@ -282,7 +280,7 @@
                                                         <input name="e.Account" type="hidden" value="@(A.Account)" />
                                                         <input name="e.Type" type="hidden" value="@(Model.Type)" />
                                                         <button type="submit" class="primary-btn" style="padding: 5px 15px; background-color: #7f1023; border: none; border-radius: 6px;" value="delete" name="e.Action">
-                                                              <i class="fas fa-trash"></i>
+                                                              <i class="fas fa-trash" style="color: #f4e3e3;"></i>
                                                         </button>
                                                      </form>
                                                     </td>
