@@ -34,8 +34,16 @@ namespace SHIPPER.Controllers
                 EmployeeViewModel employee = await _employeeService.GetNhanVienAsync(e.Type);
                 employee.Type = e.Type;
                 return View(employee);
+            }
+            else if(e.Action =="insert")
+            {
+                _employeeService.Insert(e);
+                EmployeeViewModel employee = await _employeeService.GetNhanVienAsync(e.Type);
+                employee.Type = e.Type;
+                return View(employee);
             }    
-            return View();
+            
+            return View(new EmployeeViewModel());
         }
     }
 }

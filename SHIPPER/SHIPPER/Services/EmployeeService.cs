@@ -26,6 +26,26 @@ namespace SHIPPER.Services
             //@ho nvarchar(20),@tenLot nvarchar(20) = '',@ten nvarchar(20), @luong decimal,
             // @taiKhoan nvarchar(50) = '', @matKhau nvarchar(50) = '',@loaiNhanVien nvarchar(20)= '',
             //@chiSoUyTin decimal(2, 1) = 5.0,@ngaySinh Date
+            var data = (from b in _context.NhanVien
+                       where b.TaiKhoan == employee.Account
+                       select b).FirstOrDefault();
+            if(data!=null)
+            {
+                if (employee.FirstName != "" || employee.FirstName != null)
+                    data.Ho = employee.FirstName;
+                if (employee.MiddleName != "" || employee.MiddleName != null)
+                    data.TenLot = employee.MiddleName;
+                if (employee.LastName != "" || employee.LastName != null)
+                    data.Ten = employee.LastName;
+                if (employee.Salary!=0)
+                    data.Luong=employee.Salary;
+                if (employee.Password!="" || employee.Password != null)
+                    data.MatKhau= employee.Password;
+                if(employee.Type1!="" || employee.Type1!=null)
+                    data.LoaiNhanVien = employee.Type1;
+                _context.SaveChanges();
+                return true;
+            }    
             using SqlConnection cus = new SqlConnection(_connectionString);
             SqlCommand cmd = new SqlCommand("insertNhanVien", cus)
             {
@@ -37,7 +57,7 @@ namespace SHIPPER.Services
             cmd.Parameters.AddWithValue("@luong", employee.Salary);
             cmd.Parameters.AddWithValue("@taiKhoan", employee.Account);
             cmd.Parameters.AddWithValue("@matKhau", employee.Password);
-            cmd.Parameters.AddWithValue("@loaiNhanVien", employee.Type);
+            cmd.Parameters.AddWithValue("@loaiNhanVien", employee.Type1);
             cmd.Parameters.AddWithValue("@chiSoUyTin", default);
             cmd.Parameters.AddWithValue("@ngaySinh", employee.Birth);
             cus.Open();
@@ -108,7 +128,7 @@ namespace SHIPPER.Services
                     Prestige = double.Parse(data["ChiSoUyTin"].ToString()),
                     Account= data["TaiKhoan"].ToString(),
                     Type= data["ChucVu"].ToString(),
-                    isActice = Convert.ToInt32(data["isActive"])
+                    isActice = Convert.ToInt32(data["Sate"])
                 };
                 if (nhanVien.isActice == 1)
                     result.ListEmployees.Add(nhanVien);

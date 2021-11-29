@@ -12,6 +12,7 @@ namespace SHIPPER.Models
         public string Account {  get; set; }
         public string Password {  get; set; }
         public string Type {  get; set; }
+        public string Type1 { get; set; }
         public DateTime Birth {  get; set; }
         public string Action {  get; set; }
         public List<EmployeesViewModel> ListEmployees {  get; set; }
