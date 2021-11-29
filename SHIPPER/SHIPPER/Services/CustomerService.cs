@@ -226,9 +226,11 @@ namespace SHIPPER.Services
                         select b).FirstOrDefault();
             if(data!=null)
             {
-                data.MoTa = NhaHang.Description;
+                if(NhaHang.Description!=null)
+                    data.MoTa = NhaHang.Description;
                 data.DonGia = NhaHang.Price;
-                data.Image = NhaHang.ImgUrl;
+                if (NhaHang.ImgUrl != null)
+                    data.Image = NhaHang.ImgUrl;
                 _context.SaveChanges();
                 return true;
             }    
