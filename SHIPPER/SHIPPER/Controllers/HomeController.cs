@@ -19,6 +19,7 @@ namespace SHIPPER.Controllers
             _logger = logger;
             _customerService = customerService;
         }
+        [HttpGet]
         public async Task<IActionResult> Menu()
         {
             var food = await _customerService.GetFoodAsync();
@@ -29,9 +30,16 @@ namespace SHIPPER.Controllers
             var uuDai = _customerService.GetThongTinUuDai(id);
             return View(uuDai);
         }
-        public async Task<IActionResult> InsertMonAn(DonVanChuyenViewModel donVanChuyen)
+        [HttpPost]
+        public async Task<IActionResult> Menu(FoodViewModel food)
         {
-            await _customerService.InsertFoodAsync(donVanChuyen);
+            var check = await _customerService.InsertFoodAsync(food.DonVanChuyen);
+            if(check == false)
+            {
+                var food1 = await _customerService.GetFoodAsync();
+                food1[1].check = true;
+                return View(food1);
+            }    
             return RedirectToAction("Menu", "Home");
         }
         [HttpGet]

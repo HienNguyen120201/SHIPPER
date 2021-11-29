@@ -68,11 +68,13 @@ namespace SHIPPER.Services
             }
             return list;
         }
-        public async Task InsertFoodAsync(DonVanChuyenViewModel donVanChuyen)
+        public async Task<bool> InsertFoodAsync(DonVanChuyenViewModel donVanChuyen)
         {
-            var IdKhachHang = await (from K in _context.KhachHang
+            var KhachHang = await (from K in _context.KhachHang
                                    where K.CccdorVisa == donVanChuyen.Cccd
-                                   select K.MaKhachHang).FirstOrDefaultAsync();
+                                   select K).FirstOrDefaultAsync();
+            if (KhachHang == null) return false;
+            var IdKhachHang = KhachHang.MaKhachHang;
             var IdThanhtoan = await (from P in _context.PhuongThucThanhToan
                                      where P.PhuongThucThanhToan1 == donVanChuyen.PhuongThucThanhToan
                                      select P.MaPhuongThuc).FirstOrDefaultAsync();
@@ -126,6 +128,7 @@ namespace SHIPPER.Services
                 cmd.ExecuteNonQuery();
                 cus.Close();
             }
+            return true;
         }
         public void InsertKhachHang(KhachHangViewModel khachHang)
         {

@@ -73,6 +73,7 @@
                                    placeholder="Nhập lại mật khẩu"
                                    name="khachHang.ReMatKhau" />
                         </div>
+                        <span asp-validation-for="Ho" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -82,7 +83,8 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Họ"
-                                   name="khachHang.Ho" />
+                                   name="khachHang.Ho" 
+                                   asp-for="Ho"/>
                         </div>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
@@ -133,7 +135,7 @@
                             </div>
                             <input type="text"
                                    class="form-control"
-                                   placeholder="Giới tính"
+                                   placeholder="Căn cước công dân"
                                    name="khachHang.Cmnd" />
                         </div>
                         <div class="form-group">
