@@ -1,10 +1,13 @@
 ﻿using Microsoft.Data.SqlClient;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SHIPPER.Data;
 using SHIPPER.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace SHIPPER.Services
 {
@@ -42,8 +45,43 @@ namespace SHIPPER.Services
             cus.Close();
             return true;
         }
-        public EmployeeViewModel GetNhanVien(string type)
+        public async Task<EmployeeViewModel> GetNhanVienAsync(string type)
         {
+            if(type=="" || type==null)
+            {
+                var a = await (from b in _context.NhanVien
+                               from c in _context.ChiNhanh
+                               from d in _context.NhanVienChiNhanh
+                               where b.MaNhanVien == d.MaNhanVien && c.MaDonVi == d.MaDonVi
+                               orderby b.LoaiNhanVien, b.Ho, b.TenLot, b.Ten
+                               select new EmployeesViewModel()
+                               {
+                                   FirstName = b.Ho,
+                                   MiddleName = b.TenLot,
+                                   LastName = b.Ten,
+                                   Start = DateTime.Parse(b.NgayVaoLam.ToString()),
+                                   Salary = int.Parse(b.Luong.ToString()),
+                                   IdBranch = c.MaDonVi,
+                                   NameBranch = c.TenChiNhanh,
+                                   Prestige = double.Parse(b.ChiSoUyTin.ToString()),
+                                   Account = b.TaiKhoan,
+                                   Type = b.LoaiNhanVien,
+                                   isActice = Convert.ToInt32(b.IsActive)
+                               }).ToListAsync();
+                EmployeeViewModel result1 = new EmployeeViewModel
+                {
+                    ListEmployees = new List<EmployeesViewModel>()
+                };
+                foreach (var data2 in a)
+                {
+                    if(data2.isActice==1)
+                    {
+                        result1.ListEmployees.Add(data2);
+                    }    
+                }    
+                return result1;
+
+            }    
             EmployeeViewModel result = new EmployeeViewModel
             {
                 ListEmployees = new List<EmployeesViewModel>()
@@ -56,7 +94,7 @@ namespace SHIPPER.Services
             cmd.Parameters.AddWithValue("@type", type);
             cus.Open();
             SqlDataReader data = cmd.ExecuteReader();
-            while (data.Read())
+            while (await data.ReadAsync())
             {
                 EmployeesViewModel nhanVien = new EmployeesViewModel
                 {
@@ -67,12 +105,36 @@ namespace SHIPPER.Services
                     NameBranch = data["TenChiNhanh"].ToString(),
                     Salary = int.Parse(data["Luong"].ToString()),
                     Start = DateTime.Parse(data["NgayVaoLam"].ToString()),
-                    Prestige = double.Parse(data["ChiSoUyTin"].ToString())
+                    Prestige = double.Parse(data["ChiSoUyTin"].ToString()),
+                    Account= data["TaiKhoan"].ToString(),
+                    Type= data["ChucVu"].ToString(),
+                    isActice = Convert.ToInt32(data["isActive"])
                 };
-                result.ListEmployees.Add(nhanVien);
+                if (nhanVien.isActice == 1)
+                    result.ListEmployees.Add(nhanVien);
             }
             cus.Close();
             return result;
+        }
+        public bool DeleteNhanVien(string Account)
+        {
+            var data= (from a in _context.NhanVien
+                      join b in _context.ChiNhanh on a.MaNhanVien equals b.MaNvquanLy
+                      where a.TaiKhoan==Account
+                      select b).ToList();
+            if (data != null)
+            {
+                foreach(var a in data)
+                {
+                    a.MaNvquanLy = null;
+                }    
+            }
+            var data1=(from a in _context.NhanVien
+                       where a.TaiKhoan == Account
+                       select a).FirstOrDefault();
+            data1.IsActive = false;
+            _context.SaveChanges();
+            return true;
         }
     }
 }

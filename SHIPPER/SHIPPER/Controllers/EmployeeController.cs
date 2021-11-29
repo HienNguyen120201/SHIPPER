@@ -2,6 +2,7 @@
 using SHIPPER.Models;
 using SHIPPER.Services;
 using System;
+using System.Threading.Tasks;
 
 namespace SHIPPER.Controllers
 {
@@ -12,10 +13,29 @@ namespace SHIPPER.Controllers
         {
             _employeeService = employeeService;
         }
-        public IActionResult Insert()
+        public async Task<IActionResult> InsertAsync()
         {
-            EmployeeViewModel employee=_employeeService.GetNhanVien("Shipper");
+            string a="";
+            EmployeeViewModel employee=await _employeeService.GetNhanVienAsync(a);
             return View(employee);
+        }
+        [HttpPost]
+        public async Task<IActionResult> InsertAsync(EmployeeViewModel e)
+        {
+            if (e.Action == "search")
+            {
+                EmployeeViewModel employee = await _employeeService.GetNhanVienAsync(e.Type);
+                employee.Type = e.Type;
+                return View(employee);
+            }
+            else if (e.Action =="delete")
+            {
+                _employeeService.DeleteNhanVien(e.Account);
+                EmployeeViewModel employee = await _employeeService.GetNhanVienAsync(e.Type);
+                employee.Type = e.Type;
+                return View(employee);
+            }    
+            return View();
         }
     }
 }

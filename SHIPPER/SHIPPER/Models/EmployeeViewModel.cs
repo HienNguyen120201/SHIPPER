@@ -13,6 +13,7 @@ namespace SHIPPER.Models
         public string Password {  get; set; }
         public string Type {  get; set; }
         public DateTime Birth {  get; set; }
+        public string Action {  get; set; }
         public List<EmployeesViewModel> ListEmployees {  get; set; }
     }
     public class EmployeesViewModel
@@ -27,5 +28,8 @@ namespace SHIPPER.Models
         public int IdBranch {  get; set; }
         public string NameBranch {  get; set; }
         public double Prestige { get; set; }
+        public string Account { get; set; }
+        public string Type { get; set; }
+        public int isActice { get; set; }
     }
 }
