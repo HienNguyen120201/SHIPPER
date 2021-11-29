@@ -12,12 +12,14 @@ namespace SHIPPER.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IEmployeeService _employeeService;
         private readonly ILogger<HomeController> _logger;
         private readonly ICustomerService _customerService;
-        public HomeController(ILogger<HomeController> logger, ICustomerService customerService)
+        public HomeController(ILogger<HomeController> logger, ICustomerService customerService, IEmployeeService employeeService)
         {
             _logger = logger;
             _customerService = customerService;
+            _employeeService = employeeService;
         }
         public async Task<IActionResult> Menu()
         {
@@ -47,8 +49,7 @@ namespace SHIPPER.Controllers
         }
         public IActionResult Index()
         {
-            var uuDai = _customerService.GetThongTinUuDai(1);
-            return View();
+            return RedirectToAction("Insert", "Employee");
         }
 
         public IActionResult Privacy()

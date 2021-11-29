@@ -1,0 +1,160 @@
+﻿@section dinh{
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/app.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
+    <style>
+        .enMoney:after {
+            content: ' VND';
+        }
+    .swal-wide{
+			width:500px !important;
+			height:350px !important;
+			font-size: 1.7rem !important;
+		}
+    </style>
+}
+@model EmployeeViewModel
+<div class="section">
+    <div class="row">
+          <div class="col-3">
+              <div class="card-1">
+                  <div class="card__header1">
+                      <h3>Thêm món ăn</h3>
+                  </div>
+                  <div class="card-2">
+                     
+                  </div>
+              </div>
+          </div>
+          
+                <div class="col-9">
+                    <div class="card-3">
+                        <div class="card-4">
+                            <div class="col-12">
+                                <!-- ORDERS TABLE -->
+                              <div class="box overflow-scroll">
+                                    <div class="page">
+                                        
+                                    </div>
+                                    <div class="box-header" style="color:#349eff; font-size:22px; margin-bottom:20px ">
+                                        Danh sách các món ăn của các nhà hàng
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left" scope="col">Họ</th>
+                                                <th  class="text-left" scope="col">Tên lót</th>
+                                                <th class="text-left" scope="col">Tên</th>
+                                                <th class="text-center" scope="col"style="width: 15%;">Ngày vào làm</th>
+                                                <th class="text-center" scope="col">Lương</th>
+                                                <th class="text-center" scope="col"style="width: 5%;">Chỉ số</th>
+                                                <th class="text-center" scope="col" style="width: 5%;">ID chi nhánh</th>
+                                                <th class="text-left" scope="col">Tên chi nhánh</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @{
+                                        if (Model.ListEmployees != null)
+                                        {
+                                            if(Model.ListEmployees.Count>0)
+                                            {
+                                                foreach (var A in Model.ListEmployees)
+                                                {
+                                                <tr>
+                                                    <td class="text-left">@(A.FirstName)</td>
+                                                    <td class="text-left">@(A.MiddleName)</td>
+                                                    <td class="text-left">@(A.LastName)</td>
+                                                    <td class="text-center">@(A.Start.ToString("dd/MM/yyyy"))</td>
+                                                    <td class="text-right price1" >@(A.Salary)</td>
+                                                    <td class="text-center" >
+                                                        @(A.Prestige)
+                                                    </td>
+                                                    <td class="text-center">@(A.IdBranch)</td>
+                                                    <td class="text-left">@(A.NameBranch)</td>
+                                                </tr>
+                                                }
+                                              }
+                                            else
+                                            {
+                                                 <tr>
+                                                      <td class="text-center" colspan="6" style="font-size:18px;font-weight: bold;" >Không có nhà hàng nào ở địa chỉ:</td>
+                                                 </tr>
+                                        }
+                                          }
+                                        else
+                                        {
+                                            <tr>
+                                                <td class="text-center" colspan="6" style="font-size:18px;font-weight: bold;" >Vui lòng nhập địa chỉ phía trên!</td>
+                                            </tr>
+                                        }
+                                    }
+                                        </tbody>
+                                    </table>
+                                    <!-- END ORDERS TABLE -->
+                          </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+           
+       </div>
+   </div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <script type="text/javascript">
+        let a = document.querySelectorAll(".price1");
+        for (let i = 0, len = a.length; i < len; i++) {
+            let num = Number(a[i].innerHTML).toLocaleString('en');
+            a[i].innerHTML = num;
+            a[i].classList.add("enMoney");
+        }
+    var x = new Boolean(document.getElementById("dinh").value);
+    if(x==true){
+        Swal.fire({
+		  icon: 'error',
+	      title: 'Oops...',
+		  text: 'Không tồn tại số ID này trong nhà hàng!',
+		  customClass: 'swal-wide',
+		  timer: 3000
+		})
+    }
+     function kiemtra(){
+        var d1 = document.getElementById("input11").value;
+        var d2= document.getElementById("input22").value;
+	    var d3 = document.getElementById("input33").value;
+        if (d1=="") {
+		      Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Vui lòng Mã nhà hàng!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            return false;
+        }
+        if (d2=="") {
+            Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Vui lòng nhập Tên món ăn!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            return false;
+        } 
+	    if (d3=="") {
+		    Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Vui lòng nhập Giá món ăn!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+            return false;
+        }
+        return true;
+    }
+  </script>
