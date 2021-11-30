@@ -1,0 +1,48 @@
+﻿
+@{
+    ViewData["Title"] = "TimNhanVienPhuongTien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model NhanVienPhuongTienViewModel
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            @if (Model != null)
+            {
+                <div class="col-md-6 ">
+                    <div class="product-preview">
+                        <img src="@Model.ImgUrl" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-details">
+                        <h2 class="product-name">@Model.BienKiemSoat</h2>
+                        <h3>Họ và tên Nhân viên: @Model.Ho @Model.TenLot @Model.Ten</h3>
+                        <h3>Giấy phép lái xe: @Model.SoGPLX</h3>
+                        <div>
+                            Chỉ số đánh giá:
+                            <div class="product-rating">
+                                @{
+                                    for (int i = 0; i < Model.Rating; i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h2 class="text-center col-12">Chưa có Shipper sở hữu phương tiện này</h2>
+            }
+            <!-- Product main img -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->

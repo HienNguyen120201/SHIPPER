@@ -35,6 +35,7 @@ a {
     text-decoration: none;
     color: unset;
     display: inline-block;
+    text-align:center;
 }
 
     a:hover, a:focus {
@@ -158,6 +159,7 @@ input {
 .card__header1 {
     color: #349eff;
     font-size: 1rem;
+    text-align:center;
 }
 
 .card > div ~ div {
@@ -403,6 +405,7 @@ input {
 
 table {
     width: 100%;
+    min-width:850px;
 }
 .adminproduct{
     min-width:1000px;
@@ -642,4 +645,18 @@ RESET STYLES
 .field {
     --fieldBorderColor: #D1C4E9;
     --fieldBorderColorActive: #673AB7;
+}
+.buttonform {
+    background-color: #2CC2DA;
+    border-radius: 10px;
+    box-sizing: border-box;
+    color: #ffffff;
+    display: block;
+    height: 40px;
+    font-size: 1.4em;
+    font-weight: 600;
+    padding: 5px;
+    position: relative;
+    width: 100%;
+    margin-top: 10px;
 }

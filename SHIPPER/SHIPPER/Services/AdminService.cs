@@ -70,11 +70,22 @@ namespace SHIPPER.Services
             khachHang.isActive = 0;
             _context.SaveChanges();
         }
+        public void UpdateKhachHang(int cmnd,string matkhau)
+        {
+            var khachHang = (from p in _context.KhachHang
+                             where p.CccdorVisa == cmnd
+                             select p).FirstOrDefault();
+            khachHang.MatKhau = matkhau;
+            _context.SaveChanges();
+        }
         public async Task<List<ChiTietDonViewModel>> GetChiTietDonMonAnAsync()
         {
             var chiTiet = await (from k in _context.ChiTietDonMonAn
+                                 join g in _context.MonAn on k.MaMonAn equals g.MaMonAn
                                  select new ChiTietDonViewModel
                                  {
+                                     ImgUrl=g.Image,
+                                     TenMonAn=g.TenMonAn,
                                      MaMonAn=k.MaMonAn,
                                      MaDonMonAn=k.MaDonMonAn,
                                      ApDungUuDai= (bool)k.ApDungUuDai,
@@ -92,12 +103,43 @@ namespace SHIPPER.Services
             _context.Remove(chiTiet);
             _context.SaveChanges();
         }
-        public void UpdateChiTietDonMonAn(int maDon, int maMon)
+        public void UpdateChiTietDonMonAn(int maDon, int maMon,int soluong)
         {
             var chiTiet = (from p in _context.ChiTietDonMonAn
                            where p.MaDonMonAn == maDon && p.MaMonAn == maMon
                            select p).FirstOrDefault();
+            chiTiet.SoLuong = soluong;
             _context.SaveChanges();
+        }
+        public async Task<List<PhuongTienViewModel>> GetPhuongTiensAsync()
+        {
+            var phuongTien = await (from p in _context.PhuongTien
+                                    select new PhuongTienViewModel
+                                    {
+                                        BienKiemSoat = p.BienKiemSoat,
+                                        GiayPhepSoHuu = p.GiayPhepSoHuuXe,
+                                        HinhAnhXe = p.HinhAnhXe,
+                                        LoaiPhuongTien = p.LoaiPhuongTien
+                                    }).ToListAsync();
+            return phuongTien;
+        }
+        public NhanVienPhuongTienViewModel GetNhanVienPhuongTien(int bienSo)
+        {
+            var phuongTien = (from S in _context.Shipper
+                                    join N in _context.NhanVien on S.MaNhanVien equals N.MaNhanVien
+                                    join P in _context.PhuongTien on S.BienKiemSoat equals P.BienKiemSoat
+                                    where S.BienKiemSoat == bienSo.ToString()
+                                    select new NhanVienPhuongTienViewModel
+                                    {
+                                        BienKiemSoat = S.BienKiemSoat,
+                                        Ho = N.Ho,
+                                        TenLot = N.TenLot,
+                                        Ten = N.Ten,
+                                        SoGPLX = S.SoGplx,
+                                        Rating= (decimal)S.Rating,
+                                        ImgUrl=P.HinhAnhXe
+                                    }).FirstOrDefault();
+            return phuongTien;
         }
     }
 }

@@ -1,0 +1,40 @@
+﻿
+@{
+    ViewData["Title"] = "PhuongTien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<PhuongTienViewModel>
+    <div class="section">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div id="store" class="col-md-12">
+                    <!-- store products -->
+                    <div class="row">
+                        @foreach (var phuongTien in Model)
+                        {
+                            <!-- product -->
+                            <div class="col-md-3 col-xs-6">
+                                <div class="product">
+                                    <div class="product-img">
+                                        <img src=@phuongTien.HinhAnhXe alt="">
+                                    </div>
+                                    <div class="product-body">
+                                        <p class="product-category">@phuongTien.LoaiPhuongTien</p>
+                                        <h3 class="product-name"><a href="@Url.Action("TimNhanVienPhuongTien",new { id=phuongTien.BienKiemSoat })">@phuongTien.BienKiemSoat</a></h3>
+                                        <h4 class="product-price">@phuongTien.GiayPhepSoHuu</h4>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- /product -->
+                        }
+                    </div>
+                </div>
+                <!-- /STORE -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+

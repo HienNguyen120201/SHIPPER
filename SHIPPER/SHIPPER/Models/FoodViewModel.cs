@@ -13,5 +13,7 @@ namespace SHIPPER.Models
         public string MoTa { get; set; }
         public int MaNhaHang { get; set; }
         public string ImgUrl { get; set; }
+        public bool check { get; set; }
+        public DonVanChuyenViewModel DonVanChuyen { get; set; }
     }
 }

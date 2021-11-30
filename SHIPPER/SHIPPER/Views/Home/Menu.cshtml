@@ -3,7 +3,13 @@
     ViewData["Title"] = "Menu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<style>
+    .swal-wide {
+        width: 500px !important;
+        height: 350px !important;
+        font-size: 1.7rem !important;
+    }
+</style>
 @model List<FoodViewModel>
 <div class="section">
     <!-- container -->
@@ -13,33 +19,34 @@
             <!-- /ASIDE -->
             <!-- STORE -->
             <div class="col-md-6">
-                <form asp-controller="Home" asp-action="InsertMonAn">
+                <form asp-controller="Home" asp-action="Menu" onsubmit="return Check();">
+                    <input  id="dinh" type="hidden" value="@(Model[1].check)"/>
                     <div class="billing-details">
                         <div class="section-title">
                             <h3 class="title">Thông tin giao hàng</h3>
                         </div>
                         <div class="form-group">
                             <label>Địa chỉ</label>
-                            <input class="input" type="text" name="donVanChuyen.DiaChiGiaoHang" />
+                            <input class="input" type="text" name="food.DonVanChuyen.DiaChiGiaoHang" required="required" />
                         </div>
                         <div class="form-group">
                             <label>Mã món ăn</label>
-                            <input class="input" type="text" name="donVanChuyen.MaMonAn" />
+                            <input class="input" type="text" name="food.DonVanChuyen.MaMonAn" required="required" />
                         </div>
                         <div class="form-group">
                             <label>Số lượng</label>
-                            <input class="input" type="text" name="donVanChuyen.SoLuong" />
+                            <input class="input" type="number" name="food.DonVanChuyen.SoLuong" required="required" id="soluong" />
                         </div>
                         <div class="form-group">
                             <label>Phương thức thanh toán</label>
-                            <input class="input" type="text" name="donVanChuyen.PhuongThucThanhToan" />
+                            <input class="input" type="text" name="food.DonVanChuyen.PhuongThucThanhToan" required="required" />
                         </div>
                         <div class="form-group">
                             <label>Chứng minh Hoặc Căn cước</label>
-                            <input class="input" type="text" name="donVanChuyen.cccd" />
+                            <input class="input" type="text" name="food.DonVanChuyen.Cccd" required="required" />
                         </div>
                     </div>
-                    <button class="btn btn-success my-1" type="submit" style="margin-left:15px">Đặt hàng</button>
+                    <button class="btn my-1" type="submit" style="background-color: #1b8534">Đặt hàng</button>
                 </form>
             </div>
             <div id="store" class="col-md-6">
@@ -48,18 +55,18 @@
                     @foreach (var food in Model)
                     {
                         <!-- product -->
-                            <div class="col-md-6 col-xs-6">
-                                <div class="product">
-                                    <div class="product-img">
-                                        <img src=@food.ImgUrl alt="">
-                                    </div>
-                                    <div class="product-body">
-                                        <p class="product-category">@food.MaMonAn</p>
-                                        <h3 class="product-name"><a href="@Url.Action("GetUuDai",new { id=food.MaMonAn })">@food.TenMonAn</a></h3>
-                                        <h4 class="product-price price">@food.DonGia </h4>
-                                    </div>
+                        <div class="col-md-6 col-xs-6">
+                            <div class="product">
+                                <div class="product-img">
+                                    <img src=@food.ImgUrl alt="">
+                                </div>
+                                <div class="product-body">
+                                    <p class="product-category">@food.MaMonAn</p>
+                                    <h3 class="product-name"><a href="@Url.Action("GetUuDai",new { id=food.MaMonAn })">@food.TenMonAn</a></h3>
+                                    <h4 class="product-price price">@food.DonGia </h4>
                                 </div>
                             </div>
+                        </div>
                         <!-- /product -->
                     }
                 </div>
@@ -70,4 +77,35 @@
     </div>
     <!-- /container -->
 </div>
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <script type="text/javascript">
+        var abc = new Boolean(document.getElementById("dinh").value);
+        if(abc==true){
+            Swal.fire({
+		      icon: 'error',
+	          title: 'Oops...',
+		      text: 'Không tồn tại số ID này trong nhà hàng!',
+		      customClass: 'swal-wide',
+		      timer: 3000
+		    })
+       }
+        function Check() {
+            var soluong = document.getElementById("soluong").value;
+            if (soluong <= 0) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Số lượng không hợp lệ',
+                    customClass: 'swal-wide',
+                    timer: 2000
+                })
+                return false;
+            }
+            return;
+        }
+        
+    </script>
+}
 

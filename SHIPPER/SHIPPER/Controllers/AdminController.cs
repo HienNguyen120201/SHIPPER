@@ -29,6 +29,11 @@ namespace SHIPPER.Controllers
             _adminService.DeleteKhachHang(cmnd);
             return RedirectToAction("KhachHang","Admin");
         }
+        public IActionResult UpdateKhachHang(int cmnd, string matkhau)
+        {
+            _adminService.UpdateKhachHang(cmnd,matkhau);
+            return RedirectToAction("KhachHang", "Admin");
+        }
         public async Task<IActionResult> ChiTietDonMonAn()
         {
             var chiTiet = await _adminService.GetChiTietDonMonAnAsync();
@@ -37,12 +42,22 @@ namespace SHIPPER.Controllers
         public IActionResult DeleteChiTietDonMonAn(int maDon, int maMon)
         {
             _adminService.DeleteChiTietDonMonAn(maDon,maMon);
-            return RedirectToAction("ChiTietMonAn", "Admin");
+            return RedirectToAction("ChiTietDonMonAn", "Admin");
         }
-        public IActionResult UpdateChiTietDonMonAn(int maDon, int maMon)
+        public IActionResult UpdateChiTietDonMonAn(int maDon, int maMon,int soluong)
         {
-            _adminService.UpdateChiTietDonMonAn(maDon, maMon);
-            return RedirectToAction("KhachHang", "Admin");
+            _adminService.UpdateChiTietDonMonAn(maDon, maMon,soluong);
+            return RedirectToAction("ChiTietDonMonAn", "Admin");
+        }
+        public async Task<IActionResult> PhuongTien()
+        {
+            var phuongTien = await _adminService.GetPhuongTiensAsync();
+            return View(phuongTien);
+        }
+        public ActionResult TimNhanVienPhuongTien(int bienso)
+        {
+            var nhanVien = _adminService.GetNhanVienPhuongTien(bienso);
+            return View(nhanVien);
         }
     }
 }
