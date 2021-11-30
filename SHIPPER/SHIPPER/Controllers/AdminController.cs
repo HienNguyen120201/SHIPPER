@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using SHIPPER.Data;
 using SHIPPER.Services;
 using System;
 using System.Collections.Generic;
@@ -10,9 +11,11 @@ namespace SHIPPER.Controllers
     public class AdminController : Controller
     {
         private readonly IAdminService _adminService;
-        public AdminController(IAdminService adminService)
+        private readonly Shipper10DBContext _context;
+        public AdminController(IAdminService adminService, Shipper10DBContext context)
         {
             _adminService = adminService;
+            _context = context;
         }
         public async Task<IActionResult> KhachHang()
         {
@@ -49,15 +52,31 @@ namespace SHIPPER.Controllers
             _adminService.UpdateChiTietDonMonAn(maDon, maMon,soluong);
             return RedirectToAction("ChiTietDonMonAn", "Admin");
         }
+        [HttpGet]
         public async Task<IActionResult> PhuongTien()
         {
             var phuongTien = await _adminService.GetPhuongTiensAsync();
             return View(phuongTien);
         }
-        public ActionResult TimNhanVienPhuongTien(int id)
+        public IActionResult TimNhanVienPhuongTien(int id)
         {
             var nhanVien = _adminService.GetNhanVienPhuongTien(id);
             return View(nhanVien);
+        }
+        [HttpPost]
+        public async Task<IActionResult> PhuongTien(string bienso)
+        {
+            var shipper = (from P in _context.Shipper
+                              where P.BienKiemSoat == bienso
+                              select P).FirstOrDefault();
+            if(shipper!=null)
+            {
+                var phuongTien= await _adminService.GetPhuongTiensAsync();
+                phuongTien[1].check = true;
+                return View(phuongTien);
+            }    
+            _adminService.DeletePhuongTien(bienso);
+            return RedirectToAction("PhuongTien", "Admin");
         }
     }
 }

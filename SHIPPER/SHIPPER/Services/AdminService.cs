@@ -141,5 +141,13 @@ namespace SHIPPER.Services
                                     }).FirstOrDefault();
             return phuongTien;
         }
+        public void DeletePhuongTien(string bienso)
+        {
+            var phuongTien = (from P in _context.PhuongTien
+                              where P.BienKiemSoat == bienso
+                              select P).FirstOrDefault();
+            _context.Remove(phuongTien);
+            _context.SaveChanges();
+        }
     }
 }
