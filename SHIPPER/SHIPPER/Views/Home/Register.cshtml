@@ -80,7 +80,7 @@
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fas fa-signature"></i>
+                                    <i class="fa fa-id-card a"></i>
                                 </span>
                             </div>
                             <input type="text"
@@ -92,7 +92,7 @@
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fas fa-signature"></i>
+                                    <i class="fa fa-id-card a"></i>
                                 </span>
                             </div>
                             <input type="text"
@@ -104,7 +104,7 @@
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fas fa-signature"></i>
+                                    <i class="fa fa-id-card a"></i>
                                 </span>
                             </div>
                             <input type="text"
@@ -125,19 +125,19 @@
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fas fa-signature"></i>
+                                    <i class="fas fa-venus-mars"></i>
                                 </span>
                             </div>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="Giới tính"
-                                   asp-for="GioiTinh" />
+                            <select class="form-control" asp-for="GioiTinh">
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                            </select>
                         </div>
                         <span asp-validation-for="Cmnd" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
-                                    <i class="fas fa-signature"></i>
+                                    <i class="fas fa-address-card"></i>
                                 </span>
                             </div>
                             <input type="text"
