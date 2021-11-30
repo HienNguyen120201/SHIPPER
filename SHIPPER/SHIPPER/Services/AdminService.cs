@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using SHIPPER.Data;
+using SHIPPER.Data.Entities;
 using SHIPPER.Models;
 using System;
 using System.Collections.Generic;
@@ -147,6 +148,26 @@ namespace SHIPPER.Services
                               where P.BienKiemSoat == bienso
                               select P).FirstOrDefault();
             _context.Remove(phuongTien);
+            _context.SaveChanges();
+        }
+        public void UpdatePhuongTien(string bienso,string gplx)
+        {
+            var shipper = (from S in _context.Shipper
+                              where S.SoGplx==gplx
+                              select S).FirstOrDefault();
+            shipper.BienKiemSoat = bienso;
+            _context.SaveChanges();
+        }
+        public void InsertPhuongTien(string bienso,string loai,string hinh,string giayphep)
+        {
+            var newphuongTien = new PhuongTien()
+            {
+                BienKiemSoat = bienso,
+                HinhAnhXe = hinh,
+                LoaiPhuongTien = loai,
+                GiayPhepSoHuuXe = giayphep
+            };
+            _context.PhuongTien.Add(newphuongTien);
             _context.SaveChanges();
         }
     }

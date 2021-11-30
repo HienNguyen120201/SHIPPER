@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using SHIPPER.Data;
+using SHIPPER.Models;
 using SHIPPER.Services;
 using System;
 using System.Collections.Generic;
@@ -60,6 +61,19 @@ namespace SHIPPER.Controllers
         }
         public IActionResult TimNhanVienPhuongTien(int id)
         {
+            var phuongTien = (from S in _context.Shipper
+                              join N in _context.NhanVien on S.MaNhanVien equals N.MaNhanVien
+                              join P in _context.PhuongTien on S.BienKiemSoat equals P.BienKiemSoat
+                              where S.BienKiemSoat == id.ToString()
+                              select S).FirstOrDefault();
+            if(phuongTien==null)
+            {
+                var newNhanVien = new NhanVienPhuongTienViewModel
+                {
+                    BienKiemSoat = id.ToString()
+                };
+                return View(newNhanVien);
+            }    
             var nhanVien = _adminService.GetNhanVienPhuongTien(id);
             return View(nhanVien);
         }
@@ -76,6 +90,16 @@ namespace SHIPPER.Controllers
                 return View(phuongTien);
             }    
             _adminService.DeletePhuongTien(bienso);
+            return RedirectToAction("PhuongTien", "Admin");
+        }
+        public IActionResult UpdatePhuongTien(string bienso, string gplx)
+        {
+            _adminService.UpdatePhuongTien(bienso, gplx);
+            return RedirectToAction("PhuongTien", "Admin");
+        }
+        public IActionResult InsertPhuongTien(string bienso, string loai, string hinh, string giayphep)
+        {
+            _adminService.InsertPhuongTien(bienso, loai, hinh, giayphep);
             return RedirectToAction("PhuongTien", "Admin");
         }
     }

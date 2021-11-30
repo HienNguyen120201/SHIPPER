@@ -18,5 +18,7 @@ namespace SHIPPER.Services
         Task<List<PhuongTienViewModel>> GetPhuongTiensAsync();
         NhanVienPhuongTienViewModel GetNhanVienPhuongTien(int bienSo);
         void DeletePhuongTien(string bienso);
+        void UpdatePhuongTien(string bienso, string gplx);
+        void InsertPhuongTien(string bienso, string loai, string hinh, string giayphep);
     }
 }
