@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using SHIPPER.Data;
 using SHIPPER.Models;
 using SHIPPER.Services;
 
@@ -14,10 +15,12 @@ namespace SHIPPER.Controllers
     {
         private readonly ILogger<HomeController> _logger;
         private readonly ICustomerService _customerService;
-        public HomeController(ILogger<HomeController> logger, ICustomerService customerService)
+        private readonly Shipper10DBContext _context;
+        public HomeController(ILogger<HomeController> logger, ICustomerService customerService, Shipper10DBContext context)
         {
             _logger = logger;
             _customerService = customerService;
+            _context = context;
         }
         [HttpGet]
         public async Task<IActionResult> Menu()
@@ -50,6 +53,21 @@ namespace SHIPPER.Controllers
         [HttpPost]
         public IActionResult Register(KhachHangViewModel khachHang)
         {
+            if (!ModelState.IsValid)
+            {
+                return View(khachHang);
+            }
+            var cmnd = (from K in _context.KhachHang
+                        where K.CccdorVisa == khachHang.Cmnd
+                        select K).FirstOrDefault();
+            var tenTaiKhoan = (from K in _context.KhachHang
+                               where K.TaiKhoan == khachHang.TaiKhoan
+                               select K).FirstOrDefault();
+            if (cmnd!=null || tenTaiKhoan!=null)
+            {
+                khachHang.ErrorMessage = "Tài khoản đã tồn tại";
+                return View(khachHang);
+            }    
             _customerService.InsertKhachHang(khachHang);
             return RedirectToAction("Index", "Home");
         }

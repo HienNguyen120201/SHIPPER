@@ -132,7 +132,6 @@ namespace SHIPPER.Services
         }
         public void InsertKhachHang(KhachHangViewModel khachHang)
         {
-
             using (SqlConnection customer = new SqlConnection(_connectionString))
             {
                 SqlCommand cmd = new SqlCommand("Insert_KhachHang", customer);

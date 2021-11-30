@@ -1,7 +1,7 @@
 ﻿@{
     Layout = null;
 }
-@model KhachHangViewModel
+@model SHIPPER.Models.KhachHangViewModel
 
 
 <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"
@@ -40,6 +40,7 @@
                 </div>
                 <div class="card-body">
                     <form asp-controller="Home" asp-action="Register" method="post">
+                        <span asp-validation-for="TaiKhoan" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -49,8 +50,9 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Tên tài khoản"
-                                   name="khachHang.TaiKhoan" />
+                                   asp-for="TaiKhoan" />
                         </div>
+                        <span asp-validation-for="MatKhau" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -60,8 +62,9 @@
                             <input type="password"
                                    class="form-control"
                                    placeholder="Mật khẩu"
-                                   name="khachHang.MatKhau" />
+                                   asp-for="MatKhau" />
                         </div>
+                        <span asp-validation-for="ReMatKhau" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -71,7 +74,7 @@
                             <input type="password"
                                    class="form-control"
                                    placeholder="Nhập lại mật khẩu"
-                                   name="khachHang.ReMatKhau" />
+                                   asp-for="ReMatKhau" />
                         </div>
                         <span asp-validation-for="Ho" class="text-danger"></span>
                         <div class="input-group form-group">
@@ -83,9 +86,9 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Họ"
-                                   name="khachHang.Ho" 
-                                   asp-for="Ho"/>
+                                   asp-for="Ho" />
                         </div>
+                        <span asp-validation-for="TenLot" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -95,8 +98,9 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Tên Lót"
-                                   name="khachHang.TenLot" />
+                                   asp-for="TenLot" />
                         </div>
+                        <span asp-validation-for="Ten" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -106,16 +110,18 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Tên"
-                                   name="khachHang.Ten" />
+                                   asp-for="Ten" />
                         </div>
+                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
                                     <i class="fas fa-birthday-cake"></i>
                                 </span>
                             </div>
-                            <input type="date" id="birthdaytime" name="khachHang.NgaySinh" class="form-control">
+                            <input type="date" id="birthdaytime" class="form-control" asp-for="NgaySinh">
                         </div>
+                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -125,8 +131,9 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Giới tính"
-                                   name="khachHang.GioiTinh" />
+                                   asp-for="GioiTinh" />
                         </div>
+                        <span asp-validation-for="Cmnd" class="text-danger"></span>
                         <div class="input-group form-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">
@@ -136,8 +143,15 @@
                             <input type="text"
                                    class="form-control"
                                    placeholder="Căn cước công dân"
-                                   name="khachHang.Cmnd" />
+                                   asp-for="Cmnd" />
                         </div>
+                        @if (Model != null)
+                        {
+                            @if (Model.ErrorMessage != null)
+                            {
+                                <span class="text-danger">@Model.ErrorMessage</span>
+                            }
+                        }
                         <div class="form-group">
                             <input type="submit"
                                    value="Đăng ký"
