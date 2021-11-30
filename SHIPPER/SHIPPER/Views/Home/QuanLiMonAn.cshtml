@@ -1,6 +1,7 @@
 ﻿@section dinh{
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link type="text/css" rel="stylesheet" href="~/css/app.css" />
     <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
     <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
@@ -18,7 +19,7 @@
 @model QuanLiMonAnViewModel
 <div class="section">
     <div class="row">
-          <div class="col-4">
+          <div class="col-3">
               <div class="card-1">
                   <div class="card__header1">
                       <h3 style="color:#349eff">Thêm món ăn</h3>
@@ -57,7 +58,7 @@
               </div>
           </div>
           
-                <div class="col-8">
+                <div class="col-9">
                     <div class="card-3">
                         <div class="card-4">
                             <div class="col-12">
@@ -77,14 +78,15 @@
                                     <div class="box-header" style="color:#349eff; font-size:22px; margin-bottom:20px ">
                                         Danh sách các món ăn của các nhà hàng
                                     </div>
-                                    <table class="table table-striped">
-                                        <thead class="thead-dark">
+                                    <table class="table" style="min-width:100%">
+                                        <thead>
                                             <tr>
                                                 <th class="text-center" scope="col" style="width: 5%;">ID</th>
                                                 <th scope="col">Tên nhà hàng</th>
-                                                <th class="text-left" scope="col">Tên món ăn</th>
-                                                <th class="text-center" scope="col">Đơn giá</th>
-                                                <th class="text-center" scope="col">Trạng thái</th>
+                                                <th class="text-left" scope="col" >Tên món ăn</th>
+                                                <th class="text-center" scope="col" >Đơn giá</th>
+                                                <th class="text-center" scope="col" >Trạng thái</th>
+                                                <th></th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -148,7 +150,7 @@
                                     </table>
                                     <!-- END ORDERS TABLE -->
                           </div>
-                            </div>
+                         </div>
                         </div>
                     </div>
                 </div>
