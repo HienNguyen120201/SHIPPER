@@ -162,7 +162,7 @@ namespace SHIPPER.Services
                 var x= await (from a in _context.MonAn
                           from b in _context.NhaHang
                           where a.MaNhaHangOffer==b.MaNhaHang
-                          orderby b.TenNhaHang,a.TenMonAn
+                          orderby a.isActive descending,b.TenNhaHang,a.TenMonAn
                            select new MonAnViewModel
                            {
                                 NameNhaHang=b.TenNhaHang,
