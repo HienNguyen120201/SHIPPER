@@ -11,5 +11,6 @@ namespace SHIPPER.Models
         public string LoaiPhuongTien { get; set; }
         public string HinhAnhXe { get; set; }
         public string GiayPhepSoHuu { get; set; }
+        public bool check { get; set; }
     }
 }

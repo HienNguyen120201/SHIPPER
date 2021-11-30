@@ -17,5 +17,6 @@ namespace SHIPPER.Services
         void UpdateKhachHang(int cmnd, string matkhau);
         Task<List<PhuongTienViewModel>> GetPhuongTiensAsync();
         NhanVienPhuongTienViewModel GetNhanVienPhuongTien(int bienSo);
+        void DeletePhuongTien(string bienso);
     }
 }

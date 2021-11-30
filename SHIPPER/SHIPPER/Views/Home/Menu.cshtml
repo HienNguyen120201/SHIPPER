@@ -20,7 +20,7 @@
             <!-- STORE -->
             <div class="col-md-6">
                 <form asp-controller="Home" asp-action="Menu" onsubmit="return Check();">
-                    <input  id="dinh" type="hidden" value="@(Model[1].check)"/>
+                    <input  id="hien" type="hidden" value="@(Model[1].check)"/>
                     <div class="billing-details">
                         <div class="section-title">
                             <h3 class="title">Thông tin giao hàng</h3>
@@ -81,12 +81,12 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
     <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
     <script type="text/javascript">
-        var abc = new Boolean(document.getElementById("dinh").value);
+        var abc = new Boolean(document.getElementById("hien").value);
         if(abc==true){
             Swal.fire({
 		      icon: 'error',
 	          title: 'Oops...',
-		      text: 'Không tồn tại số ID này trong nhà hàng!',
+		      text: 'Không tồn tại khách hàng, vui lòng đăng ký!!!',
 		      customClass: 'swal-wide',
 		      timer: 3000
 		    })
@@ -99,7 +99,7 @@
                     title: 'Oops...',
                     text: 'Số lượng không hợp lệ',
                     customClass: 'swal-wide',
-                    timer: 2000
+                    timer: 5000
                 })
                 return false;
             }
