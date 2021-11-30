@@ -12,12 +12,14 @@ namespace SHIPPER.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly IEmployeeService _employeeService;
         private readonly ILogger<HomeController> _logger;
         private readonly ICustomerService _customerService;
-        public HomeController(ILogger<HomeController> logger, ICustomerService customerService)
+        public HomeController(ILogger<HomeController> logger, ICustomerService customerService, IEmployeeService employeeService)
         {
             _logger = logger;
             _customerService = customerService;
+            _employeeService = employeeService;
         }
         [HttpGet]
         public async Task<IActionResult> Menu()
