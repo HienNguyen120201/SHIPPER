@@ -32,17 +32,24 @@
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @foreach (var customer in Model)
+                                            @if (Model != null)
                                             {
-                                                <tr>
-                                                    <td>@customer.FullName</td>
-                                                    <td>
-                                                        @customer.Discount
-                                                    </td>
-                                                    <td>@customer.Mota</td>
-                                                    <td>@customer.DieuKien</td>
-                                                    <td>@customer.NgayHetHan</td>
-                                                </tr>
+                                                foreach (var customer in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@customer.FullName</td>
+                                                        <td>
+                                                            @customer.Discount
+                                                        </td>
+                                                        <td>@customer.Mota</td>
+                                                        <td>@customer.DieuKien</td>
+                                                        <td>@customer.NgayHetHan</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <h2 class="text-center col-12">Chưa có Shipper sở hữu phương tiện này</h2>
                                             }
                                         </tbody>
                                     </table>
