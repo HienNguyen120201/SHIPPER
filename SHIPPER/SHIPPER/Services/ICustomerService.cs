@@ -9,7 +9,7 @@ namespace SHIPPER.Services
 {
     public interface ICustomerService
     {
-        public QuanLiMonAnViewModel QuanLiMonAn(string add);
+        Task<QuanLiMonAnViewModel> QuanLiMonAnAsync(string add);
         public bool DeleteMonAn(QuanLiMonAnViewModel NhaHang);
         public bool ActiveMonAn(QuanLiMonAnViewModel NhaHang);
         public bool InsertMonAn(QuanLiMonAnViewModel NhaHang);
