@@ -13,36 +13,13 @@
 			width:500px !important;
 			height:350px !important;
 			font-size: 1.7rem !important;
-		}
-        .info p {
-          text-align:center;
-          color: #999;
-          text-transform:none;
-          font-weight:600;
-          font-size:13px;
-          margin-top:2px
-        }
+    }
 
-        .info i {
-          color:#F6AA93;
-        }
-        form h1 {
-          font-size: 18px;
-          background: #F6AA93 none repeat scroll 0% 0%;
-          color: rgb(255, 255, 255);
-          padding: 22px 25px;
-          border-radius: 5px 5px 0px 0px;
-          margin: auto;
-          text-shadow: none; 
-          text-align:left
-        }
-
-
-        p span {
+        p span.vu {
           color: #F00;
         }
 
-        p {
+        p.vu {
           margin-left: 3px;
           font-weight: 700;
           line-height: 2;
@@ -51,14 +28,7 @@
           font-size:13px !import;
         }
 
-        h1 {
-          text-align:center; 
-          color: #666;
-          text-shadow: 1px 1px 0px #FFF;
-          margin:50px 0px 0px 0px
-        }
-
-        input {
+        input.vu {
           border-radius: 0px 5px 5px 0px;
           border: 1px solid #eee;
           margin-bottom: 15px;
@@ -66,10 +36,6 @@
           height: 40px;
           float: left;
           padding: 0px 15px;
-        }
-
-        a {
-          text-decoration:inherit
         }
 
         textarea {
@@ -97,11 +63,6 @@
           text-align: center;
           line-height:40px;
         }
-
-        i.a {
-          color:#333;
-        }
-
         .contentform {
           padding: 40px 30px;
         }
@@ -141,25 +102,6 @@
           font-size:13px;
           color: #DE5959;
         }
-
-        #sendmessage {
-          border:1px solid #fff;
-          display:none;
-          text-align:center;
-          margin:10px 0;
-          font-weight:600;
-          margin-bottom:30px;
-          background-color: #EBF6E0;
-          color: #5F9025;
-          border: 1px solid #B3DC82;
-          padding: 13px 40px 13px 18px;
-          border-radius: 3px;
-          box-shadow: 0px 1px 1px 0px rgba(0, 0, 0, 0.03);
-        }
-
-        #sendmessage.show,.show  {
-          display:block;
-        }
     </style>
 }
 @model EmployeeViewModel
@@ -176,56 +118,56 @@
                                             Thêm nhân viên
                                         </div>
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Họ<span>*</span></p>
+                                          <p class="vu" style="font-size: 13px;">Họ<span class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-id-card a"></i></span>
-                                          <input type="text" name="e.FirstName" form="insert" id="input11" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="text" name="e.FirstName" form="insert" id="input11" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
 
                                        <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Tên lót <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Tên lót <span class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-id-card a"></i></span>
-                                          <input  type="text" name="e.MiddleName" form="insert" id="input22" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="text" name="e.MiddleName" form="insert" id="input22" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
 
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Tên <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Tên <span class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-id-card a"></i></span>
-                                          <input type="text" name="e.LastName" form="insert" id="input33" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="text" name="e.LastName" form="insert" id="input33" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Loại nhân viên <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Loại nhân viên <span class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-home a"></i></span>
-                                          <input type="text" name="e.Type1" form="insert" id="input44"  style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="text" name="e.Type1" form="insert" id="input44"  style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
 
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Lương <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Lương <span  class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-location-arrow a"></i></span>
-                                          <input type="number" name="e.Salary" form="insert" id="input55" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="number" name="e.Salary" form="insert" id="input55" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
 
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Ngày sinh <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Ngày sinh <span  class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-calendar a" aria-hidden="true"></i></span>
-                                          <input type="date" name="e.Birth" form="insert" id="input66" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="date" name="e.Birth" form="insert" id="input66" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Tài khoản <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Tài khoản <span class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-user a"></i></span>
-                                          <input type="text" name="e.Account" form="insert" id="input77" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="text" name="e.Account" form="insert" id="input77" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
 
                                         <div class="form-group col-3">
-                                          <p style="font-size: 13px;">Mật khẩu <span>*</span></p>
+                                          <p  class="vu" style="font-size: 13px;">Mật khẩu <span class="vu">*</span></p>
                                           <span class="icon-case"><i class="fa fa-key a"  aria-hidden="true"></i></span>
-                                          <input type="password" class="toggle-password" name="e.Password" id="input88" form="insert" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <input class="vu" type="password" class="toggle-password" name="e.Password" id="input88" form="insert" style="color: black;font-size: 13px;font-weight: 500;" required/>
                                           <div class="validation"></div>
                                         </div>
                                         <div  class="col-9"></div>
