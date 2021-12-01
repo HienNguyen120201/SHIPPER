@@ -115,40 +115,6 @@ namespace SHIPPER.Controllers
             }
             return View(new QuanLiMonAnViewModel());
         }
-        public async Task<IActionResult> QuanliMonAn(QuanLiMonAnViewModel NhaHang)
-        {
-            if (NhaHang.Type == "search")
-            {
-                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
-                data.Add = NhaHang.Add;
-                return View(data);
-            }
-            else if (NhaHang.Type == "delete")
-            {
-                _customerService.DeleteMonAn(NhaHang);
-                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
-                data.Add = NhaHang.Add;
-                return View(data);
-            }
-            else if (NhaHang.Type == "active")
-            {
-                _customerService.ActiveMonAn(NhaHang);
-                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
-                data.Add = NhaHang.Add;
-                return View(data);
-            }
-            else if (NhaHang.Type == "insert")
-            {
-                NhaHang.Insert = !_customerService.InsertMonAn(NhaHang);
-                if (NhaHang.Add == null)
-                    return View(NhaHang);
-                QuanLiMonAnViewModel data1 = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
-                data1.Add = NhaHang.Add;
-                data1.Insert = NhaHang.Insert;
-                return View(data1);
-            }
-            return View(new QuanLiMonAnViewModel());
-        }
         public IActionResult Index()
         {
             return View();
