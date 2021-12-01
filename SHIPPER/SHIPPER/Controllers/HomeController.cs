@@ -115,6 +115,40 @@ namespace SHIPPER.Controllers
             }
             return View(new QuanLiMonAnViewModel());
         }
+        public async Task<IActionResult> QuanliMonAn(QuanLiMonAnViewModel NhaHang)
+        {
+            if (NhaHang.Type == "search")
+            {
+                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
+                data.Add = NhaHang.Add;
+                return View(data);
+            }
+            else if (NhaHang.Type == "delete")
+            {
+                _customerService.DeleteMonAn(NhaHang);
+                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
+                data.Add = NhaHang.Add;
+                return View(data);
+            }
+            else if (NhaHang.Type == "active")
+            {
+                _customerService.ActiveMonAn(NhaHang);
+                QuanLiMonAnViewModel data = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
+                data.Add = NhaHang.Add;
+                return View(data);
+            }
+            else if (NhaHang.Type == "insert")
+            {
+                NhaHang.Insert = !_customerService.InsertMonAn(NhaHang);
+                if (NhaHang.Add == null)
+                    return View(NhaHang);
+                QuanLiMonAnViewModel data1 = await _customerService.QuanLiMonAnAsync(NhaHang.Add);
+                data1.Add = NhaHang.Add;
+                data1.Insert = NhaHang.Insert;
+                return View(data1);
+            }
+            return View(new QuanLiMonAnViewModel());
+        }
         public IActionResult Index()
         {
             return View();
@@ -128,6 +162,34 @@ namespace SHIPPER.Controllers
         public IActionResult Error()
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
+        public async Task<ActionResult> dinh()
+        {
+            string a = "";
+            var donVanChuyen = await _customerService.DinhAsync(a,0,0);
+            return View(donVanChuyen);
+        }
+        [HttpPost]
+        public async Task<ActionResult> dinh(EditDonVanChuyenViewModel e)
+        {
+            if(e.Action=="search")
+            {
+                if (e.maTrangThai == 7)
+                {
+                    e.maTrangThai = 0;
+                    e.Action = "";
+                }
+                var donVanChuyen1 = await _customerService.DinhAsync(e.Action, e.maTrangThai,0);
+                return View(donVanChuyen1);
+            }    
+            if(e.Action=="q")
+            {
+                await _customerService.DinhAsync(e.Action, e.maTrangThai, e.ID);
+                e.Action = "search";
+            }
+            
+            var donVanChuyen = await _customerService.DinhAsync(e.Action, e.maTrangThai,0);
+            return View(donVanChuyen);
         }
     }
 }
