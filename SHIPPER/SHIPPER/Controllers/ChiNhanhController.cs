@@ -45,9 +45,47 @@ namespace SHIPPER.Controllers
             _chinhanhService.InsertChiNhanh(chinhanhVM);
             return RedirectToAction("AddChiNhanh","ChiNhanh");
         }
+        [HttpGet]
         public IActionResult ChitietChiNhanh()
         {
-            return View();
+            var Cn = new ChiTietChiNhanhViewModel();
+            Cn.ListShipperCN = new List<ShipperChiNhanhViewModel>();
+            Cn.ListChiNhanhQLX = new List<ChiNhanhQLXViewModel>();
+            Cn.ListShipperMaxLuong = new List<ShipperMaxLuongViewModel>();
+            Cn.ListThongKe = new List<ThongKeShipperViewModel>();
+            return View(Cn);
+        }
+        [HttpPost]
+        public async Task<IActionResult> ChitietChiNhanh(int machinhanh,float chiso,int minimumluong,int minimumshipper)
+        {
+            var Cn = new ChiTietChiNhanhViewModel();
+            Cn.ListShipperCN = new List<ShipperChiNhanhViewModel>();
+            Cn.ListChiNhanhQLX = new List<ChiNhanhQLXViewModel>();
+            Cn.ListShipperMaxLuong = new List<ShipperMaxLuongViewModel>();
+            Cn.ListThongKe = new List<ThongKeShipperViewModel>();
+            if (machinhanh != 0)
+            {
+                Cn.ListShipperCN = await _chinhanhService.GetListShipperCN(machinhanh);
+                return View(Cn);
+            }
+            if (chiso != 0)
+            {
+                Cn.ListChiNhanhQLX = await _chinhanhService.GetListChiNhanhQLX(chiso);
+                return View(Cn);
+            }
+            if (minimumluong != 0)
+            {
+                Cn.ListShipperMaxLuong = await _chinhanhService.GetListShipperMaxLuong(minimumluong);
+                return View(Cn);
+            }
+            if (minimumshipper != 0)
+                Cn.ListThongKe = await _chinhanhService.GetListThongKe(minimumshipper);
+            return View(Cn);
+        }
+        public async Task<IActionResult> ChiNhanhMagagement(int id)
+        {
+            var list = await _chinhanhService.GetDetailChiNhanh(id);
+            return View(list);
         }
         [HttpGet]
         public async Task<IActionResult> UpdateChiNhanh(int id)

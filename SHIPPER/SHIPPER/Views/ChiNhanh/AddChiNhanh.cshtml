@@ -30,7 +30,7 @@
                         <span asp-validation-for="ChiNhanh.MaNhanVienQuanLy" class="text-danger"></span>
                         <div class="form-group">
                             <lable>Mã Nhân Viên Quản Lý</lable>
-                            <input type="text" class="form-control" asp-for="ChiNhanh.MaNhanVienQuanLy" placeholder="00000000-0000-0000-0000-000000000000" />
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaNhanVienQuanLy" value="00000000-0000-0000-0000-000000000000" />
                         </div>
                         <span asp-validation-for="ChiNhanh.MaChiNhanhCha" class="text-danger"></span>
                         <div class="form-group">
@@ -73,10 +73,10 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ 
-                                            if(Model.ListQuanLy.Count>0)
+                                        @{
+                                            if (Model.ListQuanLy.Count > 0)
                                             {
-                                                foreach(var quanly in Model.ListQuanLy)
+                                                foreach (var quanly in Model.ListQuanLy)
                                                 {
                                                     <tr>
                                                         <td>@quanly.MaNhanVienQuanLy</td>
@@ -86,6 +86,10 @@
                                                         <td>@quanly.LoaiNhanVien</td>
                                                     </tr>
                                                 }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="5" class="text-center">Danh sách trống</td></tr>
                                             }
                                         }
                                     </tbody>
@@ -116,10 +120,12 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @{ 
+                                        @{
                                             if (Model.ListChiNhanh.Count > 0)
+                                            {
                                                 foreach (var chinhanh in Model.ListChiNhanh)
-                                                {<tr>
+                                                {
+                                                    <tr>
                                                         <td>@chinhanh.MaChiNhanh</td>
                                                         <td>@chinhanh.TenChiNhanh</td>
                                                         <td>@chinhanh.MaSoThue</td>
@@ -129,29 +135,33 @@
                                                         <td>@chinhanh.TrangThai </td>
                                                         <td>
                                                             <form asp-controller="ChiNhanh" asp-action="DeleteChiNhanh">
-                                                                <input  type="hidden" name="idChiNhanh" value="@chinhanh.MaChiNhanh"/>
+                                                                <input type="hidden" name="idChiNhanh" value="@chinhanh.MaChiNhanh" />
                                                                 <button type="submit">
                                                                     <i class="far fa-trash-alt" aria-hidden="true"
                                                                        style="font-size: 25px; margin-right: 10px; display:flex;"
                                                                        }}></i>
                                                                 </button>
                                                             </form>
-                                                                <a class=" mr-3"
-                                                                     href="@Url.Action("UpdateChiNhanh","ChiNhanh",new { id=chinhanh.MaChiNhanh })"
-                                                                   >
-                                                                    <i class="fa fa-edit"
-                                                                   aria-hidden="true"  style="font-size: 25px;"></i>
-                                                                </a>
+                                                            <a class=" mr-3"
+                                                               href="@Url.Action("UpdateChiNhanh", "ChiNhanh", new { id = chinhanh.MaChiNhanh })">
+                                                                <i class="fa fa-edit"
+                                                                   aria-hidden="true" style="font-size: 25px;"></i>
+                                                            </a>
                                                         </td>
                                                         <td>
-                                                            <a class=" mr-3" href="@Url.Action("ChitietChiNhanh", "ChiNhanh")">
+                                                            <a class=" mr-3" href="@Url.Action("ChiNhanhMagagement", "ChiNhanh", new { id = chinhanh.MaChiNhanh })">
                                                                 <i class="far fa-arrow-alt-circle-right"
                                                                    aria-hidden="true" style="font-size: 25px;"></i>
                                                             </a>
                                                         </td>
-                                                  </tr>
-                                                    }
+                                                    </tr>
+                                                }
                                             }
+                                            else
+                                            {
+                                                <tr><td colspan="7" class="text-center">Danh sách trống</td></tr>
+                                            }
+                                        }
                                     </tbody>
                                 </table>
                             </div>

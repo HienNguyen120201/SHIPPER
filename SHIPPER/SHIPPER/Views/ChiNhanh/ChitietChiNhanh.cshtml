@@ -2,23 +2,28 @@
 @{
     ViewData["Title"] = "ChitietChiNhanh";
 }
-
+@model ChiTietChiNhanhViewModel
 <div class="section">
     <div class="card_app">
         <div class="card__header1">
             <h3>danh sách shipper đang làm việc tại chi nhánh X (nhớ sửa cho lọc theo tên) sắp xếp  descending theo ngày vào làm </h3>
         </div>
         <div class="input-group mb-4 mt-3" style="display:flex">
-            <div class="form-outline">
-                <input type="text"
-                       id="form1"
-                       class="form-control"
-                       placeholder="Tìm kiếm"
-                       style=" background-color: #ececec;" />
-            </div>
-            <button type="button" class="btn btn-success">
-                <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
-            </button>
+            <form asp-controller="ChiNhanh" asp-action="ChitietChiNhanh" method="post" style="display:flex">
+                <div class="form-outline">
+                    <input type="number"
+                           id="form1"
+                           name="machinhanh"
+                           min="1"
+                           width="196"
+                           class="form-control"
+                           placeholder="Tìm kiếm chi nhánh"
+                           style=" background-color: #ececec;" />
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
+                </button>
+            </form>
         </div>
         <div class="card__body">
             <div class="col-12">
@@ -27,14 +32,31 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col" style="width: 15%;">Mã Nhân Viên</th>
                                     <th scope="col">Họ và tên</th>
-                                    <th scope="col">Lương</th>
-                                    <th scope="col">Ngày Sinh</th>
                                     <th scope="col">Loại NhâN Viên</th>
+                                    <th scope="col">Ngày Vào Làm</th>
+                                    <th scope="col">Lương</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @{
+                                    if (Model.ListShipperCN.Count > 0)
+                                    {
+                                        foreach (var quanly in Model.ListShipperCN)
+                                        {
+                                            <tr>
+                                                <td>@quanly.HovaTen</td>
+                                                <td>@quanly.LoaiNhanVien</td>
+                                                <td>@quanly.NgayVaoLam.ToShortDateString()</td>
+                                                <td>@quanly.Luong</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="4" class="text-center">Danh sách trống</td></tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -47,16 +69,22 @@
             <h3>Danh sách chi nhánh thuộc quản lý có chỉ số uy tín trên X, xắp xếp giảm dần theo số lượng nhân viên</h3>
         </div>
         <div class="input-group mb-4 mt-3" style="display:flex">
-            <div class="form-outline">
-                <input type="text"
-                       id="form1"
-                       class="form-control"
-                       placeholder="Tìm kiếm"
-                       style=" background-color: #ececec;" />
-            </div>
-            <button type="button" class="btn btn-success">
-                <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
-            </button>
+            <form asp-controller="ChiNhanh" asp-action="ChitietChiNhanh" method="post"  style="display:flex">
+                <div class="form-outline">
+                    <input type="number"
+                           max="5"
+                           min="0.1"
+                           id="form1"
+                           width="48"
+                           name="chiso"
+                           class="form-control"
+                           placeholder="chỉ số uy tín từ 0->5"
+                           style=" background-color: #ececec;width:14em" />
+                </div>
+                <button type="submit" class="btn btn-success">
+                    <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
+                </button>
+            </form>
         </div>
         <div class="card__body">
             <div class="col-12">
@@ -65,14 +93,32 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col" style="width: 15%;">Mã Nhân Viên</th>
-                                    <th scope="col">Họ và tên</th>
-                                    <th scope="col">Lương</th>
-                                    <th scope="col">Ngày Sinh</th>
-                                    <th scope="col">Loại NhâN Viên</th>
+                                    <th scope="col">Mã đơn vị</th>
+                                    <th scope="col">Tên Chi Nhánh</th>
+                                    <th scope="col">Mã Số Thuế</th>
+                                    <th scope="col">Địa Chỉ</th>
+                                    <th scope="col">Số Lượng Nhân Viên</th>
                                 </tr>
                             </thead>
                             <tbody>
+                                @{if (Model.ListChiNhanhQLX.Count > 0)
+                                    {
+                                        foreach (var quanly in Model.ListChiNhanhQLX)
+                                        {
+                                            <tr>
+                                                <td>@quanly.MaDonVi</td>
+                                                <td>@quanly.TenChiNhanh</td>
+                                                <td>@quanly.MaSoThue</td>
+                                                <td>@quanly.DiaChi</td>
+                                                <td>@quanly.SoLuongNhanVien</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="5" class="text-center">Danh sách trống</td></tr>
+                                    }
+                                }
                             </tbody>
                         </table>
                     </div>
@@ -89,16 +135,20 @@
                 </h3>
             </div>
             <div class="input-group mb-4 mt-3" style="display:flex">
-                <div class="form-outline">
-                    <input type="text"
-                           id="form1"
-                           class="form-control"
-                           placeholder="Tìm kiếm"
-                           style=" background-color: #ececec;" />
-                </div>
-                <button type="button" class="btn btn-success">
-                    <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
-                </button>
+                <form asp-controller="ChiNhanh" asp-action="ChitietChiNhanh" method="post" style="display:flex">
+                    <div class="form-outline">
+                        <input type="number"
+                               id="form1"
+                               name="minimumluong"
+                               class="form-control"
+                               min="1"
+                               placeholder="Tìm kiếm lương tối thiểu"
+                               style=" background-color: #ececec;" />
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
+                    </button>
+                </form>
             </div>
             <div class="card-body">
                 <div class="col-12">
@@ -111,10 +161,31 @@
                                         <th scope="col">Họ và tên</th>
                                         <th scope="col">Lương</th>
                                         <th scope="col">Ngày Sinh</th>
-                                        <th scope="col">Loại NhâN Viên</th>
+                                        <th scope="col">Ngày vào làm</th>
+                                        <th scope="col">Mã Đơn Vị</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @{
+                                        if (Model.ListShipperMaxLuong.Count > 0)
+                                        {
+                                            foreach (var quanly in Model.ListShipperMaxLuong)
+                                            {
+                                                <tr>
+                                                    <td>@quanly.MaNhanVien</td>
+                                                    <td>@quanly.HovaTen</td>
+                                                    <td>@quanly.Luong</td>
+                                                    <td>@quanly.Ngaysinh.ToShortDateString()</td>
+                                                    <td>@quanly.NgayVaoLam.ToShortDateString()</td>
+                                                    <td>@quanly.Madonvi</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="6" class="text-center">Danh sách trống</td></tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>
@@ -129,16 +200,20 @@
                 </h3>
             </div>
             <div class="input-group mb-4 mt-3" style="display:flex">
-                <div class="form-outline">
-                    <input type="text"
-                           id="form1"
-                           class="form-control"
-                           placeholder="Tìm kiếm"
-                           style=" background-color: #ececec;" />
-                </div>
-                <button type="button" class="btn btn-success">
-                    <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
-                </button>
+                <form asp-controller="ChiNhanh" asp-action="ChitietChiNhanh" method="post" style="display:flex">
+                    <div class="form-outline">
+                        <input type="number"
+                               id="form1"
+                               name="minimumshipper"
+                               class="form-control"
+                               min="1"
+                               placeholder="Tìm kiếm"
+                               style=" background-color: #ececec;" />
+                    </div>
+                    <button type="submit" class="btn btn-success">
+                        <i class="fa fa-search" aria-hidden="true" style="font-size: 25px;"></i>
+                    </button>
+                </form>
             </div>
             <div class="card-body">
                 <div class="col-12">
@@ -147,14 +222,27 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col" style="width: 15%;">Mã Nhân Viên</th>
-                                        <th scope="col">Họ và tên</th>
-                                        <th scope="col">Lương</th>
-                                        <th scope="col">Ngày Sinh</th>
-                                        <th scope="col">Loại NhâN Viên</th>
+                                        <th scope="col">Mã đơn vị</th>
+                                        <th scope="col">Số lượng shipper</th>
                                     </tr>
                                 </thead>
                                 <tbody>
+                                    @{
+                                        if (Model.ListThongKe.Count > 0)
+                                        {
+                                            foreach (var quanly in Model.ListThongKe)
+                                            {
+                                                <tr>
+                                                    <td>@quanly.MaDonVi</td>
+                                                    <td>@quanly.SoluongShipper</td>
+                                                </tr>
+                                            }
+                                        }
+                                        else
+                                        {
+                                            <tr><td colspan="2" class="text-center">Danh sách trống</td></tr>
+                                        }
+                                    }
                                 </tbody>
                             </table>
                         </div>
