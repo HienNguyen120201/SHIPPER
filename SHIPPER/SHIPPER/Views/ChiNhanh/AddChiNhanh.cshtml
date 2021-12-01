@@ -1,0 +1,176 @@
+﻿@{
+    ViewData["Title"] = "AddChiNhanh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model QuanLyChiNhanhViewModel
+<div class="section">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card_app">
+                <div class="card__header1">
+                    <h3>Thêm Chi Nhánh</h3>
+                </div>
+                <div class="card__body">
+                    <form asp-controller="ChiNhanh" asp-action="AddChiNhanh" method="post">
+                        <span asp-validation-for="ChiNhanh.TenChiNhanh" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Tên Chi Nhánh</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.TenChiNhanh" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.MaSoThue" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã số thuế</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaSoThue" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.DiaChi" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Địa chỉ</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.DiaChi" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.MaNhanVienQuanLy" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Nhân Viên Quản Lý</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaNhanVienQuanLy" value="00000000-0000-0000-0000-000000000000" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.MaChiNhanhCha" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Chi Nhánh Cha</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaChiNhanhCha" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="buttonform">Thêm Chi Nhánh</button>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="hidden" asp-for="ListQuanLy" value="@Model.ListQuanLy">
+                        </div>
+                        <div>
+                            <input type="hidden" asp-for="ListChiNhanh" value="@Model.ListChiNhanh">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card_app">
+                <div class="card__header1">
+                    <h3>Danh sách Quản Lý, Danh sách Nhân Viên Chưa Chưa làm Việc Cho Chi Nhánh Nào</h3>
+                </div>
+                <div class="card__body">
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body overflow-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 15%;">Mã Nhân Viên</th>
+                                            <th scope="col">Họ và tên</th>
+                                            <th scope="col">Lương</th>
+                                            <th scope="col">Ngày Sinh</th>
+                                            <th scope="col">Loại NhâN Viên</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (Model.ListQuanLy.Count > 0)
+                                            {
+                                                foreach (var quanly in Model.ListQuanLy)
+                                                {
+                                                    <tr>
+                                                        <td>@quanly.MaNhanVienQuanLy</td>
+                                                        <td>@quanly.HoVaTen</td>
+                                                        <td>@quanly.Luong</td>
+                                                        <td>@quanly.NgaySinh.ToShortDateString()</td>
+                                                        <td>@quanly.LoaiNhanVien</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="5" class="text-center">Danh sách trống</td></tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__header1">
+                    <h3>Danh sách Chi Nhánh</h3>
+                </div>
+                <div class="card__body">
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body overflow-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">Mã Chi Nhánh</th>
+                                            <th scope="col">Tên Chi Nhánh</th>
+                                            <th scope="col">Mã số thuế</th>
+                                            <th scope="col">Mã Nhân Viên Quản Lý</th>
+                                            <th scope="col">Mã Chi Nhánh Cha</th>
+                                            <th scope="col">Số lượng Nhân Viên</th>
+                                            <th scope="col">Trạng Thái</th>
+                                            <th scope="col" style="width: 10%;">Xoá/Sửa</th>
+                                            <th scope="col" style="width: 10%;">Chi tiết chi nhánh</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (Model.ListChiNhanh.Count > 0)
+                                            {
+                                                foreach (var chinhanh in Model.ListChiNhanh)
+                                                {
+                                                    <tr>
+                                                        <td>@chinhanh.MaChiNhanh</td>
+                                                        <td>@chinhanh.TenChiNhanh</td>
+                                                        <td>@chinhanh.MaSoThue</td>
+                                                        <td>@chinhanh.MaNhanVienQuanLy</td>
+                                                        <td>@chinhanh.MaChiNhanhCha</td>
+                                                        <td>@chinhanh.SoLuongNhanVien</td>
+                                                        <td>@chinhanh.TrangThai </td>
+                                                        <td>
+                                                            <form asp-controller="ChiNhanh" asp-action="DeleteChiNhanh">
+                                                                <input type="hidden" name="idChiNhanh" value="@chinhanh.MaChiNhanh" />
+                                                                <button type="submit">
+                                                                    <i class="far fa-trash-alt" aria-hidden="true"
+                                                                       style="font-size: 25px; margin-right: 10px; display:flex;"
+                                                                       }}></i>
+                                                                </button>
+                                                            </form>
+                                                            <a class=" mr-3"
+                                                               href="@Url.Action("UpdateChiNhanh", "ChiNhanh", new { id = chinhanh.MaChiNhanh })">
+                                                                <i class="fa fa-edit"
+                                                                   aria-hidden="true" style="font-size: 25px;"></i>
+                                                            </a>
+                                                        </td>
+                                                        <td>
+                                                            <a class=" mr-3" href="@Url.Action("ChiNhanhMagagement", "ChiNhanh", new { id = chinhanh.MaChiNhanh })">
+                                                                <i class="far fa-arrow-alt-circle-right"
+                                                                   aria-hidden="true" style="font-size: 25px;"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="7" class="text-center">Danh sách trống</td></tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
