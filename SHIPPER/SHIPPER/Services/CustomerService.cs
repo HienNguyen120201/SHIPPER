@@ -25,6 +25,76 @@ namespace SHIPPER.Services
             _context = context;
             _connectionString = configuration.GetConnectionString("DefaultConnection");
         }
+        public async Task<List<EditDonVanChuyenViewModel>> DinhAsync(string a, int b, int c)
+        {
+            List<EditDonVanChuyenViewModel> result = new List<EditDonVanChuyenViewModel>();
+            using SqlConnection cus = new SqlConnection(_connectionString);
+            if(a=="search")
+            {
+                SqlCommand cmd1 = new SqlCommand("selectDonVanChuyen1", cus)
+                {
+                    CommandType = CommandType.StoredProcedure
+                };
+                cmd1.Parameters.AddWithValue("@maTrangThai", b);
+                cus.Open();
+                SqlDataReader data1 = cmd1.ExecuteReader();
+                while (await data1.ReadAsync())
+                {
+                    EditDonVanChuyenViewModel monAn = new EditDonVanChuyenViewModel
+                    {
+                        ID = int.Parse(data1["maDon"].ToString()),
+                        Add = data1["diaChiGiaoHang"].ToString(),
+                        Giao = DateTime.Parse(data1["thoiGianGiaoHang"].ToString()),
+                        Nhan = DateTime.Parse(data1["thoiGianNhan"].ToString()),
+                        TienShip = int.Parse(data1["tienShip"].ToString()),
+                        PhuongThucThanhToan = data1["phuongThucThanhToan"].ToString(),
+                        TrangThai = data1["trangThai"].ToString(),
+                        CCCD = data1["CCCDorVisa"].ToString(),
+                        Ho = data1["ho"].ToString(),
+                        TenLot = data1["tenLot"].ToString(),
+                        Ten = data1["Ten"].ToString()
+                    };
+                    result.Add(monAn);
+                }
+                cus.Close();
+                return result;
+            }
+            if(a=="q")
+            {
+                var data12 = await (from x in _context.DonVanChuyen
+                                    where x.MaDon == c
+                                    select x).FirstOrDefaultAsync();
+                data12.MaTrangThaiDonHang = b;
+                _context.SaveChanges();
+                return new List<EditDonVanChuyenViewModel>();
+            }    
+            SqlCommand cmd = new SqlCommand("selectDonVanChuyen", cus)
+            {
+                CommandType = CommandType.StoredProcedure
+            };
+            cus.Open();
+            SqlDataReader data = cmd.ExecuteReader();
+            while (await data.ReadAsync())
+            {
+                EditDonVanChuyenViewModel monAn = new EditDonVanChuyenViewModel
+                {
+                    ID = int.Parse(data["maDon"].ToString()),
+                    Add = data["diaChiGiaoHang"].ToString(),
+                    Giao = DateTime.Parse(data["thoiGianGiaoHang"].ToString()),
+                    Nhan = DateTime.Parse(data["thoiGianNhan"].ToString()),
+                    TienShip = int.Parse(data["tienShip"].ToString()),
+                    PhuongThucThanhToan = data["phuongThucThanhToan"].ToString(),
+                    TrangThai = data["trangThai"].ToString(),
+                    CCCD = data["CCCDorVisa"].ToString(),
+                    Ho = data["ho"].ToString(),
+                    TenLot = data["tenLot"].ToString(),
+                    Ten = data["Ten"].ToString()
+                };
+                result.Add(monAn);
+            }
+            cus.Close();
+            return result;
+        }    
         public async Task<List<FoodViewModel>> GetFoodAsync()
         {
             var food = await (from l in _context.MonAn
