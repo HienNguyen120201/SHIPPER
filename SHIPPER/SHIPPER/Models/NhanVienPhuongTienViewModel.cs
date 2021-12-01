@@ -14,5 +14,6 @@ namespace SHIPPER.Models
         public string BienKiemSoat { get; set; }
         public Decimal Rating { get; set; }
         public string ImgUrl { get; set; }
+        public bool check { get; set; }
     }
 }

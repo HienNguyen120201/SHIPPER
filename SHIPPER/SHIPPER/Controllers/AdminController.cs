@@ -59,12 +59,13 @@ namespace SHIPPER.Controllers
             var phuongTien = await _adminService.GetPhuongTiensAsync();
             return View(phuongTien);
         }
-        public IActionResult TimNhanVienPhuongTien(int id)
+        [HttpGet]
+        public IActionResult TimNhanVienPhuongTien(string id)
         {
             var phuongTien = (from S in _context.Shipper
                               join N in _context.NhanVien on S.MaNhanVien equals N.MaNhanVien
                               join P in _context.PhuongTien on S.BienKiemSoat equals P.BienKiemSoat
-                              where S.BienKiemSoat == id.ToString()
+                              where S.BienKiemSoat == id
                               select S).FirstOrDefault();
             if(phuongTien==null)
             {
@@ -92,8 +93,21 @@ namespace SHIPPER.Controllers
             _adminService.DeletePhuongTien(bienso);
             return RedirectToAction("PhuongTien", "Admin");
         }
-        public IActionResult UpdatePhuongTien(string bienso, string gplx)
+        [HttpPost]
+        public IActionResult TimNhanVienPhuongTien(string bienso, string gplx)
         {
+            var shipper = (from S in _context.Shipper
+                           where S.SoGplx == gplx
+                           select S).FirstOrDefault();
+            if(shipper==null)
+            {
+                var newNhanVien = new NhanVienPhuongTienViewModel
+                {
+                    BienKiemSoat = bienso
+                };
+                newNhanVien.check = true;
+                return View(newNhanVien);
+            }
             _adminService.UpdatePhuongTien(bienso, gplx);
             return RedirectToAction("PhuongTien", "Admin");
         }
