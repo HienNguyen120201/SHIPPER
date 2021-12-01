@@ -1,0 +1,107 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateChiNhanh";
+}
+@model QuanLyChiNhanhViewModel
+<div class="section">
+    <div class="card_app">
+        <div class="card__header1">
+            <h3>Danh sách Quản Lý, Danh sách Nhân Viên Chưa Chưa làm Việc Cho Chi Nhánh Nào</h3>
+        </div>
+        <div class="card__body">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-body overflow-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 15%;">Mã Nhân Viên</th>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Lương</th>
+                                    <th scope="col">Ngày Sinh</th>
+                                    <th scope="col">Loại NhâN Viên</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.ListQuanLy.Count > 0)
+                                    {
+                                        foreach (var quanly in Model.ListQuanLy)
+                                        {
+                                            <tr>
+                                                <td>@quanly.MaNhanVienQuanLy</td>
+                                                <td>@quanly.HoVaTen</td>
+                                                <td>@quanly.Luong</td>
+                                                <td>@quanly.NgaySinh.ToShortDateString()</td>
+                                                <td>@quanly.LoaiNhanVien</td>
+                                            </tr>
+                                        }
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card_app">
+            <div class="card__header1">
+                <h3>Cập nhật thông tin Chi Nhánh</h3>
+            </div>
+            <div class="card-body">
+                <div class="box">
+                    <form asp-controller="ChiNhanh" asp-action="UpdateChiNhanh" method="post">
+                        <span asp-validation-for="ChiNhanh.MaChiNhanh" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Đơn Vị</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaChiNhanh" readonly />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.MaSoThue" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã số thuế</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaSoThue" readonly />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.MaChiNhanhCha" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Chi Nhánh Cha</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaChiNhanhCha" readonly />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.TenChiNhanh" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Tên Chi Nhánh</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.TenChiNhanh" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.DiaChi" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Địa chỉ</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.DiaChi" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.MaNhanVienQuanLy" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Nhân Viên Quản Lý</lable>
+                            <input type="text" class="form-control" asp-for="ChiNhanh.MaNhanVienQuanLy" placeholder="00000000-0000-0000-0000-000000000000" />
+                        </div>
+                        <span asp-validation-for="ChiNhanh.TrangThai" class="text-danger"></span>
+                        <div class="form-group">
+                            <select class="form-control" asp-for="ChiNhanh.TrangThai">
+                                <option value="True">Hoạt động</option>
+                                <option value="False">Ngưng hoạt động</option>
+                            </select> 
+
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="buttonform">Cập Nhật Chi Nhánh</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+

@@ -12,7 +12,7 @@ namespace SHIPPER.Data.Entities
             ChiTietDonMonAn = new HashSet<ChiTietDonMonAn>();
             UuDai = new HashSet<UuDai>();
         }
-
+        public int isActive { get; set; }
         [Key]
         [Column("maMonAn")]
         public int MaMonAn { get; set; }
@@ -22,6 +22,9 @@ namespace SHIPPER.Data.Entities
         public string TenMonAn { get; set; }
         [Column("donGia")]
         public int DonGia { get; set; }
+        [Column("image")]
+        [StringLength(300)]
+        public string Image { get; set; }
         [Column("moTa")]
         [StringLength(300)]
         public string MoTa { get; set; }

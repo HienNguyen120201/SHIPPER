@@ -1,0 +1,385 @@
+﻿@section dinh{
+    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,500,700" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link type="text/css" rel="stylesheet" href="~/css/app.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/grid.css" />
+    <link type="text/css" rel="stylesheet" href="~/css/theme.css" />
+    <style>
+        .enMoney:after {
+            content: ' VND';
+        }
+    .swal-wide{
+			width:500px !important;
+			height:350px !important;
+			font-size: 1.7rem !important;
+    }
+
+        p span.vu {
+          color: #F00;
+        }
+
+        p.vu {
+          margin-left: 3px;
+          font-weight: 700;
+          line-height: 2;
+          color:#333;
+          margin-bottom:0px;
+          font-size:13px !import;
+        }
+
+        input.vu {
+          border-radius: 0px 5px 5px 0px;
+          border: 1px solid #eee;
+          margin-bottom: 15px;
+          width: 75%;
+          height: 40px;
+          float: left;
+          padding: 0px 15px;
+        }
+
+        textarea {
+          border-radius: 0px 5px 5px 0px;
+          border: 1px solid #EEE;
+          margin: 0;
+          width: 75%;
+          height: 130px; 
+          float: left;
+          padding: 0px 15px;
+        }
+
+        .form-group {
+          overflow: hidden;
+          clear: both;
+        }
+
+        .icon-case {
+          width: 35px;
+          float: left;
+          border-radius: 5px 0px 0px 5px;
+          background:#eeeeee;
+          height:42px;
+          position: relative;
+          text-align: center;
+          line-height:40px;
+        }
+        .contentform {
+          padding: 40px 30px;
+        }
+
+        .bouton-contact{
+          background-color: #81BDA4;
+          color: #FFF;
+          text-align: center;
+          width: 100%;
+          border:0;
+          padding: 17px 25px;
+          border-radius: 0px 0px 5px 5px;
+          cursor: pointer;
+          margin-top: 40px;
+          font-size: 18px;
+        }
+
+        .leftcontact {
+          width:49.5%; 
+          float:left;
+          border-right: 1px dotted #CCC;
+          box-sizing: border-box;
+          padding: 0px 15px 0px 0px;
+        }
+
+        .rightcontact {
+          width:49.5%;
+          float:right;
+          box-sizing: border-box;
+          padding: 0px 0px 0px 15px;
+        }
+
+        .validation {
+          display:none;
+          margin: 0 0 10px;
+          font-weight:400;
+          font-size:13px;
+          color: #DE5959;
+        }
+    </style>
+}
+@model EmployeeViewModel
+<div class="section">
+    <input name="e.Type" type="hidden" value="@(Model.Type)" form="insert"/>
+     <div class="row">
+        <div class="col-md-12">
+            <div class="card_app" style="padding: 10px;margin-bottom: 0px;">
+                <div class="card__body">
+                    <div class="col-15">
+                              <div class="box overflow-scroll">
+                                    <div class="box-header row" style="color:#349eff; font-size:22px;">
+                                        <div class="col-12" style="padding-bottom: 20px;">
+                                            Thêm nhân viên
+                                        </div>
+                                        <div class="form-group col-3">
+                                          <p class="vu" style="font-size: 13px;">Họ<span class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-id-card a"></i></span>
+                                          <input class="vu" type="text" name="e.FirstName" form="insert" id="input11" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+
+                                       <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Tên lót <span class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-id-card a"></i></span>
+                                          <input class="vu" type="text" name="e.MiddleName" form="insert" id="input22" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Tên <span class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-id-card a"></i></span>
+                                          <input class="vu" type="text" name="e.LastName" form="insert" id="input33" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+                                        <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Loại nhân viên <span class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-home a"></i></span>
+                                          <input class="vu" type="text" name="e.Type1" form="insert" id="input44"  style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Lương <span  class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-location-arrow a"></i></span>
+                                          <input class="vu" type="number" name="e.Salary" form="insert" id="input55" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Ngày sinh <span  class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-calendar a" aria-hidden="true"></i></span>
+                                          <input class="vu" type="date" name="e.Birth" form="insert" id="input66" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+                                        <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Tài khoản <span class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-user a"></i></span>
+                                          <input class="vu" type="text" name="e.Account" form="insert" id="input77" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+
+                                        <div class="form-group col-3">
+                                          <p  class="vu" style="font-size: 13px;">Mật khẩu <span class="vu">*</span></p>
+                                          <span class="icon-case"><i class="fa fa-key a"  aria-hidden="true"></i></span>
+                                          <input class="vu" type="password" class="toggle-password" name="e.Password" id="input88" form="insert" style="color: black;font-size: 13px;font-weight: 500;" required/>
+                                          <div class="validation"></div>
+                                        </div>
+                                        <div  class="col-9"></div>
+                                        <div  class="col-3">
+                                            <form asp-controller="Employee" asp-action="Insert" method="post" id="insert" onsubmit="return check()" >
+						                        <button class="btn btn-success my-1" value="insert" form="insert" name="e.Action" style="background-color:#196f16; border-radius: 7px !important; text-align: center;">Thêm hoặc cập nhật</button>
+                                            </form>
+                                        </div>
+                               </div>
+                          </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card_app" style="padding: 10px;">
+                    <div class="col-15">
+                              <div class="box overflow-scroll" style="padding-top:10px">
+                                    <div class="box-header row" style="color:#349eff; font-size:22px;height: 70px;">
+                                        <div class="col-8" style="padding-top:20px">
+                                            Danh sách nhân viên @Model.Type của công ty
+                                        </div>
+                                        <div class="card__body col-4" style="padding-top: 10px;">
+                                             <form asp-controller="Employee" asp-action="Insert" method="post">
+                                                <div class="row">
+                                                    <div class="form-group col-9"style="padding-right:5px">
+                                                            <input type="text" class="form-control" placeholder="Type" value= "@(Model.Type)" name="e.Type"/>
+                                                    </div>
+                                                    <div class="col-3"style="padding:0px">
+                                                        <button type="submit"style="width: 40px;height: 35px;border-radius:4px;" value="search" name="e.Action"><i class="fas fa-search"></i></button>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                       </div>
+                                    </div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-left" scope="col">Họ và tên</th>
+                                                <th class="text-center" scope="col"style="width: 15%;">Ngày vào làm</th>
+                                                <th class="text-left" scope="col">Tài khoản</th>
+                                                <th class="text-left" scope="col">Chức vụ</th>
+                                                <th class="text-center" scope="col">Lương</th>
+                                                <th class="text-center" scope="col"style="width: 5%;">Chỉ số</th>
+                                                <th class="text-center" scope="col" style="width: 5%;">ID chi nhánh</th>
+                                                <th class="text-left" scope="col">Tên chi nhánh</th>
+                                                <th></th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        @{
+                                        if (Model.ListEmployees != null)
+                                        {
+                                            if(Model.ListEmployees.Count>0)
+                                            {
+                                                foreach (var A in Model.ListEmployees)
+                                                {
+                                                <tr>
+                                                    <td class="text-left">@(A.FirstName) @(A.MiddleName) @(A.LastName)</td>
+                                                    <td class="text-center">@(A.Start.ToString("dd/MM/yyyy"))</td>
+                                                    <td class="text-left">@(A.Account)</td>
+                                                    <td class="text-left">@(A.Type)</td>
+                                                    <td class="text-right price1" >@(A.Salary)</td>
+                                                    <td class="text-center" >
+                                                        @(A.Prestige)
+                                                    </td>
+                                                    <td class="text-center">
+                                                    @{
+                                                            if (A.IdBranch != 0)
+                                                            {
+                                                                @(A.IdBranch)
+                                                            }
+                                                        }
+                                                    </td>
+                                                    <td class="text-left">@(A.NameBranch)</td>
+                                                    <td class="text-left">
+                                                     <form asp-controller="Employee" asp-action="Insert" method="post">
+                                                        <input name="e.Account" type="hidden" value="@(A.Account)" />
+                                                        <input name="e.Type" type="hidden" value="@(Model.Type)" />
+                                                        <button type="submit" class="primary-btn" style="padding: 5px 15px; background-color: #7f1023; border: none; border-radius: 6px;" value="delete" name="e.Action">
+                                                              <i class="fas fa-trash" style="color: #f4e3e3;"></i>
+                                                        </button>
+                                                     </form>
+                                                    </td>
+                                                </tr>
+                                                }
+                                              }
+                                            else
+                                            {
+                                                 <tr>
+                                                      <td class="text-center" colspan="8" style="font-size:18px;font-weight: bold;" >Không có loại nhân viên: @(Model.Type) trong hệ thống</td>
+                                                 </tr>
+                                        }
+                                          }
+                                        else
+                                        {
+                                            <tr>
+                                                <td class="text-center" colspan="8" style="font-size:18px;font-weight: bold;" >Vui lòng nhập địa chỉ phía trên!</td>
+                                            </tr>
+                                        }
+                                    }
+                                        </tbody>
+                                    </table>
+                                    <!-- END ORDERS TABLE -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+	<link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <script type="text/javascript">
+        let a = document.querySelectorAll(".price1");
+        for (let i = 0, len = a.length; i < len; i++) {
+            let num = Number(a[i].innerHTML).toLocaleString('en');
+            a[i].innerHTML = num;
+            a[i].classList.add("enMoney");
+        }
+        function check(){
+              var now= new Date();
+              var ngay_now=now.getDate();
+              var thang_now=now.getMonth()+1;
+              var nam_now=now.getYear();
+              var x = document.getElementById("input66").value;
+              var nam=Number(x.substring(0,4))-1900;
+              var thang=Number(x.substring(5,7));
+              var ngay=Number(x.substring(8,10));
+              if(nam_now-nam<18 || (nam_now-nam==18 && thang_now-thang<0) || (nam_now-nam==18 && thang_now-thang==0 && ngay_now-ngay<0))
+              {
+                  Swal.fire({
+		              icon: 'error',
+	                  title: 'Oops...',
+		              text: 'Không cho phép insert nhân viên dưới 18 tuổi!',
+		              customClass: 'swal-wide',
+		              timer: 3000
+		            })
+                document.getElementById("input66").value=null;
+                return false;
+              }
+            var d1 = document.getElementById("input11").value;
+            var d2= document.getElementById("input22").value;
+	        var d3 = document.getElementById("input33").value;
+            var d4 = document.getElementById("input88").value;
+            var d5=  document.getElementById("input55").value;
+            var regex = /^[a-zA-Z]+$/;
+            if (!regex.test(d1) && d1!="") {
+		          Swal.fire({
+		          icon: 'error',
+	              title: 'Oops...',
+		          text: 'Họ không cho phép chứa kí tự đặt biệt!',
+		          customClass: 'swal-wide',
+		          timer: 3000
+		        })
+                document.getElementById("input11").value=null;
+                return false;
+            }
+            if (!regex.test(d2) && d2!="") {
+                Swal.fire({
+		          icon: 'error',
+	              title: 'Oops...',
+		          text: 'Tên lót không cho phép chứa kí tự đặt biệt!',
+		          customClass: 'swal-wide',
+		          timer: 3000
+		        })
+                document.getElementById("input22").value=null;
+                return false;
+            }
+	        if (!regex.test(d3) && d3!="") {
+		        Swal.fire({
+		          icon: 'error',
+	              title: 'Oops...',
+		          text: 'Tên không cho phép chứa kí tự đặt biệt!',
+		          customClass: 'swal-wide',
+		          timer: 3000
+		        })
+                document.getElementById("input33").value=null;
+                return false;
+            }
+            if(d5<0)
+            {
+                Swal.fire({
+		          icon: 'error',
+	              title: 'Oops...',
+		          text: 'Lương không được âm!',
+		          customClass: 'swal-wide',
+		          timer: 3000
+		        })
+                document.getElementById("input55").value=null;
+                return false;
+            }
+            if(d4.length<8)
+            {
+                Swal.fire({
+		          icon: 'error',
+	              title: 'Oops...',
+		          text: 'Mật khẩu phải có từ 8 kí tự trở lên!',
+		          customClass: 'swal-wide',
+		          timer: 3000
+		        })
+                return false;
+            }
+            return true;
+        }
+      $(".toggle-password").click(function() {
+      $(this).toggleClass("fa-eye fa-eye-slash");
+      var input = $($(this).attr("toggle"));
+      if (input.attr("type") == "password") {
+        input.attr("type", "text");
+      } else {
+        input.attr("type", "password");
+      }
+      });
+  </script>

@@ -1,0 +1,67 @@
+﻿
+@{
+    ViewData["Title"] = "KhachHangUuDai";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+@model List<KhachHangUuDaiViewModel>
+    <div class="section">
+        <div class="row">
+            <div class="col-md-2">
+                 <div class="col-12 buttonform text-center">
+                     <a href="@Url.Action("KhachHang", "Admin")">Trở về</a>
+                 </div>
+            </div>
+
+            <div class="col-md-10">
+                <div class="card_app">
+                    <div class="card__header1">
+                        <h3>Danh sách mã khuyến mãi của khách hàng</h3>
+                    </div>
+                    <div class="card__body">
+                        <div class="col-12">
+                            <div class="box">
+                                <div class="box-body overflow-scroll">
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th>Họ và tên</th>
+                                                <th>Discount</th>
+                                                <th>Mô tả</th>
+                                                <th>Điều Kiện</th>
+                                                <th>Ngày hết hạn</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            @if (Model != null)
+                                            {
+                                                foreach (var customer in Model)
+                                                {
+                                                    <tr>
+                                                        <td>@customer.FullName</td>
+                                                        <td>
+                                                            @customer.Discount
+                                                        </td>
+                                                        <td>@customer.Mota</td>
+                                                        <td>@customer.DieuKien</td>
+                                                        <td>@customer.NgayHetHan</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td class="text-center" colspan="5">Khách hàng không có mã khuyến mãi nào!!!</td> 
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+

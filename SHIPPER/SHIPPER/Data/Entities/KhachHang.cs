@@ -17,7 +17,7 @@ namespace SHIPPER.Data.Entities
             SdtKhachHang = new HashSet<SdtKhachHang>();
             TuVanGiaiDap = new HashSet<TuVanGiaiDap>();
         }
-
+        public int isActive { get; set; }
         [Key]
         [Column("maKhachHang")]
         public Guid MaKhachHang { get; set; }

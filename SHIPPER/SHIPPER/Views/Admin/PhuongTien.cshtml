@@ -1,0 +1,237 @@
+﻿
+@{
+    ViewData["Title"] = "PhuongTien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+    <style>
+        .enMoney:after {
+            content: ' VND';
+        }
+
+        .swal-wide {
+            width: 500px !important;
+            height: 350px !important;
+            font-size: 1.7rem !important;
+        }
+
+        p span.vu {
+            color: #F00;
+        }
+
+        p.vu {
+            margin-left: 3px;
+            font-weight: 700;
+            line-height: 2;
+            color: #333;
+            margin-bottom: 0px;
+            font-size: 13px !import;
+        }
+
+        input.vu {
+            border-radius: 0px 5px 5px 0px;
+            border: 1px solid #eee;
+            margin-bottom: 15px;
+            width: 75%;
+            height: 40px;
+            float: left;
+            padding: 0px 15px;
+        }
+
+        textarea {
+            border-radius: 0px 5px 5px 0px;
+            border: 1px solid #EEE;
+            margin: 0;
+            width: 75%;
+            height: 130px;
+            float: left;
+            padding: 0px 15px;
+        }
+
+        .form-group {
+            overflow: hidden;
+            clear: both;
+        }
+
+        .icon-case {
+            width: 35px;
+            float: left;
+            border-radius: 5px 0px 0px 5px;
+            background: #eeeeee;
+            height: 42px;
+            position: relative;
+            text-align: center;
+            line-height: 40px;
+        }
+
+        .contentform {
+            padding: 40px 30px;
+        }
+
+        .bouton-contact {
+            background-color: #81BDA4;
+            color: #FFF;
+            text-align: center;
+            width: 100%;
+            border: 0;
+            padding: 17px 25px;
+            border-radius: 0px 0px 5px 5px;
+            cursor: pointer;
+            margin-top: 40px;
+            font-size: 18px;
+        }
+
+        .leftcontact {
+            width: 49.5%;
+            float: left;
+            border-right: 1px dotted #CCC;
+            box-sizing: border-box;
+            padding: 0px 15px 0px 0px;
+        }
+
+        .rightcontact {
+            width: 49.5%;
+            float: right;
+            box-sizing: border-box;
+            padding: 0px 0px 0px 15px;
+        }
+
+        .validation {
+            display: none;
+            margin: 0 0 10px;
+            font-weight: 400;
+            font-size: 13px;
+            color: #DE5959;
+        }
+        .card_app {
+            padding: 30px;
+            margin-bottom: 30px;
+            background-color: var(--main-bg);
+            box-shadow: var(--box-shadow);
+            border-radius: var(--border-radius);
+        }
+        .roww {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -15px;
+        }
+        .box {
+            background-color: var(--box-bg);
+            padding: 20px;
+            border: 0.5px solid var(--border-color);
+            border-radius: var(--box-border-radius);
+        }
+    </style>
+@model List<PhuongTienViewModel>
+<div class="section">
+    <div class="roww">
+        <div class="col-md-12">
+            <div class="card_app" style="padding: 10px;margin-bottom: 0px;">
+                <div class="card__body">
+                    <div class="col-md-12">
+                        <form asp-controller="Admin" asp-action="InsertPhuongTien" method="post">
+                            <div class="box overflow-scroll">
+                                <div class="box-header roww" style="color:#349eff; font-size:22px;">
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4 style="padding-bottom: 20px;">
+                                        Thêm phương tiện
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                    <div class="form-group col-md-3">
+                                        <p class="vu" style="font-size: 13px;">Biển Kiểm Soát<span class="vu">*</span></p>
+                                        <span class="icon-case"><i class="far fa-square"></i></span>
+                                        <input class="vu" type="text" name="bienso" style="color: black;font-size: 13px;font-weight: 500;" required />
+                                        <div class="validation"></div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <p class="vu" style="font-size: 13px;">Loại phương tiện<span class="vu">*</span></p>
+                                        <span class="icon-case"><i class="fas fa-truck-moving"></i></span>
+                                        <input class="vu" type="text" name="loai" style="color: black;font-size: 13px;font-weight: 500;" required />
+                                        <div class="validation"></div>
+                                    </div>
+
+                                    <div class="form-group col-md-3">
+                                        <p class="vu" style="font-size: 13px;">Hình ảnh xe<span class="vu">*</span></p>
+                                        <span class="icon-case"><i class="fas fa-images"></i></span>
+                                        <input class="vu" type="text" name="hinh" style="color: black;font-size: 13px;font-weight: 500;" required />
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="form-group col-md-3">
+                                        <p class="vu" style="font-size: 13px;">Giấy phép sở hữu<span class="vu">*</span></p>
+                                        <span class="icon-case"><i class="far fa-id-badge"></i></span>
+                                        <input class="vu" type="text" name="giayphep" style="color: black;font-size: 13px;font-weight: 500;" required />
+                                        <div class="validation"></div>
+                                    </div>
+                                    <div class="col-md-4"></div>
+                                    <div class="col-md-4">
+                                        <button class="btn btn-success my-1" type="submit" style="background-color:#196f16; border-radius: 7px !important; text-align: center;">Thêm phương tiện</button>
+                                    </div>
+                                    <div class="col-md-4"></div>
+
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <!-- container -->
+        <div class="container">
+            <!-- row -->
+            <div class="row">
+                <div id="store" class="col-md-12">
+                    <!-- store products -->
+                    <div class="row">
+                        @foreach (var phuongTien in Model)
+                        {
+                            <!-- product -->
+                            <form asp-controller="Admin" asp-action="PhuongTien" method="post">
+                                <input id="hienabc" type="hidden" value="@(Model[1].check)" />
+                                <input type="hidden" name="bienso" value="@phuongTien.BienKiemSoat" />
+                                <div class="col-md-3 col-xs-6">
+                                    <div class="product">
+                                        <div class="product-img">
+                                            <img src=@phuongTien.HinhAnhXe alt="">
+                                        </div>
+                                        <div class="product-body">
+                                            <p class="product-category">@phuongTien.LoaiPhuongTien</p>
+                                            <h3 class="product-name"><a href="@Url.Action("TimNhanVienPhuongTien",new { id=phuongTien.BienKiemSoat })">@phuongTien.BienKiemSoat</a></h3>
+                                            <h4 class="product-price" style="height:20px;">@phuongTien.GiayPhepSoHuu</h4>
+                                        </div>
+                                        <div class="add-to-cart">
+                                            <button class="add-to-cart-btn" type="submit">
+                                                <i class="fas fa-trash-alt"></i> Xóa Phương Tiện này
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <!-- /product -->
+                        }
+                    </div>
+                </div>
+                <!-- /STORE -->
+            </div>
+            <!-- /row -->
+        </div>
+        <!-- /container -->
+    </div>
+    @section Scripts{
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+        <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+        <script type="text/javascript">
+            var hien1 = new Boolean(document.getElementById("hienabc").value);
+            if (hien1 == true) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Phương tiện này đã có Shipper sở hữu!!!',
+                    customClass: 'swal-wide',
+                    timer: 5000
+                })
+            }
+        </script>
+    }
+

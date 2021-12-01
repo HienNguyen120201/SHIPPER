@@ -1,0 +1,89 @@
+﻿
+@{
+    ViewData["Title"] = "TimNhanVienPhuongTien";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .swal-wide {
+        width: 500px !important;
+        height: 350px !important;
+        font-size: 1.7rem !important;
+    }
+</style>
+@model NhanVienPhuongTienViewModel
+<div class="section">
+    <!-- container -->
+    <div class="container">
+        <!-- row -->
+        <div class="row">
+            @if (Model.Ho != null)
+            {
+                <div class="col-md-6 ">
+                    <div class="product-preview">
+                        <img src="@Model.ImgUrl" alt="">
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="product-details">
+                        <h2 class="product-name">Biển Kiểm Soát: @Model.BienKiemSoat</h2>
+                        <h3>Họ và tên Nhân viên: @Model.Ho @Model.TenLot @Model.Ten</h3>
+                        <h3>Giấy phép lái xe: @Model.SoGPLX</h3>
+                        <div>
+                            Chỉ số đánh giá:
+                            <div class="product-rating">
+                                @{
+                                    for (int i = 0; i < Model.Rating; i++)
+                                    {
+                                        <i class="fa fa-star"></i>
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <h2 class="text-center col-12">Chưa có Shipper sở hữu phương tiện này</h2>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <form asp-controller="Admin" asp-action="TimNhanVienPhuongTien" method="post">
+                        <input id="hienab" type="hidden" value="@(Model.check)" />
+                        <div class="billing-details">
+                            <div class="section-title">
+                                <h3 class="title">Thêm Shipper sở hữu phương tiện này</h3>
+                            </div>
+                            <div class="form-group col-3">
+                                <label>Nhập số Giấy phép lái xe của Shipper</label>
+                                <input class="input" type="text" name="gplx" required="required" />
+                                <input type="hidden" name="bienso" value="@Model.BienKiemSoat" />
+                            </div>
+                        </div>
+                        <button class="btn my-1" type="submit" style="background-color: #1b8534;font-size: 13px;width:100px;">Thêm</button>
+                    </form>
+                </div>
+                <div class="col-md-3"></div>
+            }
+            <!-- Product main img -->
+        </div>
+        <!-- /row -->
+    </div>
+    <!-- /container -->
+</div>
+<!-- /SECTION -->
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <script type="text/javascript">
+            var hienab = new Boolean(document.getElementById("hienab").value);
+            if (hienab == true) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Không tồn tại shipper này!!!',
+                    customClass: 'swal-wide',
+                    timer: 5000
+                })
+            }
+    </script>
+}
