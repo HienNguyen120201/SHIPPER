@@ -10,6 +10,8 @@
     <link type="text/css" rel="stylesheet" href="~/css/site.css" />
     <link type="text/css" rel="stylesheet" href="~/css/app.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+
+
     @RenderSection("dinh", required: false)
     <style>
         .currSign:after {
@@ -79,7 +81,8 @@
                         <li><a href="@Url.Action("KhachHang","Admin")">Quản lí khách hàng</a></li>
                         <li><a href="@Url.Action("ChiTietDonMonAn","Admin")">Chi tiết đơn món ăn</a></li>
                         <li><a href="@Url.Action("Insert","Employee")">Quản lí nhân viên</a></li>
-                        <li><a href="@Url.Action("PhuongTien","Admin")">Quản lí phương tiện</a></li>
+                        <li><a href="@Url.Action("PhuongTien","Admin")">Quản lí phương tiện</a></li>    
+                        <li><a href="@Url.Action("AddChiNhanh","ChiNhanh")">Quản lí chi nhánh</a></li>
                     </ul>
                     <!-- /NAV -->
                 </div>

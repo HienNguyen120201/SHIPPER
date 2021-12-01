@@ -28,6 +28,10 @@ namespace SHIPPER.Data.Entities
         public Guid? MaNvquanLy { get; set; }
         [Column("maChiNhanhCha")]
         public int? MaChiNhanhCha { get; set; }
+        [Column("isACtive")]
+        public bool? IsACtive { get; set; }
+        [Column("soLuongNhanVien")]
+        public int? SoLuongNhanVien { get; set; }
 
         [ForeignKey(nameof(MaChiNhanhCha))]
         [InverseProperty(nameof(ChiNhanh.InverseMaChiNhanhChaNavigation))]
