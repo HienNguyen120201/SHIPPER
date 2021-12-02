@@ -22,5 +22,7 @@ namespace SHIPPER.Services
         Task<EmPloyeeChiNhanhViewModel> GetListPageNhanVienChiNhanh();
         Task<bool> InsertNhanVienChiNhanh(InsertNhanVienChiNhanh nvCn);
         Task<bool> DeleteNVChiNhanh(Guid maNV);
+        Task<UpdateEmployeeViewModel> GetNhanVienChiNhanh(Guid id);
+        Task<bool> UpdateNV(UpdateEmployeeViewModel nv);
     }
 }

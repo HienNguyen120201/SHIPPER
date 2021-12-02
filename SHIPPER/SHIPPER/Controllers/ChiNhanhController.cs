@@ -137,5 +137,17 @@ namespace SHIPPER.Controllers
             await _chinhanhService.DeleteNVChiNhanh(idNVChiNhanh);
             return RedirectToAction("InsertNhanVienChiNhanh", "ChiNhanh");
         }
+        [HttpGet]
+        public async Task<IActionResult> UpdateNhanVienChiNhanh(Guid id)
+        {
+            var list = await _chinhanhService.GetNhanVienChiNhanh(id);
+            return View(list);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateNhanVienChiNhanh(UpdateEmployeeViewModel UpdateEmployee)
+        {
+            await _chinhanhService.UpdateNV(UpdateEmployee);
+            return RedirectToAction("InsertNhanVienChiNhanh", "ChiNhanh");
+        }
     }
 }

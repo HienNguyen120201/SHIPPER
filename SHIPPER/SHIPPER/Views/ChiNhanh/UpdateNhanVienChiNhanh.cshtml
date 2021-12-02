@@ -1,0 +1,86 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateNhanVienChiNhanh";
+}
+
+@model UpdateEmployeeViewModel
+<div class="section">
+    <div class="card_app">
+        <div class="card__header1">
+            <h3>Danh sách các chi nhánh</h3>
+        </div>
+        <div class="card__body">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-body overflow-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col" style="width: 5%;">Mã Chi Nhánh</th>
+                                    <th scope="col">Tên Chi Nhánh</th>
+                                    <th scope="col">Mã số thuế</th>
+                                    <th scope="col">Địa Chỉ</th>
+                                    <th scope="col">Số lượng NV</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.ListDonVi.Count > 0)
+                                    {
+                                        foreach (var chinhanh in Model.ListDonVi)
+                                        {
+                                            <tr>
+                                                <td>@chinhanh.MaDonVi</td>
+                                                <td>@chinhanh.TenChiNhanh</td>
+                                                <td>@chinhanh.MaSoThue</td>
+                                                <td>@chinhanh.DiaChi</td>
+                                                <td>@chinhanh.SoLuongNhanVien</td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="7" class="text-center">Danh sách trống</td></tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-4">
+        <div class="card_app">
+            <div class="card__header1">
+                <h3>Cập nhật thông tin Chi Nhánh</h3>
+            </div>
+            <div class="card-body">
+                <div class="box">
+                    <form asp-controller="ChiNhanh" asp-action="UpdateNhanVienChiNhanh" method="post">
+                        <span asp-validation-for="InsertNVCN.MaNhanVien" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Nhân Viên</lable>
+                            <input type="text" class="form-control" asp-for="InsertNVCN.MaNhanVien" />
+                        </div>
+                        <span asp-validation-for="InsertNVCN.MaDonVi" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Đơn Vị</lable>
+                            <input type="text" class="form-control" asp-for="InsertNVCN.MaDonVi" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="buttonform">Cập nhật nhân viên</button>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="hidden" asp-for="ListDonVi" value="@Model.ListDonVi">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
