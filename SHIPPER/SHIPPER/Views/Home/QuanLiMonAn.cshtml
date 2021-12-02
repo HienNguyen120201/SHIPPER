@@ -66,10 +66,13 @@
                                     <div class="page">
                                         <form asp-controller="Home" asp-action="QuanLiMonAn" method="post">
                                           <label class="field field_v2">
-                                            <input class="field__input" placeholder="Địa chỉ nhà hàng cần quản lí" value="@(Model.Add)" name="NhaHang.Add" required>
-                                            <span class="field__label-wrap">
-                                              <span class="field__label">Địa chỉ</span>
-                                            </span>
+                                            <select id="cars" class="field__input" name="NhaHang.Add">
+                                                            <option value="" selected disabled hidden>Chọn địa chỉ giao hàng</option>
+                                                            <option value="" >Tất cả</option>
+                                                            <option value="Phu Yen" >Phú Yên</option>
+                                                              <option value="TPHCM" >TP Hồ Chi Minh</option>
+                                                              <option value="Khanh Hoa">Khánh Hòa</option>
+                                            </select>
                                             <button type="submit"style="width: 60px;height: 60px ;" value="search" name="NhaHang.Type"><i class="fas fa-search fa-2x"></i></button>
                                            </label>
                                         </form>
