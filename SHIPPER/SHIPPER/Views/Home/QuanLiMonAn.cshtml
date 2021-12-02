@@ -77,9 +77,23 @@
                                            </label>
                                         </form>
                                     </div>
+                                    
+                                        
+                                        @{
+                                    if(Model.Add=="" || Model.Add==null)
+                                    {
+                                        <div class="box-header" style="color:#349eff; font-size:22px; margin-bottom:20px ">
+                                        Danh sách các món ăn của tất cả nhà hàng
+                                         </div>
+
+                                }
+                                else
+                                {
                                     <div class="box-header" style="color:#349eff; font-size:22px; margin-bottom:20px ">
-                                        Danh sách các món ăn của các nhà hàng
-                                    </div>
+                                        Danh sách các món ăn của nhà hàng có địa chỉ: @Model.Add
+                                         </div>
+                                }
+                            }
                                     <table class="table" style="min-width:100%">
                                         <thead>
                                             <tr>
