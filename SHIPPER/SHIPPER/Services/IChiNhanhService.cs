@@ -18,5 +18,9 @@ namespace SHIPPER.Services
         Task<List<ChiNhanhQLXViewModel>> GetListChiNhanhQLX(float id);
         Task<List<ShipperMaxLuongViewModel>> GetListShipperMaxLuong(int id);
         Task<List<ThongKeShipperViewModel>> GetListThongKe(int id);
+        // work for insert nhan vien chi nhanh
+        Task<EmPloyeeChiNhanhViewModel> GetListPageNhanVienChiNhanh();
+        Task<bool> InsertNhanVienChiNhanh(InsertNhanVienChiNhanh nvCn);
+        Task<bool> DeleteNVChiNhanh(Guid maNV);
     }
 }
