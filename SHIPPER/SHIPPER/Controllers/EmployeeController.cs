@@ -45,5 +45,10 @@ namespace SHIPPER.Controllers
             
             return View(new EmployeeViewModel());
         }
+        public async Task<IActionResult> GetListKhieuNai()
+        {
+            var list = await _employeeService.GetDonKhieunai();
+            return View(list);
+        }    
     }
 }

@@ -203,6 +203,7 @@ namespace SHIPPER.Services
                 {
                     NhanVienChiNhanhViewModel khachHang = new NhanVienChiNhanhViewModel
                     {
+                        MaNhanVien = (Guid)customer["maNhanVien"],
                         Hovaten = customer["HovaTen"].ToString(),
                         Luong = Convert.ToInt32(customer["luong"]),
                         Ngayvaolam = DateTime.Parse(customer["ngayVaoLam"].ToString()),
@@ -316,5 +317,77 @@ namespace SHIPPER.Services
             }
             return list;
         }
+        // work for insert nhan vien chi nhanh
+        public async Task<EmPloyeeChiNhanhViewModel> GetListPageNhanVienChiNhanh()
+        {
+            EmPloyeeChiNhanhViewModel pageChiNhanh = new EmPloyeeChiNhanhViewModel();
+            pageChiNhanh.ListEmployeeNowork = new List<EmployeeNowork>();
+            pageChiNhanh.ListDonVi = new List<DonVi>();
+            //get list nhan vien ơ trạng thái làm việc
+            var query = from f in _context.NhanVien
+                        where f.IsActive == true
+                        select f;
+            // get list nhan vien đã làm ở các chi nhánh
+            var queryMqlQL = from f in _context.NhanVienChiNhanh
+                             select f;
+            // ma nhan vien đã làm việc ở chi nhánh
+            var listMqlinTableQL = queryMqlQL.Select(x => x.MaNhanVien).ToList();
+            // ma nhan vien toàn bộ công ty
+            var listmaql = query.Select(x => x.MaNhanVien).ToList();
+            // mã nhân viên chưa dc phân công vào chi nhánh
+            var listQlnowork = listmaql.Except(listMqlinTableQL).ToList();
+            if (listQlnowork.Count() > 0)
+            {
+                query = from f in query
+                        where listQlnowork.Contains(f.MaNhanVien)
+                        select f;
+
+                foreach (var row in query)
+                {
+                    pageChiNhanh.ListEmployeeNowork.Add(new EmployeeNowork
+                    {
+                        MaNhanVien = row.MaNhanVien,
+                        Hovaten = row.Ho + ' ' + row.TenLot + ' ' + row.Ten,
+                        Luong = (int)row.Luong,
+                        Loainhanvien = row.LoaiNhanVien, 
+                        TrangThai = (bool)row.IsActive,
+                    });
+                }
+            }
+            pageChiNhanh.ListDonVi = await (
+                                            from f in _context.ChiNhanh
+                                            select new DonVi
+                                            {
+                                                MaDonVi = f.MaDonVi,
+                                                TenChiNhanh = f.TenChiNhanh,
+                                                MaSoThue = (int)f.MaSoThue,
+                                                DiaChi = f.DiaChi,
+                                                SoLuongNhanVien = (int)f.SoLuongNhanVien,
+                                            }
+                                            ).ToListAsync();
+            return pageChiNhanh;
+        }
+        public async Task<bool> InsertNhanVienChiNhanh(InsertNhanVienChiNhanh nvCn)
+        {
+            var newNVCN = new NhanVienChiNhanh()
+            {
+                MaDonVi = nvCn.MaDonVi,
+                MaNhanVien = nvCn.MaNhanVien
+            };
+            _context.NhanVienChiNhanh.Add(newNVCN);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+        public async Task<bool> DeleteNVChiNhanh(Guid maNV)
+        {
+            var objNvchiNhanh = (from f in _context.NhanVienChiNhanh
+                               where f.MaNhanVien==maNV
+                               select f
+                           ).FirstOrDefault();
+            _context.Remove(objNvchiNhanh);
+            await _context.SaveChangesAsync();
+            return true;
+        }
+
     }
 }
