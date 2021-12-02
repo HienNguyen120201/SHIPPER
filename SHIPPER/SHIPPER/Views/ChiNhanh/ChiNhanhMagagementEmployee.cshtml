@@ -1,0 +1,74 @@
+﻿
+@{
+    ViewData["Title"] = "ChiNhanhMagagementEmployee";
+}
+@model List<NhanVienChiNhanhViewModel>
+<div class="section">
+    <div class="card_app">
+        <div class="card__header1">
+            <h3>danh sách nhân viên đang làm việc tại chi nhánh</h3>
+        </div>
+        <div class="card__body">
+            <div class="col-12">
+                <div class="box">
+                    <div class="box-body overflow-scroll">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th scope="col">Họ và tên</th>
+                                    <th scope="col">Loại NhâN Viên</th>
+                                    <th scope="col">Lương</th>
+                                    <th scope="col">Ngày Vào kàm</th>
+                                    <th scope="col">Trạng thái làm việc</th>
+                                    <th scope="col">Xoá/Sửa</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @{
+                                    if (Model.Count > 0)
+                                    {
+                                        foreach (var quanly in Model)
+                                        {
+                                            <tr>
+                                                <td>@quanly.Hovaten</td>
+                                                <td>@quanly.Loainhanvien</td>
+                                                <td>@quanly.Luong</td>
+                                                <td>@quanly.Ngayvaolam.ToShortDateString()</td>
+                                                <td>@quanly.TrangThai</td>
+                                                <td>
+                                                    <div style="display: flex;">
+                                                        <form asp-controller="ChiNhanh" asp-action="DeleteNhanVienChiNhanh">
+                                                            <input type="hidden" name="idNVChiNhanh" value="@quanly.MaNhanVien" />
+                                                            <button type="submit">
+                                                                <i class="far fa-trash-alt" aria-hidden="true"
+                                                                   style="font-size: 25px; margin-right: 10px; display:flex;"
+                                                                   }}></i>
+                                                            </button>
+                                                        </form>
+                                                        <a class=" mr-3"
+                                                           href="@Url.Action("UpdateNhanVienChiNhanh","ChiNhanh", new { id = quanly.MaNhanVien })">
+                                                            <i class="fa fa-edit"
+                                                               aria-hidden="true" style="font-size: 25px;"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr><td colspan="5" class="text-center">Danh sách trống</td></tr>
+                                    }
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+

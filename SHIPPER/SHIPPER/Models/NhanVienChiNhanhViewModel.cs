@@ -7,6 +7,7 @@ namespace SHIPPER.Models
 {
     public class NhanVienChiNhanhViewModel
     {
+        public Guid MaNhanVien { get; set; }
         public string Hovaten { get; set; }
         public int Luong { get; set; }
         public DateTime Ngayvaolam { get; set; }

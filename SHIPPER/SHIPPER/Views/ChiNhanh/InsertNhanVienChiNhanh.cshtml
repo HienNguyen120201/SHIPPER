@@ -1,0 +1,145 @@
+﻿
+@{
+    ViewData["Title"] = "InsertNhanVienChiNhanh";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model EmPloyeeChiNhanhViewModel
+<div class="section">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="card_app">
+                <div class="card__header1">
+                    <h3>Thêm Nhân Viên vào Chi Nhánh</h3>
+                </div>
+                <div class="card__body">
+                    <form asp-controller="ChiNhanh" asp-action="InsertNhanVienChiNhanh" method="post">
+                        <span asp-validation-for="InsertNVCN.MaNhanVien" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Nhân Viên</lable>
+                            <input type="text" class="form-control" asp-for="InsertNVCN.MaNhanVien" />
+                        </div>
+                        <span asp-validation-for="InsertNVCN.MaDonVi" class="text-danger"></span>
+                        <div class="form-group">
+                            <lable>Mã Đơn Vị</lable>
+                            <input type="text" class="form-control" asp-for="InsertNVCN.MaDonVi" />
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="buttonform">Thêm nhân viên</button>
+                            </div>
+                        </div>
+                        <div>
+                            <input type="hidden" asp-for="ListEmployeeNowork" value="@Model.ListEmployeeNowork">
+                        </div>
+                        <div>
+                            <input type="hidden" asp-for="ListDonVi" value="@Model.ListDonVi">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-9">
+            <div class="card_app">
+                <div class="card__header1">
+                    <h3>Danh sách Nhân Viên Chưa Chưa làm Việc Cho Chi Nhánh Nào</h3>
+                </div>
+                <div class="card__body">
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body overflow-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 15%;">Mã Nhân Viên</th>
+                                            <th scope="col">Họ và tên</th>
+                                            <th scope="col">Lương</th>
+                                            <th scope="col">Loại NhâN Viên</th>
+                                            <th scope="col">Trạng thái</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (Model.ListEmployeeNowork.Count > 0)
+                                            {
+                                                foreach (var quanly in Model.ListEmployeeNowork)
+                                                {
+                                                    <tr>
+                                                        <td>@quanly.MaNhanVien</td>
+                                                        <td>@quanly.Hovaten</td>
+                                                        <td>@quanly.Luong</td>
+                                                        <td>@quanly.Loainhanvien</td>
+                                                        <td>@quanly.TrangThai</td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="5" class="text-center">Danh sách trống</td></tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card__header1">
+                    <h3>Danh sách Chi Nhánh</h3>
+                </div>
+                <div class="card__body">
+                    <div class="col-12">
+                        <div class="box">
+                            <div class="box-body overflow-scroll">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th scope="col" style="width: 5%;">Mã Chi Nhánh</th>
+                                            <th scope="col">Tên Chi Nhánh</th>
+                                            <th scope="col">Mã số thuế</th>
+                                            <th scope="col">Địa Chỉ</th>
+                                            <th scope="col">Số lượng NV</th>
+                                            <th scope="col" style="width: 10%;">Chi tiết chi nhánh</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        @{
+                                            if (Model.ListDonVi.Count > 0)
+                                            {
+                                                foreach (var chinhanh in Model.ListDonVi)
+                                                {
+                                                    <tr>
+                                                        <td>@chinhanh.MaDonVi</td>
+                                                        <td>@chinhanh.TenChiNhanh</td>
+                                                        <td>@chinhanh.MaSoThue</td>
+                                                        <td>@chinhanh.DiaChi</td>
+                                                        <td>@chinhanh.SoLuongNhanVien</td>
+                                                        <td>
+                                                            <a class=" mr-3" href="@Url.Action("ChiNhanhMagagementEmployee", "ChiNhanh", new { id = chinhanh.MaDonVi })">
+                                                                <i class="far fa-arrow-alt-circle-right"
+                                                                   aria-hidden="true" style="font-size: 25px;"></i>
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr><td colspan="7" class="text-center">Danh sách trống</td></tr>
+                                            }
+                                        }
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+

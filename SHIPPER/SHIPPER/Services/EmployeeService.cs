@@ -204,5 +204,26 @@ namespace SHIPPER.Services
             _context.SaveChanges();
             return true;
         }
+        public async Task<List<DonKhieuNaiViewModel>> GetDonKhieunai()
+        {
+            var list = new List<DonKhieuNaiViewModel>();
+            list = await (
+                from Q in _context.QuyTrachNhiem
+                 join NV1 in _context.NhanVien on Q.MaNhanVien equals NV1.MaNhanVien
+                 join D in _context.DonKhieuNai on Q.MaDonKhieuNai equals D.MaDonKhieuNai
+                 join NV2 in _context.NhanVien on Q.MaQuanLy equals NV2.MaNhanVien
+                 join nvcn in _context.NhanVienChiNhanh on NV1.MaNhanVien equals nvcn.MaNhanVien
+                 join C in _context.ChiNhanh on nvcn.MaDonVi equals C.MaDonVi
+                 select new DonKhieuNaiViewModel
+                 {
+                     tenNhanVien = NV1.Ho + ' ' + NV1.TenLot + ' ' + NV1.Ten,
+                     noiDung = D.NoiDung,
+                     tenQuanLyQuyTrachNhiem= NV2.Ho + ' ' + NV2.TenLot + ' ' + NV2.Ten,
+                     tenChiNhanh = C.TenChiNhanh,
+                     maDonVi = C.MaDonVi,
+                 }
+               ).ToListAsync();
+            return list;
+        }
     }
 }

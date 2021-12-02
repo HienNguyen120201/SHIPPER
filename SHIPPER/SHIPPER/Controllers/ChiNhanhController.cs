@@ -108,6 +108,46 @@ namespace SHIPPER.Controllers
             await _chinhanhService.DeleteChiNhanh(idChiNhanh);
             return RedirectToAction("AddChiNhanh", "ChiNhanh");
         }
-
+        [HttpGet]
+        public async Task<IActionResult> InsertNhanVienChiNhanh()
+        {
+           EmPloyeeChiNhanhViewModel  nvCn = await _chinhanhService.GetListPageNhanVienChiNhanh();
+            return View(nvCn);
+        }
+        [HttpPost]
+        public async Task<IActionResult> InsertNhanVienChiNhanh(EmPloyeeChiNhanhViewModel emloyeeCn)
+        {
+            if (!ModelState.IsValid)
+            {
+                EmPloyeeChiNhanhViewModel result = await _chinhanhService.GetListPageNhanVienChiNhanh();
+                emloyeeCn.ListDonVi = result.ListDonVi;
+                emloyeeCn.ListEmployeeNowork = result.ListEmployeeNowork;
+                return View(emloyeeCn);
+            }
+            await _chinhanhService.InsertNhanVienChiNhanh(emloyeeCn.InsertNVCN);
+            return RedirectToAction("InsertNhanVienChiNhanh", "ChiNhanh");
+        }
+        public async Task<IActionResult> ChiNhanhMagagementEmployee(int id)
+        {
+            var list = await _chinhanhService.GetDetailChiNhanh(id);
+            return View(list);
+        }
+        public async Task<IActionResult> DeleteNhanVienChiNhanh(Guid idNVChiNhanh)
+        {
+            await _chinhanhService.DeleteNVChiNhanh(idNVChiNhanh);
+            return RedirectToAction("InsertNhanVienChiNhanh", "ChiNhanh");
+        }
+        [HttpGet]
+        public async Task<IActionResult> UpdateNhanVienChiNhanh(Guid id)
+        {
+            var list = await _chinhanhService.GetNhanVienChiNhanh(id);
+            return View(list);
+        }
+        [HttpPost]
+        public async Task<IActionResult> UpdateNhanVienChiNhanh(UpdateEmployeeViewModel UpdateEmployee)
+        {
+            await _chinhanhService.UpdateNV(UpdateEmployee);
+            return RedirectToAction("InsertNhanVienChiNhanh", "ChiNhanh");
+        }
     }
 }
