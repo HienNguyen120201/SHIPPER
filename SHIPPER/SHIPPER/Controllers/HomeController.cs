@@ -129,5 +129,33 @@ namespace SHIPPER.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+        public async Task<ActionResult> dinh()
+        {
+            string a = "";
+            var donVanChuyen = await _customerService.DinhAsync(a,0,0);
+            return View(donVanChuyen);
+        }
+        [HttpPost]
+        public async Task<ActionResult> dinh(EditDonVanChuyenViewModel e)
+        {
+            if(e.Action=="search")
+            {
+                if (e.maTrangThai == 7)
+                {
+                    e.maTrangThai = 0;
+                    e.Action = "";
+                }
+                var donVanChuyen1 = await _customerService.DinhAsync(e.Action, e.maTrangThai,0);
+                return View(donVanChuyen1);
+            }    
+            if(e.Action=="q")
+            {
+                await _customerService.DinhAsync(e.Action, e.maTrangThai, e.ID);
+                e.Action = "search";
+            }
+            
+            var donVanChuyen = await _customerService.DinhAsync(e.Action, e.maTrangThai,0);
+            return View(donVanChuyen);
+        }
     }
 }

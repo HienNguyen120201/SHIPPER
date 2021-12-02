@@ -3,6 +3,13 @@
     ViewData["Title"] = "TimNhanVienPhuongTien";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<style>
+    .swal-wide {
+        width: 500px !important;
+        height: 350px !important;
+        font-size: 1.7rem !important;
+    }
+</style>
 @model NhanVienPhuongTienViewModel
 <div class="section">
     <!-- container -->
@@ -40,7 +47,8 @@
                 <h2 class="text-center col-12">Chưa có Shipper sở hữu phương tiện này</h2>
                 <div class="col-md-3"></div>
                 <div class="col-md-6">
-                    <form asp-controller="Admin" asp-action="UpdatePhuongTien">
+                    <form asp-controller="Admin" asp-action="TimNhanVienPhuongTien" method="post">
+                        <input id="hienab" type="hidden" value="@(Model.check)" />
                         <div class="billing-details">
                             <div class="section-title">
                                 <h3 class="title">Thêm Shipper sở hữu phương tiện này</h3>
@@ -63,3 +71,19 @@
     <!-- /container -->
 </div>
 <!-- /SECTION -->
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.all.min.js"></script>
+    <link rel='stylesheet' href='https://cdn.jsdelivr.net/npm/sweetalert2@10.10.1/dist/sweetalert2.min.css'>
+    <script type="text/javascript">
+            var hienab = new Boolean(document.getElementById("hienab").value);
+            if (hienab == true) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: 'Không tồn tại shipper này!!!',
+                    customClass: 'swal-wide',
+                    timer: 5000
+                })
+            }
+    </script>
+}

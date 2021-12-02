@@ -137,7 +137,5 @@ namespace SHIPPER.Controllers
             await _chinhanhService.DeleteNVChiNhanh(idNVChiNhanh);
             return RedirectToAction("InsertNhanVienChiNhanh", "ChiNhanh");
         }
-        
-
     }
 }
