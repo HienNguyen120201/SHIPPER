@@ -388,5 +388,41 @@ namespace SHIPPER.Services
             await _context.SaveChangesAsync();
             return true;
         }
+        public async Task<UpdateEmployeeViewModel> GetNhanVienChiNhanh(Guid id)
+        {
+            UpdateEmployeeViewModel employee = new UpdateEmployeeViewModel();
+            employee.ListDonVi = new List<DonVi>();
+            employee.InsertNVCN = new InsertNhanVienChiNhanh();
+            employee.InsertNVCN = await (from f in _context.NhanVienChiNhanh
+                                         where f.MaNhanVien == id
+                                         select new InsertNhanVienChiNhanh
+                                         {
+                                             MaNhanVien =f.MaNhanVien,
+                                             MaDonVi =f.MaDonVi,
+                                         }).FirstOrDefaultAsync();
+            employee.ListDonVi = await (
+                                            from f in _context.ChiNhanh
+                                            select new DonVi
+                                            {
+                                                MaDonVi = f.MaDonVi,
+                                                TenChiNhanh = f.TenChiNhanh,
+                                                MaSoThue = (int)f.MaSoThue,
+                                                DiaChi = f.DiaChi,
+                                                SoLuongNhanVien = (int)f.SoLuongNhanVien,
+                                            }
+                                            ).ToListAsync();
+            return employee;
+        }
+        public async Task<bool> UpdateNV(UpdateEmployeeViewModel nv)
+        {
+            var obj = await (
+                            from f in _context.NhanVienChiNhanh
+                            where f.MaNhanVien == nv.InsertNVCN.MaNhanVien
+                            select f
+                            ).FirstOrDefaultAsync();
+            obj.MaDonVi = nv.InsertNVCN.MaDonVi;
+            await _context.SaveChangesAsync();
+            return true;
+        }
     }
 }

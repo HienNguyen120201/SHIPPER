@@ -11,6 +11,11 @@ namespace SHIPPER.Models
         public List<DonVi> ListDonVi { get; set; }
         public InsertNhanVienChiNhanh InsertNVCN { get; set; }
     }
+    public class UpdateEmployeeViewModel
+    {
+        public List<DonVi> ListDonVi { get; set; }
+        public InsertNhanVienChiNhanh InsertNVCN { get; set; }
+    }
     public class EmployeeNowork
     {
         public Guid MaNhanVien { get; set; }
